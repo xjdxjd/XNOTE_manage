@@ -1,1 +1,1 @@
-# XNOTE_client
+# XNOTE_manage Spring Boot版
