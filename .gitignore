@@ -23,3 +23,5 @@
 hs_err_pid*
 /.idea
 /manage.iml
+/src/main/resources/templates/views
+target

@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    /*
+    /**
      * 获取当前时间
      */
     public static Date getCurrentDate()
@@ -19,7 +19,7 @@ public class DateUtils {
         return new Date();
     };
 
-    /*
+    /**
      * 获取当前时间戳
      */
     public static Long getTimestamp()
@@ -27,7 +27,7 @@ public class DateUtils {
         return new Date().getTime();
     };
 
-    /*
+    /**
      * 格式化时间
      */
     public static String format(Date date)
@@ -36,7 +36,7 @@ public class DateUtils {
         return dateString;
     };
 
-    /*
+    /**
      * 第一个参数比第二个参数时间更早
      */
     public static boolean isBefore(Date firstDate, Date secondDate)
@@ -44,7 +44,7 @@ public class DateUtils {
         return false;
     };
 
-    /*
+    /**
      * 第一个参数比第二个参数时间更晚
      */
     public static boolean isAfter(Date firstDate, Date secondDate)

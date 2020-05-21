@@ -27,8 +27,7 @@ public class ErrorResult {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public ErrorResult error(Integer status)
-    {
+    public ErrorResult error(Integer status) {
         this.status = status;
         this.error = ResultConstant.COMMON_ERROR_MESSAGE;
         this.date = DateUtils.getCurrentDate();
@@ -36,8 +35,7 @@ public class ErrorResult {
         return this;
     }
 
-    public ErrorResult error(String error)
-    {
+    public ErrorResult error(String error) {
         this.status = ResultConstant.COMMON_ERROR_CODE;
         this.error = error;
         this.date = DateUtils.getCurrentDate();
@@ -45,8 +43,7 @@ public class ErrorResult {
         return this;
     }
 
-    public ErrorResult error(Exception exception)
-    {
+    public ErrorResult error(Exception exception) {
         this.status = ResultConstant.COMMON_ERROR_CODE;
         this.error = ResultConstant.COMMON_ERROR_MESSAGE;
         this.date = DateUtils.getCurrentDate();
@@ -54,17 +51,14 @@ public class ErrorResult {
         return this;
     }
 
-    public ErrorResult error(Integer status, String error)
-    {
+    public ErrorResult error(Integer status, String error) {
         this.status = status;
         this.error = error;
         this.date = DateUtils.getCurrentDate();
         this.exception = null;
         return this;
     }
-
-    public ErrorResult error(Integer status, String error, Exception exception)
-    {
+    public ErrorResult error(Integer status, String error, Exception exception) {
         this.status = status;
         this.error = error;
         this.date = DateUtils.getCurrentDate();

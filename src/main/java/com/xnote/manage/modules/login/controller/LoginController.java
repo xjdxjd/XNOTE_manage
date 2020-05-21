@@ -11,14 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @DESC:
- * @ClassName: LoginController
- * @Author: xiaojundi_xx
+ * 登录操作Controller
  */
 @RestController
 @RequestMapping("/login")
 public class LoginController extends BaseController {
 
+    /**
+     * @DESC:   登录功能
+     * @methodName: signIn
+     */
     @PostMapping("/signin/{loginName}/{password}/{verifyCode}")
     public NormalResult signIn(HttpServletRequest request, HttpServletResponse response,
                                @PathVariable("loginName") String loginName,
