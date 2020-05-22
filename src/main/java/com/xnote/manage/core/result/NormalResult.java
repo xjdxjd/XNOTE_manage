@@ -36,7 +36,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_SUCCESS_MESSAGE;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult success(Integer code)
     {
@@ -44,7 +44,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_SUCCESS_MESSAGE;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult success(Integer code, String message)
     {
@@ -52,7 +52,7 @@ public class NormalResult {
         this.message = message;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult success(Integer code, Object data)
     {
@@ -60,7 +60,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_SUCCESS_MESSAGE;
         this.data = data;
         return this;
-    };
+    }
 
     public NormalResult success(String message)
     {
@@ -68,7 +68,7 @@ public class NormalResult {
         this.message = message;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult success(String message, Object data)
     {
@@ -76,7 +76,7 @@ public class NormalResult {
         this.message = message;
         this.data = data;
         return this;
-    };
+    }
 
     public NormalResult success(Object data)
     {
@@ -84,7 +84,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_SUCCESS_MESSAGE;
         this.data = data;
         return this;
-    };
+    }
 
     public NormalResult success(Integer code, String message, Object data)
     {
@@ -92,7 +92,7 @@ public class NormalResult {
         this.message = message;
         this.data = data;
         return this;
-    };
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public NormalResult failure()
@@ -101,7 +101,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_FAILURE_MESSAGE;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult failure(Integer code)
     {
@@ -109,7 +109,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_FAILURE_MESSAGE;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult failure(Integer code, String message)
     {
@@ -117,7 +117,7 @@ public class NormalResult {
         this.message = message;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult failure(Integer code, Object data)
     {
@@ -125,7 +125,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_FAILURE_MESSAGE;
         this.data = data;
         return this;
-    };
+    }
 
     public NormalResult failure(String message)
     {
@@ -133,7 +133,7 @@ public class NormalResult {
         this.message = message;
         this.data = null;
         return this;
-    };
+    }
 
     public NormalResult failure(String message, Object data)
     {
@@ -141,7 +141,7 @@ public class NormalResult {
         this.message = message;
         this.data = data;
         return this;
-    };
+    }
 
     public NormalResult failure(Object data)
     {
@@ -149,7 +149,7 @@ public class NormalResult {
         this.message = ResultConstant.COMMON_FAILURE_MESSAGE;
         this.data = data;
         return this;
-    };
+    }
 
     public NormalResult failure(Integer code, String message, Object data)
     {
@@ -157,6 +157,5 @@ public class NormalResult {
         this.message = message;
         this.data = data;
         return this;
-    };
-
+    }
 }

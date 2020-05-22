@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnote.manage.modules.function.mapper.AdminFunctionMapper">
+  <resultMap id="BaseResultMap" type="com.xnote.manage.modules.function.bean.AdminFunction">
+    <id column="func_id" jdbcType="VARCHAR" property="funcId" />
+    <result column="func_icon" jdbcType="VARCHAR" property="funcIcon" />
+    <result column="func_name" jdbcType="VARCHAR" property="funcName" />
+    <result column="func_sort" jdbcType="INTEGER" property="funcSort" />
+    <result column="is_leaf" jdbcType="INTEGER" property="isLeaf" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="parent_name" jdbcType="VARCHAR" property="parentName" />
+    <result column="func_url" jdbcType="VARCHAR" property="funcUrl" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="func_create_time" jdbcType="DATE" property="funcCreateTime" />
+    <result column="func_update_time" jdbcType="DATE" property="funcUpdateTime" />
+    <result column="func_timestamp" jdbcType="VARCHAR" property="funcTimestamp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    func_id, func_icon, func_name, func_sort, is_leaf, parent_id, parent_name, func_url, 
+    remark, func_create_time, func_update_time, func_timestamp
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xnote_admin_function
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xnote_admin_function
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xnote.manage.modules.function.bean.AdminFunction">
+    insert into xnote_admin_function (func_id, func_icon, func_name, 
+      func_sort, is_leaf, parent_id, 
+      parent_name, func_url, remark, 
+      func_create_time, func_update_time, func_timestamp
+      )
+    values (#{funcId,jdbcType=VARCHAR}, #{funcIcon,jdbcType=VARCHAR}, #{funcName,jdbcType=VARCHAR}, 
+      #{funcSort,jdbcType=INTEGER}, #{isLeaf,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, 
+      #{parentName,jdbcType=VARCHAR}, #{funcUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{funcCreateTime,jdbcType=DATE}, #{funcUpdateTime,jdbcType=DATE}, #{funcTimestamp,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xnote.manage.modules.function.bean.AdminFunction">
+    insert into xnote_admin_function
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="funcId != null">
+        func_id,
+      </if>
+      <if test="funcIcon != null">
+        func_icon,
+      </if>
+      <if test="funcName != null">
+        func_name,
+      </if>
+      <if test="funcSort != null">
+        func_sort,
+      </if>
+      <if test="isLeaf != null">
+        is_leaf,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="parentName != null">
+        parent_name,
+      </if>
+      <if test="funcUrl != null">
+        func_url,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="funcCreateTime != null">
+        func_create_time,
+      </if>
+      <if test="funcUpdateTime != null">
+        func_update_time,
+      </if>
+      <if test="funcTimestamp != null">
+        func_timestamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="funcId != null">
+        #{funcId,jdbcType=VARCHAR},
+      </if>
+      <if test="funcIcon != null">
+        #{funcIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="funcName != null">
+        #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcSort != null">
+        #{funcSort,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null">
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcUrl != null">
+        #{funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="funcCreateTime != null">
+        #{funcCreateTime,jdbcType=DATE},
+      </if>
+      <if test="funcUpdateTime != null">
+        #{funcUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="funcTimestamp != null">
+        #{funcTimestamp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.function.bean.AdminFunction">
+    update xnote_admin_function
+    <set>
+      <if test="funcIcon != null">
+        func_icon = #{funcIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="funcName != null">
+        func_name = #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcSort != null">
+        func_sort = #{funcSort,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null">
+        is_leaf = #{isLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null">
+        parent_name = #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcUrl != null">
+        func_url = #{funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="funcCreateTime != null">
+        func_create_time = #{funcCreateTime,jdbcType=DATE},
+      </if>
+      <if test="funcUpdateTime != null">
+        func_update_time = #{funcUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="funcTimestamp != null">
+        func_timestamp = #{funcTimestamp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.function.bean.AdminFunction">
+    update xnote_admin_function
+    set func_icon = #{funcIcon,jdbcType=VARCHAR},
+      func_name = #{funcName,jdbcType=VARCHAR},
+      func_sort = #{funcSort,jdbcType=INTEGER},
+      is_leaf = #{isLeaf,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      parent_name = #{parentName,jdbcType=VARCHAR},
+      func_url = #{funcUrl,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      func_create_time = #{funcCreateTime,jdbcType=DATE},
+      func_update_time = #{funcUpdateTime,jdbcType=DATE},
+      func_timestamp = #{funcTimestamp,jdbcType=VARCHAR}
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </update>
+</mapper>

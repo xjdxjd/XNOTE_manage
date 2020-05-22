@@ -6,7 +6,10 @@
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="shortcut icon" href="favicon.ico" th:href="@{/favicon.ico}">
     <link rel="stylesheet" href="../static/css/font/font.css" th:href="@{/css/font/font.css}">
     <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
@@ -17,26 +20,26 @@
         <div class="message">x-admin2.0-管理登录</div>
         <div id="darkbannerwrap"></div>
         
-        <form method="post" class="layui-form" >
+        <form class="layui-form" >
             <div class="layui-form-item">
                 <div>
                     <input class="layui-input" type="text" id="loginName" name="loginName" required
-                           lay-verify="required" placeholder="请输入帐号" autocomplete="off">
+                           lay-verify="loginName" placeholder="请输入帐号" autocomplete="off">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div>
                     <input class="layui-input" type="password" id="password" name="password" required
-                           lay-verify="required" placeholder="请输入密码" autocomplete="off">
+                           lay-verify="password" placeholder="请输入密码" autocomplete="off">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-col-md6">
+                <div class="layui-col-md7">
                     <input class="layui-input" type="text" id="verifyCode" name="verifyCode" required
-                           lay-verify="required" placeholder="请输入验证码" autocomplete="off">
+                           lay-verify="verifyCode" placeholder="请输入验证码" autocomplete="off">
                 </div>
-                <div class="layui-col-md5">
-                    <img class="">
+                <div class="layui-col-md4">
+                    <img class="verifyCode" th:src="@{/load/verifyCode}">
                 </div>
                 <div class="layui-col-md1">
                     <a href="#">
@@ -46,14 +49,13 @@
             </div>
             <div class="layui-form-item">
                 <div>
-                    <button class="layui-btn layui-btn-fluid">
+                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="signIn">
                         <i class="layui-icon">&#xe65b;</i>
                     </button>
                 </div>
             </div>
         </form>
     </div>
-
 </body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -62,18 +64,79 @@
 <script src="./lib/layui/layui.js" charset="utf-8" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script src="./lib/layui/layui.js" charset="utf-8" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
 <script>
-    $(function  () {
+    $(function() {
         layui.use('form', function(){
             var form = layui.form;
-            // layer.msg('玩命卖萌中', function(){
-            //   //关闭后的操作
-            //   });
-            //监听提交
-            form.on('submit(login)', function(data){
-                // alert(888)
-                layer.msg(JSON.stringify(data.field),function(){
-                    location.href='index.html'
-                });
+
+            // 表单验证
+            form.verify({
+                loginName: function(value, item){
+                    if(!/\S/.test(value))
+                    {
+                        return '用户名不能为空';
+                    }
+                    if(!/^\w{4,20}$/.test(value))
+                    {
+                        return '登录名为4-20个字符';
+                    }
+                    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value))
+                    {
+                        return '用户名不能有特殊字符';
+                    }
+                    if(/(^\_)|(\__)|(\_+$)/.test(value))
+                    {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                    if(/^\d+\d+\d$/.test(value))
+                    {
+                        return '用户名不能全为数字';
+                    }
+                },
+                password: function(value, item){
+                    if(!/\S/.test(value))
+                    {
+                        return '密码不能为空';
+                    }
+                    if(!/^\w{4,20}$/.test(value))
+                    {
+                        return '密码为6-20个字符';
+                    }
+                    if(/^\d+\d+\d$/.test(value))
+                    {
+                        return '密码不能全为数字';
+                    }
+                },
+                verifyCode: function(value, item){
+                    if(!/\S/.test(value))
+                    {
+                        return '验证码不能为空';
+                    }
+                }
+            });
+
+            // 表单提交
+            form.on('submit(signIn)', function(data){
+                $.post({
+                    url: '[[@{/login/signin}]]',
+                    dataType: 'JSON',
+                    data: {
+                        'loginName': $("#loginName").val(),
+                        'password': $("#loginName").val(),
+                        'verifyCode': $("#verifyCode").val(),
+                        '_csrf': $("meta[name = '_csrf']").attr("content"),
+                        '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                        '_': new Date().getTime()
+                    },
+                    success: function(res) {
+
+                    },
+                    error: function(res) {
+
+                    }
+
+                })
+
+                layer.msg(JSON.stringify(data.field));
                 return false;
             });
         });

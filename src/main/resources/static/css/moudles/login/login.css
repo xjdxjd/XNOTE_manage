@@ -93,22 +93,6 @@ html {
     width: 100%;
 }
 
-.login hr {
-    /*background: #fff url() 0 0 no-repeat;*/
-}
-
-.login hr.hr15 {
-    height: 15px;
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-}
-
-.login hr.hr20 {
-    height: 20px;
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
+.verifyCode {
+    margin: 0 auto;
 }
