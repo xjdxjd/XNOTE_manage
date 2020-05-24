@@ -54,7 +54,6 @@ public class LoadController {
      */
     @GetMapping({"/","/index","index.html"})
     public String loadIndexView(HttpServletRequest request, HttpServletResponse response){
-
         return "index";
     }
 

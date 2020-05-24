@@ -8,13 +8,16 @@
 <!-- 顶部菜单栏 -->
 <div th:class="container" th:fragment="top_nav_bar">
     <div class="logo">
-        <a href="index.html">X-admin v2.2</a></div>
+        <a href="index.html"
+           th:href="@{/}+${session.sysConfig.get('manageUrl').getConfigValue()}"
+           th:text="${session.sysConfig.get('manageName').getConfigValue()}">X-admin v2.2</a>
+    </div>
     <div class="left_open">
-        <a><i title="展开左侧栏" class="layui-icon ">&#xe699;</i></a>
+        <a><i title="展开左侧栏" class="layui-icon">&#xe65a;</i></a>
     </div>
     <ul class="layui-nav left fast-add" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">+新增</a>
+            <a href="javascript:;"><i class="layui-icon"></i>+新增</a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
@@ -35,21 +38,51 @@
             </dl>
         </li>
     </ul>
-    <ul class="layui-nav right" lay-filter="">
+    <ul class="layui-nav left fast-add" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;">
+                <i class="layui-icon">&#xe66a;</i>
+                <span>切换风格</span>
+            </a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                    <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
+                        <i class="layui-icon">&#xe6a2;</i>弹出最大化</a></dd>
                 <dd>
-                    <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                    <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
+                        <i class="layui-icon">&#xe6a8;</i>弹出自动宽高</a></dd>
                 <dd>
-                    <a href="modules/login/login.html">退出</a></dd>
+                    <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
+                        <i class="layui-icon">&#xe6a8;</i>弹出指定宽高</a></dd>
+                <dd>
+                    <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
+                        <i class="layui-icon">&#xe6b8;</i>在tab打开</a></dd>
+                <dd>
+                    <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
+                        <i class="layui-icon">&#xe6b8;</i>在tab打开刷新</a></dd>
             </dl>
         </li>
+    </ul>
+    <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item to-index">
-            <a href="/">前台首页</a></li>
+            <a href="/">前台首页</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <input type="hidden" th:value="${session.loginAdmin.id}">
+                <span th:text="${session.loginAdmin.name}"></span>
+            </a>
+            <dl class="layui-nav-child">
+                <!-- 二级菜单 -->
+                <dd>
+                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">管理员信息</a></dd>
+                <dd>
+                    <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换管理员</a></dd>
+                <dd>
+                    <a href="modules/login/login.html">退出系统</a></dd>
+            </dl>
+        </li>
     </ul>
 </div>
 
@@ -76,8 +109,9 @@
     </div>
 </div>
 
-<!---->
-<div>
+<!-- copyright -->
+<div class="layui-col-md12" th:fragment="copyright">
+    <blockquote class="layui-elem-quote layui-quote-nm" th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}"></blockquote>
 </div>
 
 </body>

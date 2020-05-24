@@ -1,6 +1,9 @@
 package com.xnote.manage.core.interceptor;
 
+import com.xnote.manage.modules.login.bean.LoginAdmin;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,12 +15,20 @@ import javax.servlet.http.HttpServletResponse;
  * @ClassName: LoginInterceptor
  * @Author: xiaojundi_xx
  */
+@Component
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
-        return false;
+        LoginAdmin loginAdmin = (LoginAdmin) request.getSession().getAttribute("loginAdmin");
+        if (ObjectUtils.isEmpty(loginAdmin))
+        {
+            response.sendRedirect(request.getContextPath()+"/load/login");
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override

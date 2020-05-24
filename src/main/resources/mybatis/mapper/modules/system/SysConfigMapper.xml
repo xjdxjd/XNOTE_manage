@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnote.manage.modules.system.mapper.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.xnote.manage.modules.system.bean.SysConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="config_code" jdbcType="VARCHAR" property="configCode" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="config_type" jdbcType="INTEGER" property="configType" />
+    <result column="config_remark" jdbcType="VARCHAR" property="configRemark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xnote.manage.modules.system.bean.SysConfig">
+    <result column="config_value" jdbcType="LONGVARCHAR" property="configValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CONFIG_CODE, CONFIG_NAME, CONFIG_TYPE, CONFIG_REMARK
+  </sql>
+  <sql id="Blob_Column_List">
+    CONFIG_VALUE
+  </sql>
+<!-- 获取管理端系统配置 -->
+  <select id="getManageSystemConfig" resultType="com.xnote.manage.modules.system.bean.SysConfig">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    ,
+    <include refid="Blob_Column_List"></include>
+    FROM XNOTE_SYS_CONFIG
+    <where>
+      CONFIG_TYPE = 2
+    </where>
+  </select>
+
+
+
+
+
+
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from XNOTE_SYS_CONFIG
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xnote_sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xnote.manage.modules.system.bean.SysConfig">
+    insert into xnote_sys_config (id, config_code, config_name, 
+      config_type, config_remark, config_value
+      )
+    values (#{id,jdbcType=VARCHAR}, #{configCode,jdbcType=VARCHAR}, #{configName,jdbcType=VARCHAR}, 
+      #{configType,jdbcType=INTEGER}, #{configRemark,jdbcType=VARCHAR}, #{configValue,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xnote.manage.modules.system.bean.SysConfig">
+    insert into xnote_sys_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="configCode != null">
+        config_code,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="configType != null">
+        config_type,
+      </if>
+      <if test="configRemark != null">
+        config_remark,
+      </if>
+      <if test="configValue != null">
+        config_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="configCode != null">
+        #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configType != null">
+        #{configType,jdbcType=INTEGER},
+      </if>
+      <if test="configRemark != null">
+        #{configRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="configValue != null">
+        #{configValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.system.bean.SysConfig">
+    update xnote_sys_config
+    <set>
+      <if test="configCode != null">
+        config_code = #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        config_name = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configType != null">
+        config_type = #{configType,jdbcType=INTEGER},
+      </if>
+      <if test="configRemark != null">
+        config_remark = #{configRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="configValue != null">
+        config_value = #{configValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xnote.manage.modules.system.bean.SysConfig">
+    update xnote_sys_config
+    set config_code = #{configCode,jdbcType=VARCHAR},
+      config_name = #{configName,jdbcType=VARCHAR},
+      config_type = #{configType,jdbcType=INTEGER},
+      config_remark = #{configRemark,jdbcType=VARCHAR},
+      config_value = #{configValue,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.system.bean.SysConfig">
+    update xnote_sys_config
+    set config_code = #{configCode,jdbcType=VARCHAR},
+      config_name = #{configName,jdbcType=VARCHAR},
+      config_type = #{configType,jdbcType=INTEGER},
+      config_remark = #{configRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
