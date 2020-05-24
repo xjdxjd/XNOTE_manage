@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
@@ -26,15 +25,35 @@ public class LoadController {
     private String vCode;
     // 登录页面路径
     private static final String LOGIN_PATH = "/modules/login/";
+    // 欢迎页
+    private static final String WELCOME_PATH = "/common/";
 
+    /**
+     * @DESC:   登录页
+     * @methodName: loadIndexView
+     */
     @GetMapping("/login")
-    public String loadLoginView(){
+    public String loadLoginView(HttpServletRequest request, HttpServletResponse response){
 
         return LOGIN_PATH+"login";
     }
 
+    /**
+     * @DESC:   主页
+     * @methodName: loadIndexView
+     */
+    @GetMapping("/main")
+    public String loadMainView(HttpServletRequest request, HttpServletResponse response){
+
+        return WELCOME_PATH+"welcome";
+    }
+
+    /**
+     * @DESC:   index页面
+     * @methodName: loadIndexView
+     */
     @GetMapping({"/","/index","index.html"})
-    public String loadIndexView(){
+    public String loadIndexView(HttpServletRequest request, HttpServletResponse response){
 
         return "index";
     }
@@ -46,7 +65,7 @@ public class LoadController {
         String codeStr = (String)codeMap.get("codeStr");
         BufferedImage image = (BufferedImage)codeMap.get("image");
 
-        session.setAttribute("VerifyCode",codeStr);
+        session.setAttribute("verifyCode",codeStr);
 
         //设置response头信息
         //禁止缓存

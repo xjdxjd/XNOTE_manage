@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="shortcut icon" href="favicon.ico" th:href="@{/favicon.ico}">
     <link rel="stylesheet" href="../static/css/font/font.css" th:href="@{/css/font/font.css}">
-    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
     <link rel="stylesheet" href="../../../static/css/moudles/login/login.css" th:href="@{/css/moudles/login/login.css}">
 </head>
 <body class="login-bg">
@@ -101,10 +101,10 @@
                     {
                         return '密码为6-20个字符';
                     }
-                    if(/^\d+\d+\d$/.test(value))
+                    /*if(/^\d+\d+\d$/.test(value))
                     {
                         return '密码不能全为数字';
-                    }
+                    }*/
                 },
                 verifyCode: function(value, item){
                     if(!/\S/.test(value))
@@ -121,14 +121,21 @@
                     dataType: 'JSON',
                     data: {
                         'loginName': $("#loginName").val(),
-                        'password': $("#loginName").val(),
+                        'password': $("#password").val(),
                         'verifyCode': $("#verifyCode").val(),
                         '_csrf': $("meta[name = '_csrf']").attr("content"),
                         '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
                         '_': new Date().getTime()
                     },
                     success: function(res) {
-
+                        var indexUrl = '[[@{/}]]';
+                        window.location.replace(indexUrl);
+                        if(res.code() == 0)
+                        {
+                            $.load(indexUrl);
+                        }else{
+                            $.load(indexUrl);
+                        }
                     },
                     error: function(res) {
 

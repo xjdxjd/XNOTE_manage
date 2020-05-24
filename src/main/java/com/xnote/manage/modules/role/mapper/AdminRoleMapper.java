@@ -1,8 +1,29 @@
 package com.xnote.manage.modules.role.mapper;
 
 import com.xnote.manage.modules.role.bean.AdminRole;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface AdminRoleMapper {
+@Mapper
+public interface AdminRoleMapper
+{
+    /**
+     * @DESC:   根据管理员id获取管理员角色
+     * @methodName: gteRoleByAdminId
+     */
+    public AdminRole getRoleById(String id);
+
+
+
+
+
+
+
+
+
+
+
+
+
     int deleteByPrimaryKey(String roleId);
 
     int insert(AdminRole record);

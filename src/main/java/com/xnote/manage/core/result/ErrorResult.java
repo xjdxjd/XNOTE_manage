@@ -9,7 +9,7 @@ import java.util.Date;
  * @DESC:   错误、异常结果类
  * @ClassName: ErrorResult
  */
-public class ErrorResult {
+public class ErrorResult extends Result {
 
     // 操作状态码
     private Integer status;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xnote.manage.modules.function.mapper.AdminFunctionMapper">
   <resultMap id="BaseResultMap" type="com.xnote.manage.modules.function.bean.AdminFunction">
-    <id column="func_id" jdbcType="VARCHAR" property="funcId" />
+    <id column="func_id" jdbcType="VARCHAR" property="id" />
     <result column="func_icon" jdbcType="VARCHAR" property="funcIcon" />
     <result column="func_name" jdbcType="VARCHAR" property="funcName" />
     <result column="func_sort" jdbcType="INTEGER" property="funcSort" />
@@ -16,9 +16,38 @@
     <result column="func_timestamp" jdbcType="VARCHAR" property="funcTimestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    func_id, func_icon, func_name, func_sort, is_leaf, parent_id, parent_name, func_url, 
-    remark, func_create_time, func_update_time, func_timestamp
+    FUNC_ID, FUNC_ICON, FUNC_NAME, FUNC_SORT, IS_LEAF, PARENT_ID, PARENT_NAME, FUNC_URL,
+    REMARK, FUNC_CREATE_TIME, FUNC_UPDATE_TIME, FUNC_TIMESTAMP
   </sql>
+
+  <!-- 根据角色id获取管理员功能 -->
+  <select id="getFuncByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    func.FUNC_ID, FUNC_ICON, FUNC_NAME, FUNC_SORT, IS_LEAF, PARENT_ID, PARENT_NAME, FUNC_URL,
+    REMARK, FUNC_CREATE_TIME, FUNC_UPDATE_TIME, FUNC_TIMESTAMP
+    FROM XNOTE_ADMIN_FUNCTION func
+    LEFT JOIN XNOTE_ADMIN_ROLE_FUNCTION_RELATION rela
+    ON func.FUNC_ID = rela.FUNC_ID
+    <where>
+      ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    </where>
+    ORDER BY func.FUNC_SORT;
+  </select>
+
+  <select id="getFuncByFuncId" resultType="com.xnote.manage.modules.function.bean.AdminFunction">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_ADMIN_FUNCTION
+    <where>
+    PARENT_ID = #{funcId,jdbcType=VARCHAR}
+    </where>
+    ORDER BY FUNC_SORT;
+  </select>
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

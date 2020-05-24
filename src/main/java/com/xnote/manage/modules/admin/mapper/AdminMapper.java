@@ -1,17 +1,39 @@
 package com.xnote.manage.modules.admin.mapper;
 
 import com.xnote.manage.modules.admin.bean.Admin;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface AdminMapper {
-    int deleteByPrimaryKey(String id);
+@Mapper()
+public interface AdminMapper
+{
+    /*
+     *  根据登录名获取管理员
+     */
+    public Admin  getAdminByLoginName(String loginName);
 
-    int insert(Admin record);
+    /*
+     *  更新登录者信息
+     */
+    public int updateLogin(Admin admin);
 
-    int insertSelective(Admin record);
 
-    Admin selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Admin record);
 
-    int updateByPrimaryKey(Admin record);
+
+
+
+
+    public int deleteByPrimaryKey(String id);
+
+    public int insert(Admin record);
+
+    public int insertSelective(Admin record);
+
+    public Admin selectByPrimaryKey(String id);
+
+    public int updateByPrimaryKeySelective(Admin record);
+
+    public int updateByPrimaryKey(Admin record);
+
+
 }

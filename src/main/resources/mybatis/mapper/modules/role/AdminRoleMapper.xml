@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xnote.manage.modules.role.mapper.AdminRoleMapper">
   <resultMap id="BaseResultMap" type="com.xnote.manage.modules.role.bean.AdminRole">
-    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <id column="role_id" jdbcType="VARCHAR" property="id" />
     <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_sort" jdbcType="INTEGER" property="roleSort" />
@@ -13,9 +13,33 @@
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    role_id, role_code, role_name, role_sort, role_status, role_remark, create_time, 
+    role_id, role_code, role_name, role_sort, role_status, role_remark, create_time,
     update_time, timestamp
   </sql>
+<!-- 根据管理员id获取管理员角色 -->
+  <select id="getRoleById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM  XNOTE_ADMIN_ROLE
+    <where>
+      ROLE_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

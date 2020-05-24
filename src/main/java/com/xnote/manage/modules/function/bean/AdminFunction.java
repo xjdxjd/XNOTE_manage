@@ -1,6 +1,7 @@
 package com.xnote.manage.modules.function.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class AdminFunction {
     private String id;
@@ -27,11 +28,13 @@ public class AdminFunction {
 
     private String funcTimestamp;
 
-    public String getFuncId() {
+    private List<AdminFunction> functionList;
+
+    public String getId() {
         return id;
     }
 
-    public void setFuncId(String id) {
+    public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 
@@ -123,21 +126,11 @@ public class AdminFunction {
         this.funcTimestamp = funcTimestamp == null ? null : funcTimestamp.trim();
     }
 
-    @Override
-    public String toString() {
-        return "AdminFunction{" +
-                "id='" + id + '\'' +
-                ", funcIcon='" + funcIcon + '\'' +
-                ", funcName='" + funcName + '\'' +
-                ", funcSort=" + funcSort +
-                ", isLeaf=" + isLeaf +
-                ", parentId='" + parentId + '\'' +
-                ", parentName='" + parentName + '\'' +
-                ", funcUrl='" + funcUrl + '\'' +
-                ", remark='" + remark + '\'' +
-                ", funcCreateTime=" + funcCreateTime +
-                ", funcUpdateTime=" + funcUpdateTime +
-                ", funcTimestamp='" + funcTimestamp + '\'' +
-                '}';
+    public List<AdminFunction> getFunctionList() {
+        return functionList;
+    }
+
+    public void setFunctionList(List<AdminFunction> functionList) {
+        this.functionList = functionList;
     }
 }

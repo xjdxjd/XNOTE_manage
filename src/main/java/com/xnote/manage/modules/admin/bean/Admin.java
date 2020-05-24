@@ -3,6 +3,7 @@ package com.xnote.manage.modules.admin.bean;
 import java.util.Date;
 
 public class Admin {
+
     private String id;
 
     private String loginName;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xnote.manage.modules.admin.mapper.AdminMapper">
   <resultMap id="BaseResultMap" type="com.xnote.manage.modules.admin.bean.Admin">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="admin_id" jdbcType="VARCHAR" property="id"/>
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -17,9 +17,40 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, login_name, admin_name, password, status, role, admin_email, login_ip, login_time, 
-    create_time, update_time, sort, remark
+    ADMIN_ID ID, LOGIN_NAME, ADMIN_NAME, PASSWORD, STATUS, ROLE, ADMIN_EMAIL, LOGIN_IP, LOGIN_TIME,
+    CREATE_TIME, UPDATE_TIME, SORT, REMARK
   </sql>
+
+  <!-- 根据登录名获取管理员 -->
+  <select id="getAdminByLoginName" parameterType="java.lang.String" resultType="com.xnote.manage.modules.admin.bean.Admin">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_ADMIN
+    <where>
+      LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+    </where>
+  </select>
+
+  <!-- 更新登录者信息 -->
+  <update id="updateLogin">
+    UPDATE XNOTE_ADMIN SET
+    LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
+    LOGIN_TIME = #{loginTime,jdbcType=VARCHAR}
+    <where>
+      ADMIN_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </update>
+
+
+
+
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

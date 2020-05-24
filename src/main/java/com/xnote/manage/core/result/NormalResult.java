@@ -6,7 +6,7 @@ import com.xnote.manage.common.constant.ResultConstant;
  * @DESC:   操作结果类
  * @ClassName: Result
  */
-public class NormalResult {
+public class NormalResult extends Result {
 
     // 操作结果码
     private Integer code;

@@ -21,11 +21,11 @@ public class AdminRole {
 
     private Long timestamp;
 
-    public String getRoleId() {
+    public String getId() {
         return id;
     }
 
-    public void setRoleId(String id) {
+    public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 

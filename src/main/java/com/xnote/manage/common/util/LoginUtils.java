@@ -1,16 +1,10 @@
 package com.xnote.manage.common.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.omg.CORBA.INTERNAL;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -101,4 +95,24 @@ public class LoginUtils {
         return codeMap;
     }
 
+    public static String getLoginIP(HttpServletRequest request)
+    {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if ("0:0:0:0:0:0:0:1".equals(ip)) {
+            ip = "127.0.0.1";
+        }
+        if (ip.split(",").length > 1) {
+            ip = ip.split(",")[0];
+        }
+        return ip;
+    }
 }

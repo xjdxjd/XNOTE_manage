@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xnote.manage.modules.admin.mapper.AdminRoleFunctionRelationMapper">
   <resultMap id="BaseResultMap" type="com.xnote.manage.modules.admin.bean.AdminRoleFunctionRelation">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="rela_id" jdbcType="VARCHAR" property="id" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="func_id" jdbcType="VARCHAR" property="funcId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, role_id, func_id
+    rela_id, role_id, func_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
