@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         LoginAdmin loginAdmin = (LoginAdmin) request.getSession().getAttribute("loginAdmin");
         if (ObjectUtils.isEmpty(loginAdmin))
         {
-            response.sendRedirect(request.getContextPath()+"/load/login");
+            response.sendRedirect(request.getContextPath()+"/login");
             return false;
         }else{
             return true;

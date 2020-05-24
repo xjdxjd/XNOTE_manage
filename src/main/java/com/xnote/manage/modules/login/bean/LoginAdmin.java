@@ -28,7 +28,7 @@ public class LoginAdmin {
 
     public LoginAdmin(Admin admin, AdminRole role, List<AdminFunction> funcs) {
         this.id = admin.getId();
-        this.name = admin.getLoginName();
+        this.name = admin.getAdminName();
         this.roleId = role.getId();
         this.roleName = role.getRoleName();
         this.info = admin;

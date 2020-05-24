@@ -39,7 +39,7 @@
                            lay-verify="verifyCode" placeholder="请输入验证码" autocomplete="off">
                 </div>
                 <div class="layui-col-md4">
-                    <img class="verifyCode" th:src="@{/load/verifyCode}">
+                    <img class="verifyCode" th:src="@{/verifyCode}">
                 </div>
                 <div class="layui-col-md1">
                     <a href="#">
@@ -116,9 +116,10 @@
 
             // 表单提交
             form.on('submit(signIn)', function(data){
-                $.post({
+                $.ajax({
                     url: '[[@{/login/signin}]]',
-                    dataType: 'JSON',
+                    type: 'post',
+                    dataType: 'json',
                     data: {
                         'loginName': $("#loginName").val(),
                         'password': $("#password").val(),
@@ -128,22 +129,21 @@
                         '_': new Date().getTime()
                     },
                     success: function(res) {
-                        var indexUrl = '[[@{/}]]';
-                        window.location.replace(indexUrl);
-                        if(res.code() == 0)
+                        if(res.code == 0)
                         {
-                            $.load(indexUrl);
+                            layer.msg(res.message);
                         }else{
-                            $.load(indexUrl);
+                            layer.msg(res.message);
                         }
+                        window.location.replace('[[@{/}]]'+ res.data);
+                        return false;
                     },
                     error: function(res) {
 
+                        layer.msg("系统出错");
+                        return false;
                     }
-
                 })
-
-                layer.msg(JSON.stringify(data.field));
                 return false;
             });
         });

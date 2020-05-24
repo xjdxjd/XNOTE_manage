@@ -23,6 +23,38 @@ public class ErrorResult extends Result {
     // 操作结果错误消息
     private Exception exception;
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Exception getException() {
+        return exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
+    }
+
     public ErrorResult() {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

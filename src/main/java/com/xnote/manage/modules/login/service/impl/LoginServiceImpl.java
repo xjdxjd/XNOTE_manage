@@ -2,7 +2,6 @@ package com.xnote.manage.modules.login.service.impl;
 
 import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.common.util.DateUtils;
-import com.xnote.manage.common.util.LoginUtils;
 import com.xnote.manage.modules.admin.bean.Admin;
 import com.xnote.manage.modules.admin.mapper.AdminMapper;
 import com.xnote.manage.modules.login.service.LoginService;
@@ -11,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @DESC:   登录service实现类
@@ -36,7 +35,7 @@ public class LoginServiceImpl implements LoginService
     }
 
     @Override
-    public boolean updateLogin(HttpServletRequest request, Admin admin)
+    public boolean updateLogin(String ipaddr, Admin admin)
     {
         boolean isFaild = false;
         if (ObjectUtils.isEmpty(admin))
@@ -44,8 +43,12 @@ public class LoginServiceImpl implements LoginService
             isFaild = true;
         }
 
-        admin.setLoginTime(DateUtils.getCurrentDate());
-        admin.setLoginIp(LoginUtils.getLoginIP(request));
+        Date date = DateUtils.getCurrentDate();
+        admin.setLoginIp(ipaddr);
+        admin.setLoginTime(date);
+        admin.setUpdateTime(date);
+        admin.setTimestamp(DateUtils.getTimestamp());
+
         int count = adminMapper.updateLogin(admin);
         if (count == CommonConstant.RESULT_FAILD_ZERO)
         {

@@ -14,7 +14,7 @@ public class XnoteSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-            .antMatchers("/login/**").permitAll();
+            .antMatchers("/**").permitAll();
         http.headers()
                 .frameOptions().sameOrigin()
                 .httpStrictTransportSecurity().disable();

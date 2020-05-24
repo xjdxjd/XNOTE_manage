@@ -1,11 +1,7 @@
-package com.xnote.manage.core.result;/**
- * @ClassName:
- */
+package com.xnote.manage.core.result;
 
 /**
- *@DESC:
- *@ClassName: BaseResult
- *@Author: xiaojundi_xx
+ *
  */
 public class Result {
 }

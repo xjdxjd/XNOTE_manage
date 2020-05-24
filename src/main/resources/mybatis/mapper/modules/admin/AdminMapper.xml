@@ -7,22 +7,41 @@
     <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="admin_email" jdbcType="VARCHAR" property="adminEmail" />
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="login_time" jdbcType="DATE" property="loginTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="create_time" jdbcType="DATE" property="createTime" />
     <result column="update_time" jdbcType="DATE" property="updateTime" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="timestamp" jdbcType="DATE" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    ADMIN_ID ID, LOGIN_NAME, ADMIN_NAME, PASSWORD, STATUS, ROLE, ADMIN_EMAIL, LOGIN_IP, LOGIN_TIME,
-    CREATE_TIME, UPDATE_TIME, SORT, REMARK
+    ADMIN_ID, LOGIN_NAME, ADMIN_NAME, PASSWORD, STATUS, SORT, ROLE, ADMIN_EMAIL, LOGIN_IP, LOGIN_TIME, REMARK,
+    CREATE_TIME, UPDATE_TIME, TIMESTAMP
   </sql>
 
+  <!-- 获取所有管理员账号信息 -->
+  <select id="getAdminList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_ADMIN
+    ORDER BY SORT
+  </select>
+
+  <!-- 根据管理员id获取管理员账号信息 -->
+  <select id="getAdminById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_ADMIN
+    <where>
+      ADMIN_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+
   <!-- 根据登录名获取管理员 -->
-  <select id="getAdminByLoginName" parameterType="java.lang.String" resultType="com.xnote.manage.modules.admin.bean.Admin">
+  <select id="getAdminByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM XNOTE_ADMIN
@@ -30,6 +49,28 @@
       LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
     </where>
   </select>
+
+  <!-- 根据登录名或id判断用户是否存在 -->
+  <select id="isExsit" resultType="java.lang.String">
+    SELECT ADMIN_ID
+    FROM XNOTE_ADMIN
+    WHERE
+    ADMIN_ID = #{arg0,jdbcType=VARCHAR}
+    OR
+    LOGIN_NAME = #{arg1,jdbcType=VARCHAR};
+  </select>
+
+  <!-- 注册管理员 -->
+  <insert id="insertAdmin" parameterType="com.xnote.manage.modules.admin.bean.Admin">
+    INSERT INTO XNOTE_ADMIN (
+    <include refid="Base_Column_List"/>
+    )
+    VALUES (#{id,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER},
+      #{role,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR},
+      #{loginTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR},
+      #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, #{timestamp,jdbcType=DATE})
+  </insert>
 
   <!-- 更新登录者信息 -->
   <update id="updateLogin">
@@ -61,18 +102,6 @@
     delete from xnote_admin
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.xnote.manage.modules.admin.bean.Admin">
-    insert into xnote_admin (id, login_name, admin_name, 
-      password, status, role, 
-      admin_email, login_ip, login_time, 
-      create_time, update_time, sort, 
-      remark)
-    values (#{id,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, 
-      #{adminEmail,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=DATE}, 
-      #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, #{sort,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.xnote.manage.modules.admin.bean.Admin">
     insert into xnote_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">

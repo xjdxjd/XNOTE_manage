@@ -2,8 +2,6 @@ package com.xnote.manage.modules.login.service;
 
 import com.xnote.manage.modules.admin.bean.Admin;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @DESC:   登录service
  * @ClassName: LoginService
@@ -18,5 +16,5 @@ public interface LoginService
     /*
      *  更新登录者信息
      */
-    public boolean updateLogin(HttpServletRequest request, Admin admin);
+    public boolean updateLogin(String ipaddr, Admin admin);
 }

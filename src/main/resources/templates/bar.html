@@ -13,7 +13,7 @@
            th:text="${session.sysConfig.get('manageName').getConfigValue()}">X-admin v2.2</a>
     </div>
     <div class="left_open">
-        <a><i title="展开左侧栏" class="layui-icon">&#xe65a;</i></a>
+        <a><i title="展开左侧栏" class="layui-icon">&#xe66b;</i></a>
     </div>
     <ul class="layui-nav left fast-add" lay-filter="">
         <li class="layui-nav-item">
@@ -22,19 +22,19 @@
                 <!-- 二级菜单 -->
                 <dd>
                     <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
-                        <i class="iconfont">&#xe6a2;</i>弹出最大化</a></dd>
+                        <i class="iconfont">&#xe66a;</i>弹出最大化</a></dd>
                 <dd>
                     <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
-                        <i class="iconfont">&#xe6a8;</i>弹出自动宽高</a></dd>
+                        <i class="iconfont">&#xe66a;</i>弹出自动宽高</a></dd>
                 <dd>
                     <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
-                        <i class="iconfont">&#xe6a8;</i>弹出指定宽高</a></dd>
+                        <i class="iconfont">&#xe66a;</i>弹出指定宽高</a></dd>
                 <dd>
                     <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
-                        <i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
+                        <i class="iconfont">&#xe66a;</i>在tab打开</a></dd>
                 <dd>
                     <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
-                        <i class="iconfont">&#xe6b8;</i>在tab打开刷新</a></dd>
+                        <i class="iconfont">&#xe66a;</i>在tab打开刷新</a></dd>
             </dl>
         </li>
     </ul>
@@ -42,25 +42,26 @@
         <li class="layui-nav-item">
             <a href="javascript:;">
                 <i class="layui-icon">&#xe66a;</i>
-                <span>切换风格</span>
+                <span>切换配色</span>
             </a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
-                        <i class="layui-icon">&#xe6a2;</i>弹出最大化</a></dd>
+                    <a onclick="switchTheme('skyBlue')">
+                        <i class="layui-icon">&#xe66a;</i>淡蓝1</a>
+                </dd>
                 <dd>
-                    <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
-                        <i class="layui-icon">&#xe6a8;</i>弹出自动宽高</a></dd>
+                    <a onclick="switchTheme('paleBlue')">
+                        <i class="layui-icon">&#xe66a;</i>淡蓝2</a>
+                </dd>
                 <dd>
-                    <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
-                        <i class="layui-icon">&#xe6a8;</i>弹出指定宽高</a></dd>
+                    <a onclick="switchTheme('theme')">
+                        <i class="layui-icon">&#xe66a;</i>学院蓝</a>
+                </dd>
                 <dd>
-                    <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
-                        <i class="layui-icon">&#xe6b8;</i>在tab打开</a></dd>
-                <dd>
-                    <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
-                        <i class="layui-icon">&#xe6b8;</i>在tab打开刷新</a></dd>
+                    <a onclick="switchTheme('gradually')">
+                        <i class="layui-icon">&#xe66a;</i>渐变色</a>
+                </dd>
             </dl>
         </li>
     </ul>
@@ -76,11 +77,11 @@
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">管理员信息</a></dd>
+                    <a onclick="xadmin.open('管理员信息','http://www.baidu.com')">管理员信息</a></dd>
                 <dd>
-                    <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换管理员</a></dd>
+                    <a onclick="xadmin.open('切换管理员','http://www.baidu.com')">切换管理员</a></dd>
                 <dd>
-                    <a href="modules/login/login.html">退出系统</a></dd>
+                    <a onclick="signout()">退出系统</a></dd>
             </dl>
         </li>
     </ul>
@@ -93,12 +94,13 @@
             <li th:if="${session.loginAdmin.funcs != null}" th:each="func : ${session.loginAdmin.funcs}">
                 <a href="javascript:;">
                     <i class="layui-icon left-nav-li" lay-tips="会员管理" th:lay-tips="${func.funcName}" th:utext="${func.funcIcon}"></i>
-                    <cite th:text="${func.funcName}">会员管理</cite>
+                    <cite th:text="${func.funcName}"></cite>
                     <i class="layui-icon nav_right layui-icon-right"></i>
                 </a>
                 <ul class="sub-menu">
                     <li th:each="secFunc : ${func.functionList}">
-                        <a th:onclick="xadmin.add_tab(${secfunc.funcName}, ${secFunc.funcUrl})">
+                        <a th:attr="funcName=${secFunc.funcName},funcurl=${secFunc.funcUrl}"
+                           th:onclick="xadmin.add_tab(this.getAttribute('funcName'),this.getAttribute('funcurl'))">
                             <i class="layui-icon" th:utext="${secFunc.funcIcon}"></i>
                             <cite th:text="${secFunc.funcName}"></cite>
                         </a>

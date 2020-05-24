@@ -14,6 +14,8 @@ public class Admin {
 
     private Integer status;
 
+    private Integer sort;
+
     private String role;
 
     private String adminEmail;
@@ -22,13 +24,14 @@ public class Admin {
 
     private Date loginTime;
 
+    private String remark;
+
     private Date createTime;
 
     private Date updateTime;
 
-    private Integer sort;
+    private Long timestamp;
 
-    private String remark;
 
     public String getId() {
         return id;
@@ -134,6 +137,14 @@ public class Admin {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -142,14 +153,15 @@ public class Admin {
                 ", adminName='" + adminName + '\'' +
                 ", password='" + password + '\'' +
                 ", status=" + status +
+                ", sort=" + sort +
                 ", role='" + role + '\'' +
                 ", adminEmail='" + adminEmail + '\'' +
                 ", loginIp='" + loginIp + '\'' +
                 ", loginTime=" + loginTime +
+                ", remark='" + remark + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                ", sort=" + sort +
-                ", remark='" + remark + '\'' +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

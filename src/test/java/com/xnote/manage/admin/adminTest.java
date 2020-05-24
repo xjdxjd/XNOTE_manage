@@ -1,6 +1,8 @@
 package com.xnote.manage.admin;
 
+import com.xnote.manage.common.util.DateUtils;
 import com.xnote.manage.modules.admin.bean.Admin;
+import com.xnote.manage.modules.admin.service.AdminService;
 import com.xnote.manage.modules.function.bean.AdminFunction;
 import com.xnote.manage.modules.function.service.AdminFuncService;
 import com.xnote.manage.modules.login.bean.LoginAdmin;
@@ -25,12 +27,14 @@ public class adminTest {
     @Autowired
     private LoginService loginService;
     @Autowired
+    private AdminService adminService;
+    @Autowired
     private AdminRoleService adminRoleService;
     @Autowired
     private AdminFuncService adminFuncService;
 
     @Test
-    public void getAdminTest()
+    public void getLoginAdminTest()
     {
         String name = "sysadmin";
         Admin admin = loginService.getAdminByLoginName(name);
@@ -50,6 +54,7 @@ public class adminTest {
         System.out.println("role.roleName = "+role.getRoleName());
         System.out.println("==========================================");
     }
+
     @Test
     public void getAdminfuncTest()
     {
@@ -65,9 +70,46 @@ public class adminTest {
         }
         System.out.println("==========================================");
     }
-    @Test
-    public void test1()
-    {
 
+    @Test
+    public void getAdminListTest()
+    {
+        List<Admin> adminList = adminService.getAdminList();
+        System.out.println("==============================================================");
+        for (Admin admin : adminList) {
+            System.out.println("admin = "+admin.toString());
+        }
+        System.out.println("==============================================================");
+    }
+
+    @Test
+    public void getAdminByIdTest()
+    {
+        String id = "a86b8c50dece427b937c9b631738c468";
+        Admin admin = adminService.getAdminById(id);
+        System.out.println("==============================================================");
+        System.out.println("admin = "+admin.toString());
+        System.out.println("==============================================================");
+    }
+
+    @Test
+    public void insertAdminTest()
+    {
+        Admin admin = new Admin();
+        admin.setId("1ffe86b92d634cceb8398f0ae69ae5af");
+        admin.setLoginName("sss");
+        admin.setAdminName("sss");
+        admin.setPassword("ssssssssssssssssssssssssssssss");
+        admin.setStatus(-1);
+        admin.setSort(999);
+        admin.setRole("1ffe86b92d634cceb8398f0ae69ae5af");
+        admin.setAdminEmail("17393186817@163.com");
+        admin.setCreateTime(DateUtils.getCurrentDate());
+        admin.setUpdateTime(DateUtils.getCurrentDate());
+        admin.setTimestamp(DateUtils.getTimestamp());
+        int count = adminService.insertAdmin(admin);
+        System.out.println("==============================================================");
+        System.out.println("count = "+count);
+        System.out.println("==============================================================");
     }
 }
