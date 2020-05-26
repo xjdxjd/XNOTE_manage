@@ -53,7 +53,8 @@ public class XnoteWebMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/favicon.ico")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/verifyCode")
-                .excludePathPatterns("/login/**");
+                .excludePathPatterns("/login/**")
+                .excludePathPatterns("/error/**");
 
     }
 }

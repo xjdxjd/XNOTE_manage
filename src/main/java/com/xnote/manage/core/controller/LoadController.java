@@ -1,5 +1,6 @@
 package com.xnote.manage.core.controller;
 
+import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.common.util.LoginUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ public class LoadController {
 
     /**
      * @DESC:   登录页
-     * @methodName: loadIndexView
+     * @methodName: loadLoginView
      */
     @GetMapping("/login")
     public String loadLoginView(HttpServletRequest request, HttpServletResponse response){
@@ -37,8 +38,8 @@ public class LoadController {
     }
 
     /**
-     * @DESC:   主页
-     * @methodName: loadIndexView
+     * @DESC:   欢迎页
+     * @methodName: loadMainView
      */
     @GetMapping("/main")
     public String loadMainView(HttpServletRequest request, HttpServletResponse response){
@@ -73,4 +74,50 @@ public class LoadController {
 
         response.getOutputStream().flush();
     }
+
+    ////////////////////////////////////////////////////[ 管理员管理 ]////////////////////////////////////////////////////
+    /**
+     * @DESC:   管理员列表页面
+     * @methodName: loadAdminConfigListView
+     */
+    @GetMapping("admin/config/list")
+    public String loadAdminConfigListView()
+    {
+        System.out.println("ssssssssss");
+        return LoadPathConstant.ADMIN_CONFIG_PATH.getValue()+"list";
+    }
+
+    /**
+     * @DESC:   管理员列表页面
+     * @methodName: loadAdminRoleListView
+     */
+    @GetMapping("admin/role/list")
+    public String loadAdminRoleListView()
+    {
+        System.out.println("ssssssssss");
+        return LoadPathConstant.ADMIN_ROLE_PATH.getValue()+"list";
+    }
+
+    /**
+     * @DESC:   管理员列表页面
+     * @methodName: loadAdminAuthListView
+     */
+    @GetMapping("admin/auth/config")
+    public String loadAdminAuthListView()
+    {
+        System.out.println("ssssssssss");
+        return LoadPathConstant.ADMIN_AUTH_PATH.getValue()+"config";
+    }
+
+    /**
+     * @DESC:   管理员列表页面
+     * @methodName: loadAdminFuncListView
+     */
+    @GetMapping("admin/func/list")
+    public String loadAdminFuncListView()
+    {
+        System.out.println("ssssssssss");
+        return LoadPathConstant.ADMIN_FUNC_PATH.getValue()+"list";
+    }
+
 }

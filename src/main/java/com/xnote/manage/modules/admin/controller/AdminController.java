@@ -1,6 +1,7 @@
 package com.xnote.manage.modules.admin.controller;
 
 import com.xnote.manage.common.constant.ResultConstant;
+import com.xnote.manage.common.constant.admin.AdminConstant;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.admin.bean.Admin;
@@ -42,42 +43,50 @@ public class AdminController extends BaseController
         return result.success(ResultConstant.SELECT_SUCCESS_CODE, ResultConstant.SELECT_SUCCESS_MESSAGE,admins);
     }
 
+    /**
+     * @DESC:   根据管理员id获取管理员账号信息
+     * @methodName: getAdminById
+     */
     @GetMapping("/getAdmin/{id}")
     public Result getAdminById(@PathVariable("id") String id)
     {
         if(StringUtils.isEmpty(id))
         {
-            return result.failure(ResultConstant.ADMIN_SELECT_FAILD_CODE_1101, ResultConstant.ADMIN_SELECT_FAILD_MESSAGE_1101, null);
+            return result.failure(AdminConstant.ADMIN_SELECT_FAILD_CODE_1101, AdminConstant.ADMIN_SELECT_FAILD_MESSAGE_1101, null);
         }
 
         Admin admin = adminService.getAdminById(id);
         if(ObjectUtils.isEmpty(admin))
         {
-            return result.failure(ResultConstant.ADMIN_SELECT_FAILD_CODE_1102, ResultConstant.ADMIN_SELECT_FAILD_MESSAGE_1102, null);
+            return result.failure(AdminConstant.ADMIN_SELECT_FAILD_CODE_1102, AdminConstant.ADMIN_SELECT_FAILD_MESSAGE_1102, null);
         }
 
-        return result.success(ResultConstant.ADMIN_SELECT_SUCCESS_CODE, ResultConstant.ADMIN_SELECT_SUCCESS_MESSAGE, admin);
+        return result.success(AdminConstant.ADMIN_SELECT_SUCCESS_CODE, AdminConstant.ADMIN_SELECT_SUCCESS_MESSAGE, admin);
     }
 
+    /**
+     * @DESC:   添加管理员
+     * @methodName: insertAdmin
+     */
     @PutMapping("/add")
     public Result insertAdmin(Admin admin)
     {
         if(ObjectUtils.isEmpty(admin))
         {
-            return result.failure(ResultConstant.ADMIN_INSERT_FAILD_CODE_1201, ResultConstant.ADMIN_INSERT_FAILD_MESSAGE_1201);
+            return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1201, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1201);
         }
 
         int count = adminService.insertAdmin(admin);
         switch (count) {
             case 1202:
-                return result.failure(ResultConstant.ADMIN_INSERT_FAILD_CODE_1202, ResultConstant.ADMIN_INSERT_FAILD_MESSAGE_1202);
+                return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1202, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1202);
 
             case 1203:
-                return result.failure(ResultConstant.ADMIN_INSERT_FAILD_CODE_1203, ResultConstant.ADMIN_INSERT_FAILD_MESSAGE_1203);
+                return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1203, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1203);
 
             case 1204:
-                return result.failure(ResultConstant.ADMIN_INSERT_FAILD_CODE_1204, ResultConstant.ADMIN_INSERT_FAILD_MESSAGE_1204);
+                return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1204, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1204);
         }
-        return result.success(ResultConstant.ADMIN_INSERT_SUCCESS_CODE, ResultConstant.ADMIN_INSERT_SUCCESS_MESSAGE);
+        return result.success(AdminConstant.ADMIN_INSERT_SUCCESS_CODE, AdminConstant.ADMIN_INSERT_SUCCESS_MESSAGE);
     }
 }

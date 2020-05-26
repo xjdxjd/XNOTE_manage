@@ -2,6 +2,7 @@ package com.xnote.manage.modules.login.controller;
 
 import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.common.constant.ResultConstant;
+import com.xnote.manage.common.constant.login.LoginConstant;
 import com.xnote.manage.common.util.LoginUtils;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
@@ -31,10 +32,13 @@ public class LoginController extends BaseController {
 
     @Autowired
     private LoginService loginService;
+
     @Autowired
     private AdminRoleService adminRoleService;
+
     @Autowired
     private AdminFuncService adminFuncService;
+
     /**
      * @DESC:   登录功能
      * @methodName: signIn
@@ -49,38 +53,39 @@ public class LoginController extends BaseController {
         Admin admin = loginService.getAdminByLoginName(loginName);
         if(ObjectUtils.isEmpty(admin))
         {
-            return result.failure(ResultConstant.LOGIN_FAILD_CODE_1001, ResultConstant.LOGIN_FAILD_MESSAGE_1001, ResultConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1001, LoginConstant.LOGIN_FAILD_MESSAGE_1001, LoginConstant.LOGIN_FAILD_URL);
         }
+
         // 检查管理员账号状态
-        else if(!admin.getStatus().equals(CommonConstant.STATUS_NORMAL))
+        if(!admin.getStatus().equals(CommonConstant.STATUS_NORMAL.getInt()))
         {
-            return result.failure(ResultConstant.LOGIN_FAILD_CODE_1002, ResultConstant.LOGIN_FAILD_MESSAGE_1002, ResultConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1002, LoginConstant.LOGIN_FAILD_MESSAGE_1002, LoginConstant.LOGIN_FAILD_URL);
         }
 
         // 校验管理员密码
         String pwdEncrypt = LoginUtils.encrypt(password);
         if (StringUtils.isEmpty(pwdEncrypt) || pwdEncrypt.equals(admin.getPassword()))
         {
-            return result.failure(ResultConstant.LOGIN_FAILD_CODE_1003, ResultConstant.LOGIN_FAILD_MESSAGE_1003, ResultConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1003, LoginConstant.LOGIN_FAILD_MESSAGE_1003, LoginConstant.LOGIN_FAILD_URL);
         }
 
         // 校验验证码
         String code = (String) request.getSession().getAttribute("verifyCode");
         if(StringUtils.isEmpty(code) || !code.equals(verifyCode))
         {
-            return result.failure(ResultConstant.LOGIN_FAILD_CODE_1004, ResultConstant.LOGIN_FAILD_MESSAGE_1004, ResultConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1004, LoginConstant.LOGIN_FAILD_MESSAGE_1004, LoginConstant.LOGIN_FAILD_URL);
         }
 
         // 获取管理员角色
         AdminRole adminRole = adminRoleService.getRoleById(admin.getRole());
         if(ObjectUtils.isEmpty(adminRole))
         {
-            return result.failure(ResultConstant.LOGIN_FAILD_CODE_1005, ResultConstant.LOGIN_FAILD_MESSAGE_1005, ResultConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1005, LoginConstant.LOGIN_FAILD_MESSAGE_1005, LoginConstant.LOGIN_FAILD_URL);
         }
         // 检查管理员角色状态
-        else if(!adminRole.getRoleStatus().equals(CommonConstant.STATUS_NORMAL))
+        else if(!adminRole.getRoleStatus().equals(CommonConstant.STATUS_NORMAL.getInt()))
         {
-            return result.failure(ResultConstant.LOGIN_FAILD_CODE_1002, ResultConstant.LOGIN_FAILD_MESSAGE_1002, ResultConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1002, LoginConstant.LOGIN_FAILD_MESSAGE_1002, LoginConstant.LOGIN_FAILD_URL);
         }
 
         // 获取管理员功能权限
@@ -98,15 +103,18 @@ public class LoginController extends BaseController {
         LoginAdmin loginAdmin = new LoginAdmin(admin, adminRole, adminFunctions);
         request.getSession().setAttribute("loginAdmin",loginAdmin);
 
-        System.out.println(result.success(ResultConstant.LOGIN_SUCCESS_CODE, ResultConstant.LOGIN_SUCCESS_MESSAGE, ResultConstant.LOGIN_SUCCESS_URL));
-        return result.success(ResultConstant.LOGIN_SUCCESS_CODE, ResultConstant.LOGIN_SUCCESS_MESSAGE, ResultConstant.LOGIN_SUCCESS_URL);
+        System.out.println(result.success(LoginConstant.LOGIN_SUCCESS_CODE, LoginConstant.LOGIN_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL));
+        return result.success(LoginConstant.LOGIN_SUCCESS_CODE, LoginConstant.LOGIN_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL);
     }
-
+    /**
+     * @DESC:   退出登录
+     * @methodName: signOut
+     */
     @GetMapping("/signout")
     public Result signOut(HttpServletRequest request, HttpServletResponse response)
     {
         HttpSession session = request.getSession();
         session.invalidate();
-        return result.success(ResultConstant.LOGOUT_SUCCESS_CODE, ResultConstant.LOGOUT_SUCCESS_MESSAGE, ResultConstant.LOGIN_SUCCESS_URL);
+        return result.success(LoginConstant.LOGOUT_SUCCESS_CODE, LoginConstant.LOGOUT_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL);
     }
 }

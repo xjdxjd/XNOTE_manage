@@ -99,7 +99,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li th:each="secFunc : ${func.functionList}">
-                        <a th:attr="funcName=${secFunc.funcName},funcurl=${secFunc.funcUrl}"
+                        <a th:attr="funcName=${secFunc.funcName},funcurl=@{/}+${secFunc.funcUrl}"
                            th:onclick="xadmin.add_tab(this.getAttribute('funcName'),this.getAttribute('funcurl'))">
                             <i class="layui-icon" th:utext="${secFunc.funcIcon}"></i>
                             <cite th:text="${secFunc.funcName}"></cite>

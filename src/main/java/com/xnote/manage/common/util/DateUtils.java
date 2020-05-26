@@ -32,7 +32,7 @@ public class DateUtils {
      */
     public static String format(Date date)
     {
-        String dateString = new SimpleDateFormat(CommonConstant.DATE_FORMAT).format(date);
+        String dateString = new SimpleDateFormat(CommonConstant.DATE_FORMAT.getString()).format(date);
         return dateString;
     };
 

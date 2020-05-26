@@ -50,7 +50,7 @@ public class LoginServiceImpl implements LoginService
         admin.setTimestamp(DateUtils.getTimestamp());
 
         int count = adminMapper.updateLogin(admin);
-        if (count == CommonConstant.RESULT_FAILD_ZERO)
+        if (count == CommonConstant.RESULT_FAILD_ZERO.getInt())
         {
             isFaild = true;
         }

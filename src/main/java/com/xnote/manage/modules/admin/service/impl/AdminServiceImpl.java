@@ -1,7 +1,7 @@
 package com.xnote.manage.modules.admin.service.impl;
 
 import com.xnote.manage.common.constant.CommonConstant;
-import com.xnote.manage.common.constant.ResultConstant;
+import com.xnote.manage.common.constant.admin.AdminConstant;
 import com.xnote.manage.common.util.AdminUtils;
 import com.xnote.manage.modules.admin.bean.Admin;
 import com.xnote.manage.modules.admin.mapper.AdminMapper;
@@ -44,26 +44,25 @@ public class AdminServiceImpl implements AdminService
     public int insertAdmin(Admin admin)
     {
         int count = -1;
-//        NormalResult result = new NormalResult();
 
         boolean isEmpty = AdminUtils.isRequiredEmpty(admin);
         if(isEmpty)
         {
-            return count = ResultConstant.ADMIN_INSERT_FAILD_CODE_1202;
+            return count = AdminConstant.ADMIN_INSERT_FAILD_CODE_1202;
         }
 
         System.out.println(admin.toString());
 
         List<String> ids = adminMapper.isExsit(admin.getId(), admin.getLoginName());
-        if(CommonConstant.STATUS_NORMAL != ids.size())
+        if(CommonConstant.STATUS_NORMAL.getInt() != ids.size())
         {
-            return count = ResultConstant.ADMIN_INSERT_FAILD_CODE_1203;
+            return count = AdminConstant.ADMIN_INSERT_FAILD_CODE_1203;
         }
 
         count = adminMapper.insertAdmin(admin);
-        if(CommonConstant.RESULT_FAILD_ZERO == count)
+        if(CommonConstant.RESULT_FAILD_ZERO.getInt() == count)
         {
-            return count = ResultConstant.ADMIN_INSERT_FAILD_CODE_1204;
+            return count = AdminConstant.ADMIN_INSERT_FAILD_CODE_1204;
         }
         return count;
     }
