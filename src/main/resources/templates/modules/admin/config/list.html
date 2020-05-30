@@ -3,14 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
+    <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 </head>
 <body>
-aaa
+    <div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">管理员管理</a>
+            <a>
+              <cite>管理员配置</cite>
+            </a>
+          </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        </a>
+    </div>
+    <div id="s" class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <form class="layui-form">
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" name="loginName" lay-verify="" placeholder="请输入用户名"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" name="loginName" lay-verify="" placeholder="请输入管理员名称"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" name="loginName" lay-verify="" placeholder="请输入创建者名称"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" name="loginName" lay-verify="" placeholder="创建时间"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <select name="role" lay-verify="" lay-search>
+                                    <option value="-1">角色1</option>
+                                    <option value="-2">角色2</option>
+                                    <option value="-3">角色3</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <select name="status" lay-verify="" lay-search>
+                                    <option value="0">启用</option>
+                                    <option value="1">禁用</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <button class="layui-btn"  lay-submit="" lay-filter="sreach">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="layui-card-body">
+                        <table id="adminListTable" lay-filter="adminListTable" class="layui-table"></table>
+                        <script type="text/html" id="adminListTableTopbar">
+                            <div class="layui-btn-container">
+                                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+                                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+                                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                            </div>
+                        </script>
+                        <script type="text/html" id="adminListTableOperbar">
+                            <div class="layui-btn-container">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</button>
+                                <button class="layui-btn layui-btn-sm" lay-event="enable">启用</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="disable">禁用</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+                            </div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 
-<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
+<script type="text/javascript" src="/" th:src="@{/static/js/modules/admin/admin.js}"></script>
+<script>
+    var ROOT_PATH = '[[@{/}]]';
+    layui.use(['form','table'], function(){
+        var form = layui.form,
+            table = layui.table;
+
+        render(table, ROOT_PATH);
+    });
+</script>
 </html>

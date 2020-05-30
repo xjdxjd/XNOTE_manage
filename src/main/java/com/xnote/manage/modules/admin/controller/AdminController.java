@@ -6,6 +6,8 @@ import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.admin.bean.Admin;
 import com.xnote.manage.modules.admin.service.AdminService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -32,6 +34,7 @@ public class AdminController extends BaseController
      * @methodName: getAdminList
      */
     @GetMapping("/getAllAdmin")
+    @ApiOperation(value="获取管理员账号列表", notes="获取管理员账号列表，用于反显页面")
     public Result getAdminList(HttpServletRequest request, HttpServletResponse response)
     {
         List<Admin> admins = adminService.getAdminList();
@@ -48,6 +51,8 @@ public class AdminController extends BaseController
      * @methodName: getAdminById
      */
     @GetMapping("/getAdmin/{id}")
+    @ApiOperation(value="获取管理员账号信息", notes="根据管理员id查找管理员详细信息")
+    @ApiImplicitParam(name = "id", value = "管理员ID", required = true, dataType = "String")
     public Result getAdminById(@PathVariable("id") String id)
     {
         if(StringUtils.isEmpty(id))
@@ -69,6 +74,8 @@ public class AdminController extends BaseController
      * @methodName: insertAdmin
      */
     @PutMapping("/add")
+    @ApiOperation(value="添加管理员", notes="新建管理员")
+    @ApiImplicitParam(name = "admin", value = "管理员bean", required = true, dataType = "Admin")
     public Result insertAdmin(Admin admin)
     {
         if(ObjectUtils.isEmpty(admin))

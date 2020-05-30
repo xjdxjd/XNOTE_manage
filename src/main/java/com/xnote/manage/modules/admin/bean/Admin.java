@@ -26,12 +26,15 @@ public class Admin {
 
     private String remark;
 
+    private String creatorId;
+
+    private String creator;
+
     private Date createTime;
 
     private Date updateTime;
 
     private Long timestamp;
-
 
     public String getId() {
         return id;
@@ -145,6 +148,22 @@ public class Admin {
         this.timestamp = timestamp;
     }
 
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -159,6 +178,8 @@ public class Admin {
                 ", loginIp='" + loginIp + '\'' +
                 ", loginTime=" + loginTime +
                 ", remark='" + remark + '\'' +
+                ", creatorId='" + creatorId + '\'' +
+                ", creator='" + creator + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", timestamp=" + timestamp +

@@ -13,13 +13,15 @@
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="login_time" jdbcType="DATE" property="loginTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="DATE" property="createTime" />
     <result column="update_time" jdbcType="DATE" property="updateTime" />
     <result column="timestamp" jdbcType="DATE" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
     ADMIN_ID, LOGIN_NAME, ADMIN_NAME, PASSWORD, STATUS, SORT, ROLE, ADMIN_EMAIL, LOGIN_IP, LOGIN_TIME, REMARK,
-    CREATE_TIME, UPDATE_TIME, TIMESTAMP
+    CREATOR_ID, CREATOR, CREATE_TIME, UPDATE_TIME, TIMESTAMP
   </sql>
 
   <!-- 获取所有管理员账号信息 -->

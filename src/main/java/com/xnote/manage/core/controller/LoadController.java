@@ -83,40 +83,40 @@ public class LoadController {
     @GetMapping("admin/config/list")
     public String loadAdminConfigListView()
     {
-        System.out.println("ssssssssss");
+        System.out.println("管理员列表页面");
         return LoadPathConstant.ADMIN_CONFIG_PATH.getValue()+"list";
     }
 
     /**
-     * @DESC:   管理员列表页面
+     * @DESC:   管理员角色页面
      * @methodName: loadAdminRoleListView
      */
     @GetMapping("admin/role/list")
     public String loadAdminRoleListView()
     {
-        System.out.println("ssssssssss");
+        System.out.println("管理员角色页面");
         return LoadPathConstant.ADMIN_ROLE_PATH.getValue()+"list";
     }
 
     /**
-     * @DESC:   管理员列表页面
+     * @DESC:   管理员权限页面
      * @methodName: loadAdminAuthListView
      */
     @GetMapping("admin/auth/config")
     public String loadAdminAuthListView()
     {
-        System.out.println("ssssssssss");
+        System.out.println("管理员权限页面");
         return LoadPathConstant.ADMIN_AUTH_PATH.getValue()+"config";
     }
 
     /**
-     * @DESC:   管理员列表页面
+     * @DESC:   管理员功能页面
      * @methodName: loadAdminFuncListView
      */
     @GetMapping("admin/func/list")
     public String loadAdminFuncListView()
     {
-        System.out.println("ssssssssss");
+        System.out.println("管理员功能页面");
         return LoadPathConstant.ADMIN_FUNC_PATH.getValue()+"list";
     }
 
