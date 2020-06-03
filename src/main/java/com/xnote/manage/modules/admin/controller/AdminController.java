@@ -2,6 +2,7 @@ package com.xnote.manage.modules.admin.controller;
 
 import com.xnote.manage.common.constant.ResultConstant;
 import com.xnote.manage.common.constant.admin.AdminConstant;
+import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.admin.bean.Admin;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * @DESC:
+ * @DESC:   管理员操作控制器
  * @ClassName: AdminController
  */
 @RestController
@@ -69,6 +70,18 @@ public class AdminController extends BaseController
         return result.success(AdminConstant.ADMIN_SELECT_SUCCESS_CODE, AdminConstant.ADMIN_SELECT_SUCCESS_MESSAGE, admin);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @DESC:   管理员添加页面
+     * @methodName: loadAdminEditView
+     */
+    @GetMapping("admin/add")
+    public String loadAdminAddView()
+    {
+        System.out.println("管理员添加页面");
+        return LoadPathConstant.ADMIN_FUNC_PATH.getValue()+"add";
+    }
+
     /**
      * @DESC:   添加管理员
      * @methodName: insertAdmin
@@ -96,4 +109,6 @@ public class AdminController extends BaseController
         }
         return result.success(AdminConstant.ADMIN_INSERT_SUCCESS_CODE, AdminConstant.ADMIN_INSERT_SUCCESS_MESSAGE);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

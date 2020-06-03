@@ -28,7 +28,8 @@ public class XnoteSwaggerConfig
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.xnote.manage.modules"))
+                //.apis(RequestHandlerSelectors.basePackage("com.xnote.manage.moudles"))
+                .apis(RequestHandlerSelectors.basePackage("com.xnote.manage"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;
@@ -41,8 +42,6 @@ public class XnoteSwaggerConfig
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .title("XNOTE后台管理系统API文档")
-                .termsOfServiceUrl("http://localhost:9876/")
-                .license("Copyright 2017-2018 分享牛")
                 .version("1.0")
                 .build();
         return apiInfo;

@@ -54,7 +54,7 @@
                                 </select>
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <button class="layui-btn"  lay-submit="" lay-filter="sreach">
+                                <button type="button" class="layui-btn"  lay-submit="" lay-filter="sreach">
                                     <i class="layui-icon">&#xe615;</i>
                                 </button>
                             </div>
@@ -62,22 +62,33 @@
                     </div>
                     <div class="layui-card-body">
                         <table id="adminListTable" lay-filter="adminListTable" class="layui-table"></table>
-                        <script type="text/html" id="adminListTableTopbar">
-                            <div class="layui-btn-container">
-                                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-                            </div>
-                        </script>
-                        <script type="text/html" id="adminListTableOperbar">
-                            <div class="layui-btn-container">
-                                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</button>
-                                <button class="layui-btn layui-btn-sm" lay-event="enable">启用</button>
-                                <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="disable">禁用</button>
-                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
-                            </div>
-                        </script>
                     </div>
+                    <div class="" style="text-align: center; height: 30px; width: 100%;">
+                        <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
+                    </div>
+                    <script type="text/html" id="adminListTableTopbar">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                        </div>
+                    </script>
+                    <script type="text/html" id="adminListTableOperbar">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" lay-event="enable">启用</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="disable">禁用</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+                        </div>
+                    </script>
+                    <script type="text/html" id="creatorTPL">
+                        {{#  if(d.creator === '内置管理员'){ }}
+                        <span style="color: #355A8B;">{{ d.creator }}</span>
+                        {{#  } }}
+                        {{#  if(d.creator === '系统管理员'){ }}
+                        <span style="color: #33ABA0;">{{ d.creator }}</span>
+                        {{#  } }}
+                    </script>
                 </div>
             </div>
         </div>
@@ -90,11 +101,14 @@
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
 <script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
 <script type="text/javascript" src="/" th:src="@{/static/js/modules/admin/admin.js}"></script>
+<script type="text/javascript" src="/" th:src="@{/static/js/common/DateFormat.js}"></script>
 <script>
     var ROOT_PATH = '[[@{/}]]';
-    layui.use(['form','table'], function(){
+    layui.use(['form','table','util','layer'], function(){
         var form = layui.form,
-            table = layui.table;
+            table = layui.table,
+            util = layui.util,
+            layer = layui.layer;
 
         render(table, ROOT_PATH);
     });

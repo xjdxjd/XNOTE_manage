@@ -6,6 +6,8 @@ import com.xnote.manage.common.util.AdminUtils;
 import com.xnote.manage.modules.admin.bean.Admin;
 import com.xnote.manage.modules.admin.mapper.AdminMapper;
 import com.xnote.manage.modules.admin.service.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,12 +21,16 @@ import java.util.List;
 @Service("adminService")
 public class AdminServiceImpl implements AdminService
 {
+    private final static Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     @Resource
     private AdminMapper adminMapper;
 
     public List<Admin> getAdminList()
     {
         List<Admin> adminList = adminMapper.getAdminList();
+
+        logger.info("获取管理员列表");
         return adminList;
     }
 

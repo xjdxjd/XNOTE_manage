@@ -2,8 +2,11 @@ package com.xnote.manage.core.controller;
 
 import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.common.util.LoginUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -81,10 +84,22 @@ public class LoadController {
      * @methodName: loadAdminConfigListView
      */
     @GetMapping("admin/config/list")
+    @ApiOperation(value="管理员配置页面", notes="获取管理员账号列表页面")
     public String loadAdminConfigListView()
     {
         System.out.println("管理员列表页面");
         return LoadPathConstant.ADMIN_CONFIG_PATH.getValue()+"list";
+    }
+    /**
+     * @DESC:   管理员编辑页面
+     * @methodName: loadAdminEditView
+     */
+    @GetMapping("admin/details/{id}")
+    public String loadAdminDetailsView(Model model, @PathVariable("id") String id)
+    {
+        System.out.println("管理员编辑页面");
+        model.addAttribute("id",id);
+        return LoadPathConstant.ADMIN_CONFIG_PATH.getValue()+"details";
     }
 
     /**
@@ -119,5 +134,6 @@ public class LoadController {
         System.out.println("管理员功能页面");
         return LoadPathConstant.ADMIN_FUNC_PATH.getValue()+"list";
     }
+
 
 }

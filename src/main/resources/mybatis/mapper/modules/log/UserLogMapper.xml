@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnote.manage.modules.log.mapper.UserLogMapper">
+  <resultMap id="BaseResultMap" type="com.xnote.manage.modules.log.bean.UserLog">
+    <id column="logid" jdbcType="INTEGER" property="logid" />
+    <result column="loginName" jdbcType="VARCHAR" property="loginname" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="loginIP" jdbcType="VARCHAR" property="loginip" />
+    <result column="opeType" jdbcType="INTEGER" property="opetype" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    logid, loginName, userName, loginIP, opeType, operation, createDate, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xnote_log_user
+    where logid = #{logid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from xnote_log_user
+    where logid = #{logid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xnote.manage.modules.log.bean.UserLog">
+    insert into xnote_log_user (logid, loginName, userName, 
+      loginIP, opeType, operation, 
+      createDate, remark)
+    values (#{logid,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{loginip,jdbcType=VARCHAR}, #{opetype,jdbcType=INTEGER}, #{operation,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xnote.manage.modules.log.bean.UserLog">
+    insert into xnote_log_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        logid,
+      </if>
+      <if test="loginname != null">
+        loginName,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="loginip != null">
+        loginIP,
+      </if>
+      <if test="opetype != null">
+        opeType,
+      </if>
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null">
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="loginip != null">
+        #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="opetype != null">
+        #{opetype,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.log.bean.UserLog">
+    update xnote_log_user
+    <set>
+      <if test="loginname != null">
+        loginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="loginip != null">
+        loginIP = #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="opetype != null">
+        opeType = #{opetype,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.log.bean.UserLog">
+    update xnote_log_user
+    set loginName = #{loginname,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      loginIP = #{loginip,jdbcType=VARCHAR},
+      opeType = #{opetype,jdbcType=INTEGER},
+      operation = #{operation,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+</mapper>

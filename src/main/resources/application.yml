@@ -32,6 +32,10 @@ spring:
     servlet:
       content-type: text/html
 
+  # AOP配置
+  aop:
+    auto: true
+
   # 数据源配置
   datasource:
     username: root
@@ -86,6 +90,11 @@ xnote:
   video:
     rootPath: /video/
     suffix: .mp4
+
+logging:
+  config: logback.xml
+  level:
+    com.xnote.manage.modules.**.service.impl: trace
 ---
 
 spring:

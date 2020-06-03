@@ -1,10 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
 </head>
 <body>
-
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-sm12">
+            <form class="layui-form layui-form-pane">
+                <input type="hidden" name="id" value="" readonly="readonly">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <div class="layui-col-sm12">管理员帐号</div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">管理员帐号</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" name="loginName" value="">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">管理员名称</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" name="adminName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <div class="layui-col-sm12">管理员信息</div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">管理员角色</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" name="">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">帐号状态</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">管理员邮箱</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">管理员排序</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">登录IP</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">创建者名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="hidden" name="creatorId">
+                                    <input class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">创建时间</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-form-item">
+                            <div class="layui-col-sm9" style="color: #ffffff;">wasd</div>
+                            <div class="layui-col-sm3">
+                                <button class="layui-btn layui-btn-normal">
+                                    <i class="layui-icon">&#xe605;</i>确定
+                                </button>
+                                <button class="layui-btn layui-btn-primary">
+                                    <i class="layui-icon">&#xe666;</i>返回
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
+<script type="text/javascript" src="/" th:src="@{/static/js/modules/admin/admin.js}"></script>
 </html>
