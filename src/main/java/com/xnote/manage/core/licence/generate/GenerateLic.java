@@ -1,7 +1,7 @@
-package com.xnote.manage.modules.licence.generate;
+package com.xnote.manage.core.licence.generate;
 
-import com.xnote.manage.modules.licence.bean.Licence;
-import com.xnote.manage.modules.licence.util.AESUtils;
+import com.xnote.manage.core.licence.bean.Licence;
+import com.xnote.manage.core.licence.util.AESUtils;
 
 /**
  * @DESC:   生成许可

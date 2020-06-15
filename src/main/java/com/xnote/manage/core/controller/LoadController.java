@@ -135,5 +135,14 @@ public class LoadController {
         return LoadPathConstant.ADMIN_FUNC_PATH.getValue()+"list";
     }
 
-
+    ///////////////////////////////////////////////////[ 加载许可界面 ]////////////////////////////////////////////////////
+    /**
+     * @DESC:   加载许可界面
+     * @methodName: loadLicenceView
+     */
+    @GetMapping("lic/licence")
+    public String loadLicenceView()
+    {
+        return LoadPathConstant.LICENCE_PATH.getValue()+"licence";
+    }
 }

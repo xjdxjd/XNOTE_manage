@@ -11,7 +11,7 @@
     <!--  LINUX  -->
     <!--
     <property name="FILE_PATH"
-    value="D:/logs/course03/demo.%d{yyyy-MM- dd}.%i.log" />
+    value="/usr/local/server/XNOTE_spring-boot/logs/manage_log/manage_%d{yyyy-MM- dd}(%i).log" />
     -->
 
     <!--  定义控制台输出  -->

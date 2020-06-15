@@ -1,4 +1,4 @@
-package com.xnote.manage.modules.licence.util;
+package com.xnote.manage.core.licence.util;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;

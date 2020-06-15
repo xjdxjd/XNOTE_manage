@@ -1,8 +1,8 @@
-package com.xnote.manage.modules.licence;
+package com.xnote.manage.core.licence;
 
-import com.xnote.manage.modules.licence.bean.Licence;
-import com.xnote.manage.modules.licence.generate.GenerateLic;
-import com.xnote.manage.modules.licence.util.LicenceUtils;
+import com.xnote.manage.core.licence.bean.Licence;
+import com.xnote.manage.core.licence.generate.GenerateLic;
+import com.xnote.manage.core.licence.util.LicenceUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

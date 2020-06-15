@@ -110,5 +110,12 @@ public class AdminController extends BaseController
         return result.success(AdminConstant.ADMIN_INSERT_SUCCESS_CODE, AdminConstant.ADMIN_INSERT_SUCCESS_MESSAGE);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @PostMapping("/update")
+    @ApiOperation(value = "管理员信息更新", notes = "更新管理员")
+    @ApiImplicitParam(name = "admin", value = "管理员bean", required = true, dataType = "Admin")
+    public Result updateAdmin(Admin admin)
+    {
+
+        return result.success();
+    }
 }

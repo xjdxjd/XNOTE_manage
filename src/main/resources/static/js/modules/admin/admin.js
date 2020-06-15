@@ -127,7 +127,15 @@ function render(table, path)
         }
     });
 
-    function start() {
-
-    }
 }
+
+//  表单状态改为可写
+$('#writeable').click(function() {
+    $('#edit').removeClass("layui-btn-disabled");
+    $('.writeabled').removeAttr('readonly');
+});
+
+//  提交表单
+$('#edit').click(function(){
+
+});

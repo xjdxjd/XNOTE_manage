@@ -15,7 +15,7 @@
                         <div class="layui-card-header">
                             <div class="layui-col-sm11">管理员帐号</div>
                             <div class="layui-col-sm1">
-                                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal">
+                                <button id="writeable" type="button" class="layui-btn layui-btn-sm layui-btn-normal">
                                     <i class="layui-icon">&#xe642;</i>修改信息
                                 </button>
                             </div>
@@ -25,13 +25,13 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">管理员帐号</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="loginName" lay-filter="loginName">
+                                        <input class="layui-input writeabled" name="loginName" lay-filter="loginName" readonly="true">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">管理员名称</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="adminName" lay-filter="adminName">
+                                        <input class="layui-input writeabled" name="adminName" lay-filter="adminName" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -46,13 +46,13 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">管理员角色</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="role" lay-filter="role">
+                                        <input class="layui-input writeabled" name="role" lay-filter="role" readonly="true">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">帐号状态</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="status" lay-filter="status">
+                                        <input class="layui-input writeabled" name="status" lay-filter="status" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +60,13 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">管理员邮箱</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="adminEmail" lay-filter="adminEmail">
+                                        <input class="layui-input writeabled" name="adminEmail" lay-filter="adminEmail" readonly="true">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">管理员排序</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="sort" lay-filter="sort">
+                                        <input class="layui-input writeabled" name="sort" lay-filter="sort" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">登录IP</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="loginIp" lay-filter="loginIp">
+                                        <input class="layui-input writeabled" name="loginIp" lay-filter="loginIp" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -82,14 +82,14 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">创建者名称</label>
                                     <div class="layui-input-inline">
-                                        <input type="hidden" name="creatorId" lay-filter="creatorId">
-                                        <input class="layui-input" name="creator" lay-filter="creator">
+                                        <input type="hidden" name="creatorId" lay-filter="creatorId" readonly="true">
+                                        <input class="layui-input writeabled" name="creator" lay-filter="creator" readonly="true">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">创建时间</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" name="createTime" lay-filter="createTime">
+                                        <input class="layui-input writeabled" name="createTime" lay-filter="createTime" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">备注</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="请输入内容" class="layui-textarea" name="remark" lay-filter="remark"></textarea>
+                                    <textarea placeholder="请输入内容" class="layui-textarea writeabled" name="remark" lay-filter="remark" readonly="true"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -110,10 +110,10 @@
                             <div class="layui-form-item">
                                 <div class="layui-col-sm9" style="color: #ffffff;">wasd</div>
                                 <div class="layui-col-sm3">
-                                    <button type="button" class="layui-btn layui-btn-normal">
+                                    <button id="edit" lay-submit layui-filter="update" type="button" class="layui-btn layui-btn-normal layui-btn-disabled">
                                         <i class="layui-icon">&#xe605;</i>确定
                                     </button>
-                                    <button type="button" class="layui-btn layui-btn-primary">
+                                    <button id="reset" layui-filter="reset" type="reset" class="layui-btn layui-btn-primary">
                                         <i class="layui-icon">&#xe666;</i>返回
                                     </button>
                                 </div>
@@ -139,13 +139,11 @@
         var form = layui.form,
             layer = layui.layer;
 
-        var details;
         $.get({
             url: ROOT_PATH+'admin/getAdmin/'+$('input[name="id"]').val(),
             dataType: 'json',
             success: function(res){
                 if(res.code == 0){
-                    layer.msg(res.message)
                     form.val('adminDetailsForm',{
                         'loginName': res.data.loginName,
                         'adminName': res.data.adminName,
@@ -160,12 +158,27 @@
                         'remark': res.data.remark
                     });
                 }else{
-                    layer.msg(res.message)
+                    layer.msg(res.message);
                 }
             },
             error: function(res){
-                layer.msg(res.message)
+                layer.msg(res.message);
             }
+        });
+
+        form.on('submit(update)', function(data){
+            alert(JSON.stringify(data.field));
+            $.post({
+                url: ROOT_PATH+'admin/update',
+                dataType: 'json',
+                success: function(res){
+
+                },
+                error: function(res){
+
+                }
+            });
+            return false;
         });
     });
 </script>

@@ -1,4 +1,4 @@
-package com.xnote.manage.modules.licence.util;
+package com.xnote.manage.core.licence.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

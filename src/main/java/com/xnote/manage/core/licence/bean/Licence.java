@@ -1,4 +1,4 @@
-package com.xnote.manage.modules.licence.bean;
+package com.xnote.manage.core.licence.bean;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -15,7 +15,7 @@ public class Licence
     private String machinCode;
     // ip地址
     private String ipAddr;
-    // 时长
+    // 许可期限
     private Integer duration;
     // 创建时间
     private Date createTime;
