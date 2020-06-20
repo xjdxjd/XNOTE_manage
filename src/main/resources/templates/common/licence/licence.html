@@ -29,23 +29,24 @@
             <div class="lic-content">
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">产品密钥：</label>
-                    <span class="layui-col-sm10">ssss</span>
+                    <span class="layui-col-sm10" th:text="${application.licence.machinCode}">.machinCode ssss</span>
                 </div>
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">IP 地址：</label>
-                    <span class="layui-col-sm10">ssss</span>
+                    <span class="layui-col-sm10" th:text="${application.licence.ipAddr}">.ipAddr ssss</span>
                 </div>
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">创建时间：</label>
-                    <span class="layui-col-sm10">ssss</span>
+                    <span class="layui-col-sm10" th:text="${#dates.format(application.licence.createTime,'yyyy-MM-dd')}"> .createTime ssss</span>
                 </div>
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">许可期限：</label>
-                    <span class="layui-col-sm10">ssss</span>
+                    <span class="layui-col-sm10" style="color: #1e9fff"
+                          th:text="${application.licence.duration + ' 天'}">.duration ssss</span>
                 </div>
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">到期时间：</label>
-                    <span class="layui-col-sm10">ssss</span>
+                    <span class="layui-col-sm10" th:text="${#dates.format(application.licence.expiresTime,'yyyy-MM-dd')}"> ssss</span>
                 </div>
             </div>
             <div class="">

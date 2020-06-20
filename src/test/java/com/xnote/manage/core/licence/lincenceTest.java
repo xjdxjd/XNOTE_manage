@@ -2,12 +2,16 @@ package com.xnote.manage.core.licence;
 
 import com.xnote.manage.core.licence.bean.Licence;
 import com.xnote.manage.core.licence.generate.GenerateLic;
+import com.xnote.manage.core.licence.service.LicenceService;
 import com.xnote.manage.core.licence.util.LicenceUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -18,6 +22,11 @@ import java.util.Date;
 @SpringBootTest
 public class lincenceTest
 {
+    @Value("${licence.path}")
+    private String licencePath;
+    @Autowired
+    private LicenceService licenceService;
+
     @Test
     public void getLicence()
     {
@@ -34,5 +43,14 @@ public class lincenceTest
 
         Licence licence1 = GenerateLic.decodeLicence(lic);
         System.out.println(licence1.toString());
+    }
+
+    @Test
+    public void getLicence1() throws IOException {
+
+
+        System.out.println("path = " + licencePath);
+        Licence localLicence = licenceService.getLocalLicence(licencePath);
+        System.out.println(localLicence);
     }
 }

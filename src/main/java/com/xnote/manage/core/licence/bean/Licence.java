@@ -108,6 +108,7 @@ public class Licence
         }
         catch (ParseException e){
             e.printStackTrace();
+            return null;
         }
         return licence;
     }

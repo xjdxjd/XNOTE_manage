@@ -3,6 +3,7 @@ package com.xnote.manage.core.listener;
 import com.xnote.manage.modules.system.bean.SysConfig;
 import com.xnote.manage.modules.system.service.SystemService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.Map;
  * @DESC:   加载系统配置项
  * @ClassName: SystemListener
  */
+@Component(value = "systemListener")
 public class SystemListener implements HttpSessionListener
 {
 

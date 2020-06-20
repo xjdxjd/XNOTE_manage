@@ -2,6 +2,8 @@
 ###############################################
 ##                 项目设置                   ##
 ###############################################
+licence:
+  path: /licence/licence.lic
 
 server:
   servlet:
@@ -13,7 +15,8 @@ server:
 spring:
   profiles:
     active: dev
-
+  main:
+    allow-bean-definition-overriding: true
   # 项目静态资源路径
   mvc:
     static-path-pattern: /static/**
