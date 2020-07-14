@@ -1,4 +1,4 @@
-function render(table, path)
+function tableRender(table, path)
 {
     table.render({
         id: 'adminListTable',
@@ -49,93 +49,285 @@ function render(table, path)
     table.on('tool(adminListTable)', function (d) {
         var data = d.data;
         switch (d.event) {
-            case 'enable':
-                if(data.status == 0)
-                {
-                   layer.msg("管理员"+data.loginName+"已启用，已取消此操作！");
-                }else{
-                    layer.confirm('是否启用管理员 '+data.loginName,{
-                        title: '启用管理员'
-                        ,btn: ['启用','返回']
-                    }, function(){
-                        $.post({
-                            url: ROOT_PATH+'admin/getAdmin/'+data.id
-                            ,dataType: 'JSON'
-                            ,success: function(res){
-                                if(res.code == 0){
-                                    layer.msg(res.message);
-                                    table.reload('adminTable', {
-                                        url: '${req.contextPath}/adminManage/getAdminList'
-                                        ,page: {curr: 1}
-                                    });
-                                }else{
-                                    layer.msg(res.message);
-                                }
-                            }
-                        });
-                    }, function(){
-                        return;
-                    });
-                }
-                break;
-
-            case 'disable':
-                if(data.status != 0)
-                {
-                    layer.msg("管理员"+data.loginName+"已禁用，已取消此操作！");
-                }else{
-                    layer.confirm('是否禁用管理员 '+data.loginName,{
-                        title: '禁用管理员'
-                        ,btn: ['禁用','返回']
-                    }, function(){
-                        $.post({
-                            url: ROOT_PATH+'admin/getAdmin/'+data.id
-                            ,dataType: 'JSON'
-                            ,success: function(res)
-                            {
-                                if(res.code == 0){
-                                    layer.msg(res.message);
-                                    table.reload('adminTable', {
-                                        url: '${req.contextPath}/adminManage/getAdminList'
-                                        ,page: {curr: 1}
-                                    });
-                                }else{
-                                    layer.msg(res.message);
-                                }
-                            }
-                        });
-                    }, function(){
-                        return;
-                    });
-                }
-                break;
-
-            case 'edit':
-                layer.open({
-                    type: 2,
-                    title: '管理员信息',
-                    area: ['1080px', '780px'],
-                    fixed: false,
-                    maxmin: true,
-                    content: ROOT_PATH+'admin/details/'+data.id
-                });
-                break;
-
-            case 'del':
-
-                break;
+            case 'enable': enableAdmin(data, path, table); break;
+            case 'disable': disableAdmin(data, path, table); break;
+            case 'edit': editAdmin(data, path, table); break;
+            case 'del': delAdmin(data, path, table); break;
         }
     });
 
+    table.on('toolbar(adminListTable)', function (ope) {
+
+        switch (ope.event) {
+            case 'addAdmin': addAdmin(path, table); break;
+        }
+    });
 }
 
-//  表单状态改为可写
-$('#writeable').click(function() {
-    $('#edit').removeClass("layui-btn-disabled");
-    $('.writeabled').removeAttr('readonly');
-});
+function loadData(form, path)
+{
+    $.get({
+        url: path+'admin/getAdmin/'+$('input[name="id"]').val(),
+        dataType: 'json',
+        success: function(res){
+            if(res.code == 0){
+                form.val('adminDetailsForm',{
+                    'loginName': res.data.loginName,
+                    'adminName': res.data.adminName,
+                    'role': res.data.role,
+                    'roleName': res.data.roleName,
+                    'status': res.data.status,
+                    'adminEmail': res.data.adminEmail,
+                    'sort': res.data.sort,
+                    'loginIp': res.data.loginIp,
+                    'creatorId': res.data.creatorId,
+                    'creator': res.data.creator,
+                    'createTime': res.data.createTime,
+                    'remark': res.data.remark
+                });
+                $("input[name='status']").each(function(){
+                   if($(this).val() == res.data.status){
+                       $(this).attr("checked","checked");
+                   }
+                });
+            }else{
+                layer.msg(res.message);
+            }
+        },
+        error: function(res){
+            layer.msg(res.message);
+        }
+    });
+}
 
-//  提交表单
-$('#edit').click(function(){
+function addAdmin(path, table)
+{
+    var aPath = path, atable = table;
+    var edit = '<i class="layui-icon">&#xe605;</i>提交',
+        waive = '<i class="layui-icon">&#x1006;</i>返回';
 
-});
+    layer.open({
+        type: 2,
+        title: '添加管理员账号',
+        area: ['1080px', '780px'],
+        offset: 'auto',
+        btnAlign: 'r',
+        fixed: false,
+        maxmin: true,
+        shadeClose: true,
+        content: path+'admin/view/add',
+        btn: [edit, waive],
+        yes: function(index, layero){
+            var iframeWin = window[layero.find('iframe')[0]['name']];
+            var addAdminForm = iframeWin.document.getElementById('addAdminForm');
+            var dataArray = $(addAdminForm).serializeArray(), datas = {};
+            $.each(dataArray, function(){
+                datas[this.name] = this.value;
+            });
+            console.log(datas);
+
+            $.ajax({
+                url: aPath + 'admin/add',
+                type: 'PUT',
+                dataType: 'JSON',
+                data: {
+                    'formData': JSON.stringify(datas),
+                    '_csrf': $(iframeWin.document.getElementsByName("_csrf")).attr("content"),
+                    '_csrf_header': $(iframeWin.document.getElementsByName("_csrf_header")).attr("content"),
+                    '_': new Date().getTime()
+                },
+                success: function(res){
+                    if(res.code == 0){
+                        layer.msg(res.message);
+                        atable.reload('adminListTable', {
+                            url: path+"admin/getAllAdmin"
+                            ,page: {curr: 1}
+                        });
+                    }else{
+                        layer.msg(res.message);
+
+                    }
+                },
+                error: function(res){
+                    layer.msg(res.message);
+                }
+            })
+            return false;
+        },
+        btn2: function(index, layero){
+        }
+    });
+};
+
+function enableAdmin(data, path, table)
+{
+    if(data.status == 0)
+    {
+        layer.msg("管理员"+data.loginName+"已启用，已取消此操作！");
+    }else{
+        layer.confirm('是否启用管理员 '+data.loginName,{
+            title: '启用管理员'
+            ,btn: ['启用','返回']
+        }, function(){
+            $.post({
+                url: path+'admin/enable'
+                ,dataType: 'JSON'
+                ,data: {
+                    'id': data.id,
+                    '_csrf': $("meta[name = '_csrf']").attr("content"),
+                    '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                    '_': new Date().getTime()
+                }
+                ,success: function(res){
+                    if(res.code == 0){
+                        layer.msg(res.message);
+                        table.reload('adminListTable', {
+                            url: path+"admin/getAllAdmin"
+                            ,page: {curr: 1}
+                        });
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            });
+        }, function(){
+            return;
+        });
+    }
+};
+
+function disableAdmin(data, path, table)
+{
+    if(data.status != 0)
+    {
+        layer.msg("管理员"+data.loginName+"已禁用，已取消此操作！");
+    }else{
+        layer.confirm('是否禁用管理员 '+data.loginName,{
+            title: '禁用管理员'
+            ,btn: ['禁用','返回']
+        }, function(){
+            var csrf = $("meta[name = '_csrf']").attr("content");
+            $.post({
+                url: path+'admin/disable'
+                ,dataType: 'JSON'
+                ,data: {
+                    'id': data.id,
+                    '_csrf': $("meta[name = '_csrf']").attr("content"),
+                    '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                    '_': new Date().getTime()
+                }
+                ,success: function(res)
+                {
+                    if(res.code == 0){
+                        layer.msg(res.message);
+                        table.reload('adminListTable', {
+                            url: path+"admin/getAllAdmin"
+                            ,page: {curr: 1}
+                        });
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            });
+        }, function(){
+            return;
+        });
+    }
+};
+
+function editAdmin(data, path, table)
+{
+    var aPath = path, atable = table;
+    var edit = '<i class="layui-icon">&#xe605;</i>提交',
+        waive = '<i class="layui-icon">&#x1006;</i>返回';
+
+    layer.open({
+        type: 2,
+        title: '管理员信息',
+        area: ['1080px', '780px'],
+        offset: 'auto',
+        btnAlign: 'r',
+        fixed: false,
+        maxmin: true,
+        shadeClose: true,
+        content: path+'admin/view/details/'+data.id,
+        btn: [edit, waive],
+        yes: function(index, layero){
+            var iframeWin = window[layero.find('iframe')[0]['name']];
+            var adminDetailsForm = iframeWin.document.getElementById("adminDetailsForm");
+            var dataArray = $(adminDetailsForm).serializeArray(), datas = {};
+            $.each(dataArray, function(){
+                datas[this.name] = this.value;
+            });
+
+            $.post({
+                url: aPath + 'admin/update',
+                dataType: 'JSON',
+                data: {
+                    'formData': JSON.stringify(datas),
+                    '_csrf': $(iframeWin.document.getElementsByName("_csrf")).attr("content"),
+                    '_csrf_header': $(iframeWin.document.getElementsByName("_csrf_header")).attr("content"),
+                    '_': new Date().getTime()
+                },
+                success: function(res){
+                    if(res.code == 0){
+                        layer.msg(res.message);
+                        atable.reload('adminListTable', {
+                            url: path+"admin/getAllAdmin"
+                            ,page: {curr: 1}
+                        });
+                    }else{
+                        layer.msg(res.message);
+
+                    }
+                },
+                error: function(res){
+                    layer.msg(res.message);
+                }
+            })
+            return false;
+        },
+        btn2: function(index, layero){
+        }
+    });
+};
+
+function delAdmin(data, path, table)
+{
+    var aData = data, aPath = path, atable = table;
+
+    layer.prompt({
+        formType: 1,
+        title: '请输入登录密码',
+        maxlength: 20
+    },function(value, index, layero){
+
+        var uri = aPath+'admin/delete/' + value+ '/' + aData.id;
+        $.ajax({
+            url: uri,
+            type: 'DELETE',
+            dataType: 'json',
+            data: {
+                '_csrf': $("meta[name = '_csrf']").attr("content"),
+                '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                '_': new Date().getTime()
+            },
+            success: function(res){
+                if(res.code == 0){
+                    layer.msg(res.message);
+                    atable.reload('adminListTable', {
+                        url: path+"admin/getAllAdmin"
+                        ,page: {curr: 1}
+                    });
+                }else{
+                    layer.msg(res.message);
+                }
+            },
+            error: function(res){
+                layer.msg(res.message);
+            }
+        });
+    });
+/*
+    */
+};

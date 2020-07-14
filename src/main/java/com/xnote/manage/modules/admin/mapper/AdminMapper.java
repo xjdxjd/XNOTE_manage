@@ -33,8 +33,8 @@ public interface AdminMapper
     public int updateLogin(Admin admin);
 
     /**
-     * @DESC:   添加管理员
-     * @methodName: insertAdmin
+     * @DESC:   管理员是否存在
+     * @methodName: isExsit
      */
     public List<String> isExsit(String id, String loginName);
 
@@ -44,8 +44,23 @@ public interface AdminMapper
      */
     public Integer insertAdmin(Admin admin);
 
+    /**
+     * @DESC:   更新管理员
+     * @methodName: updateAdmin
+     */
+    public int updateAdmin(Admin admin);
 
+    /**
+     * @DESC:   删除管理员
+     * @methodName: deleteAdmin
+     */
+    public int deleteAdmin(String id);
 
+    /**
+     * @DESC:   改变管理员状态
+     * @methodName: changeAdminStatus
+     */
+    public void changeAdminStatus(Admin admin);
 
 
 
@@ -58,6 +73,5 @@ public interface AdminMapper
     public int updateByPrimaryKeySelective(Admin record);
 
     public int updateByPrimaryKey(Admin record);
-
 
 }

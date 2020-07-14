@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
     <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
 </head>
@@ -9,8 +12,7 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-col-sm12">
-            <form class="layui-form layui-form-pane">
-                <input type="hidden" name="id" value="" readonly="readonly">
+            <form class="layui-form layui-form-pane" id="addAdminForm" lay-filter="addAdminForm">
                 <div class="layui-card">
                     <div class="layui-card-header">
                         <div class="layui-col-sm12">管理员帐号</div>
@@ -39,15 +41,10 @@
                     <div class="layui-card-body">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">管理员角色</label>
-                                <div class="layui-input-inline">
-                                    <input class="layui-input" name="">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
                                 <label class="layui-form-label">帐号状态</label>
                                 <div class="layui-input-inline">
-                                    <input class="layui-input">
+                                    <input type="radio" name="status" value="0" title="启用" checked>
+                                    <input type="radio" name="status" value="1" title="禁用" >
                                 </div>
                             </div>
                         </div>
@@ -55,36 +52,13 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">管理员邮箱</label>
                                 <div class="layui-input-inline">
-                                    <input class="layui-input">
+                                    <input class="layui-input" name="adminEmail" lay-filter="adminEmail">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">管理员排序</label>
                                 <div class="layui-input-inline">
-                                    <input class="layui-input">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">登录IP</label>
-                                <div class="layui-input-inline">
-                                    <input class="layui-input">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">创建者名称</label>
-                                <div class="layui-input-inline">
-                                    <input type="hidden" name="creatorId">
-                                    <input class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">创建时间</label>
-                                <div class="layui-input-inline">
-                                    <input class="layui-input">
+                                    <input class="layui-input" name="sort" lay-filter="sort">
                                 </div>
                             </div>
                         </div>
@@ -96,21 +70,6 @@
                             <label class="layui-form-label">备注</label>
                             <div class="layui-input-block">
                                 <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-form-item">
-                            <div class="layui-col-sm9" style="color: #ffffff;">wasd</div>
-                            <div class="layui-col-sm3">
-                                <button class="layui-btn layui-btn-normal">
-                                    <i class="layui-icon">&#xe605;</i>确定
-                                </button>
-                                <button class="layui-btn layui-btn-primary">
-                                    <i class="layui-icon">&#xe666;</i>返回
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -128,4 +87,11 @@
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
 <script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
 <script type="text/javascript" src="/" th:src="@{/static/js/modules/admin/admin.js}"></script>
+<script>
+    var ROOT_PATH = '[[@{/}]]';
+    layui.use(['form','layer'], function(){
+        var form = layui.form,
+            layer = layui.layer;
+    });
+</script>
 </html>

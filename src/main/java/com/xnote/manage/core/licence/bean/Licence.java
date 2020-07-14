@@ -21,6 +21,8 @@ public class Licence
     private Date createTime;
     // 到期时间
     private Date expiresTime;
+    // 剩余几天
+    private Integer residue;
 
     public Licence() {
     }
@@ -71,6 +73,14 @@ public class Licence
 
     public void setExpiresTime(Date expiresTime) {
         this.expiresTime = expiresTime;
+    }
+
+    public Integer getResidue() {
+        return residue;
+    }
+
+    public void setResidue(Integer residue) {
+        this.residue = residue;
     }
 
     @Override

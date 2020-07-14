@@ -26,7 +26,16 @@
                     <span class="">X-NOTE V1.0</span>
                 </div>
             </div>
-            <div class="lic-content">
+            <div class="lic-content" th:if="${application.licence} == null">
+                <div class="layui-input-block">
+                    <span class="layui-col-sm10" style="color: #bd2c00;" th:text="${application.licMessage}"></span>
+                </div>
+                <div class="layui-input-block">
+                    <label class="layui-col-sm2">产品密钥：</label>
+                    <span class="layui-col-sm10" th:text="${application.machinCode}">.machinCode ssss</span>
+                </div>
+            </div>
+            <div class="lic-content" th:if="${application.licence} != null">
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">产品密钥：</label>
                     <span class="layui-col-sm10" th:text="${application.licence.machinCode}">.machinCode ssss</span>
@@ -41,12 +50,18 @@
                 </div>
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">许可期限：</label>
-                    <span class="layui-col-sm10" style="color: #1e9fff"
-                          th:text="${application.licence.duration + ' 天'}">.duration ssss</span>
+                    <span class="layui-col-sm10" style="color: #1e9fff;" th:text="${application.licence.duration + ' 年'}"></span>
                 </div>
                 <div class="layui-input-block">
                     <label class="layui-col-sm2">到期时间：</label>
                     <span class="layui-col-sm10" th:text="${#dates.format(application.licence.expiresTime,'yyyy-MM-dd')}"> ssss</span>
+                </div>
+                <div class="layui-input-block">
+                    <label class="layui-col-sm2">剩余天数：</label>
+                    <span class="layui-col-sm10" th:if="${application.licence.residue > 0}"
+                          style="color: #1e9fff;" th:text="'剩余 ' + ${application.licence.residue + ' 天'}"></span>
+                    <span class="layui-col-sm10" th:if="${application.licence.residue < 0}"
+                          style="color: #bd2c00;" th:text="'已过期 ' + ${-(application.licence.residue) + ' 天'}"></span>
                 </div>
             </div>
             <div class="">

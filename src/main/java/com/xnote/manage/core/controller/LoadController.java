@@ -94,12 +94,22 @@ public class LoadController {
      * @DESC:   管理员编辑页面
      * @methodName: loadAdminEditView
      */
-    @GetMapping("admin/details/{id}")
+    @GetMapping("admin/view/details/{id}")
     public String loadAdminDetailsView(Model model, @PathVariable("id") String id)
     {
         System.out.println("管理员编辑页面");
         model.addAttribute("id",id);
         return LoadPathConstant.ADMIN_CONFIG_PATH.getValue()+"details";
+    }
+    /**
+     * @DESC:   管理员添加页面
+     * @methodName: loadAdminEditView
+     */
+    @GetMapping("admin/view/add")
+    public String loadAdminAddView()
+    {
+        System.out.println("管理员添加页面");
+        return LoadPathConstant.ADMIN_CONFIG_PATH.getValue()+"add";
     }
 
     /**

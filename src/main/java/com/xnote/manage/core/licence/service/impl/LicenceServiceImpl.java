@@ -1,8 +1,12 @@
 package com.xnote.manage.core.licence.service.impl;
 
+import com.xnote.manage.core.exception.LicenceFileNotFoundException;
 import com.xnote.manage.core.licence.bean.Licence;
 import com.xnote.manage.core.licence.generate.GenerateLic;
 import com.xnote.manage.core.licence.service.LicenceService;
+import com.xnote.manage.modules.log.bean.ManageLog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -17,9 +21,12 @@ import java.io.*;
 @Service("licenceService")
 public class LicenceServiceImpl implements LicenceService
 {
+    private final static Logger logger = LoggerFactory.getLogger(LicenceServiceImpl.class);
+
+    private ManageLog manageLog = null;
+
     @Override
-    public Licence getLocalLicence(String licencePath)
-    {
+    public Licence getLocalLicence(String licencePath) throws LicenceFileNotFoundException {
         if(StringUtils.isEmpty(licencePath))
         {
             return null;
@@ -43,16 +50,20 @@ public class LicenceServiceImpl implements LicenceService
 
             isReader.close();
             file.delete();
+
+            //添加日志
+            /*
+            manageLog = new ManageLog(UUIDUtils.getUUID(),"检查许可","","",);
+            logger.info(manageLog.toString());
+            */
         }
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
-            return null;
+            throw new LicenceFileNotFoundException();
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-            return null;
+            throw new LicenceFileNotFoundException();
         }
 
         if(StringUtils.isEmpty(licenceString))

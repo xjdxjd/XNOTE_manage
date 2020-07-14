@@ -20,6 +20,8 @@ public class Admin {
 
     private String role;
 
+    private String roleName;
+
     private String adminEmail;
 
     private String loginIp;
@@ -40,12 +42,35 @@ public class Admin {
 
     private Long timestamp;
 
+    public Admin() {
+    }
+
+    public Admin(String id, String loginName, String adminName, String password, Integer status, Integer sort, String role, String roleName, String adminEmail, String loginIp, Date loginTime, String remark, String creatorId, String creator, Date createTime, Date updateTime, Long timestamp) {
+        this.id = id;
+        this.loginName = loginName;
+        this.adminName = adminName;
+        this.password = password;
+        this.status = status;
+        this.sort = sort;
+        this.role = role;
+        this.roleName = roleName;
+        this.adminEmail = adminEmail;
+        this.loginIp = loginIp;
+        this.loginTime = loginTime;
+        this.remark = remark;
+        this.creatorId = creatorId;
+        this.creator = creator;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.timestamp = timestamp;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
     public String getLoginName() {
@@ -53,7 +78,7 @@ public class Admin {
     }
 
     public void setLoginName(String loginName) {
-        this.loginName = loginName == null ? null : loginName.trim();
+        this.loginName = loginName;
     }
 
     public String getAdminName() {
@@ -61,7 +86,7 @@ public class Admin {
     }
 
     public void setAdminName(String adminName) {
-        this.adminName = adminName == null ? null : adminName.trim();
+        this.adminName = adminName;
     }
 
     public String getPassword() {
@@ -69,7 +94,7 @@ public class Admin {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public Integer getStatus() {
@@ -80,12 +105,28 @@ public class Admin {
         this.status = status;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
+        this.role = role;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String getAdminEmail() {
@@ -93,7 +134,7 @@ public class Admin {
     }
 
     public void setAdminEmail(String adminEmail) {
-        this.adminEmail = adminEmail == null ? null : adminEmail.trim();
+        this.adminEmail = adminEmail;
     }
 
     public String getLoginIp() {
@@ -101,7 +142,7 @@ public class Admin {
     }
 
     public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp == null ? null : loginIp.trim();
+        this.loginIp = loginIp;
     }
 
     public Date getLoginTime() {
@@ -112,44 +153,12 @@ public class Admin {
         this.loginTime = loginTime;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
+        this.remark = remark;
     }
 
     public String getCreatorId() {
@@ -168,6 +177,30 @@ public class Admin {
         this.creator = creator;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -178,6 +211,7 @@ public class Admin {
                 ", status=" + status +
                 ", sort=" + sort +
                 ", role='" + role + '\'' +
+                ", roleName='" + roleName + '\'' +
                 ", adminEmail='" + adminEmail + '\'' +
                 ", loginIp='" + loginIp + '\'' +
                 ", loginTime=" + loginTime +
@@ -189,4 +223,5 @@ public class Admin {
                 ", timestamp=" + timestamp +
                 '}';
     }
+
 }

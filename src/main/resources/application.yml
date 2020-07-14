@@ -1,14 +1,3 @@
-
-###############################################
-##                 项目设置                   ##
-###############################################
-licence:
-  path: /licence/licence.lic
-
-server:
-  servlet:
-    context-path: /manage
-
 ###############################################
 ##               spring 配置                 ##
 ###############################################
@@ -77,10 +66,22 @@ mybatis:
 ###############################################
 ##                xnote 配置                  ##
 ###############################################
+# 服务配置
+server:
+  servlet:
+    context-path: /manage
+
 xnote:
+  # 许可配置
+  licence:
+    path: /lic/licence.lic
+  # 视频地址
   video:
     rootPath: E:\devVideo\
     suffix: .mp4
+
+
+
 ---
 
 spring:
@@ -90,6 +91,9 @@ server:
   port: 9874
 
 xnote:
+  # 许可配置
+  licence:
+    path: /lic/licence.lic
   video:
     rootPath: /video/
     suffix: .mp4
@@ -107,6 +111,9 @@ server:
   port: 8090
 
 xnote:
+  # 许可配置
+  licence:
+    path: /lic/licence.lic
   video:
     rootPath: E:\devVideo\
     suffix: .mp4
@@ -119,6 +126,9 @@ server:
   port: 18765
 
 xnote:
+  # 许可配置
+  licence:
+    path: /lic/licence.lic
   video:
     rootPath: /usr/xnoteVlog/
     suffix: .mp4

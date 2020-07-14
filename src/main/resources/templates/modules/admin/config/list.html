@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
     <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
     <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
@@ -68,9 +71,8 @@
                     </div>
                     <script type="text/html" id="adminListTableTopbar">
                         <div class="layui-btn-container">
-                            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                            <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchesDel">批量删除</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addAdmin">添加帐号</button>
                         </div>
                     </script>
                     <script type="text/html" id="adminListTableOperbar">
@@ -110,7 +112,7 @@
             util = layui.util,
             layer = layui.layer;
 
-        render(table, ROOT_PATH);
+        tableRender(table, ROOT_PATH);
     });
 </script>
 </html>

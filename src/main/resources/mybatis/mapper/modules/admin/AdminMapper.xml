@@ -9,6 +9,7 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="admin_email" jdbcType="VARCHAR" property="adminEmail" />
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="login_time" jdbcType="DATE" property="loginTime" />
@@ -20,7 +21,7 @@
     <result column="timestamp" jdbcType="DATE" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    ADMIN_ID, LOGIN_NAME, ADMIN_NAME, PASSWORD, STATUS, SORT, ROLE, ADMIN_EMAIL, LOGIN_IP, LOGIN_TIME, REMARK,
+    ADMIN_ID, LOGIN_NAME, ADMIN_NAME, PASSWORD, STATUS, SORT, ROLE, ROLE_NAME, ADMIN_EMAIL, LOGIN_IP, LOGIN_TIME, REMARK,
     CREATOR_ID, CREATOR, CREATE_TIME, UPDATE_TIME, TIMESTAMP
   </sql>
 
@@ -57,9 +58,9 @@
     SELECT ADMIN_ID
     FROM XNOTE_ADMIN
     WHERE
-    ADMIN_ID = #{arg0,jdbcType=VARCHAR}
+    ADMIN_ID = #{id,jdbcType=VARCHAR}
     OR
-    LOGIN_NAME = #{arg1,jdbcType=VARCHAR};
+    LOGIN_NAME = #{loginName,jdbcType=VARCHAR};
   </select>
 
   <!-- 注册管理员 -->
@@ -69,8 +70,9 @@
     )
     VALUES (#{id,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER},
-      #{role,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR},
-      #{loginTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR},
+      #{role,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR},
+      #{loginIp,jdbcType=VARCHAR},#{loginTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR},
+      #{creatorId,jdbcType=VARCHAR},#{creator,jdbcType=DATE},
       #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, #{timestamp,jdbcType=DATE})
   </insert>
 
@@ -84,7 +86,40 @@
     </where>
   </update>
 
+  <update id="changeAdminStatus" parameterType="com.xnote.manage.modules.admin.bean.Admin">
+    UPDATE XNOTE_ADMIN
+    SET
+    STATUS = #{status,jdbcType=INTEGER},
+    UPDATE_TIME = #{updateTime,jdbcType=DATE},
+    TIMESTAMP = #{timestamp,jdbcType=VARCHAR}
+    <where>
+      ADMIN_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </update>
 
+  <update id="updateAdmin">
+    UPDATE XNOTE_ADMIN
+    SET LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      ROLE = #{role,jdbcType=VARCHAR},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
+      LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      SORT = #{sort,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    <where>
+      ADMIN_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </update>
+
+  <delete id="deleteAdmin" parameterType="java.lang.String">
+    DELETE FROM XNOTE_ADMIN
+    <where>
+      ADMIN_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </delete>
 
 
 
@@ -100,10 +135,12 @@
     from xnote_admin
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from xnote_admin
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insertSelective" parameterType="com.xnote.manage.modules.admin.bean.Admin">
     insert into xnote_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -124,6 +161,9 @@
       </if>
       <if test="role != null">
         role,
+      </if>
+      <if test="roleName != null">
+        role_name,
       </if>
       <if test="adminEmail != null">
         admin_email,
@@ -166,6 +206,9 @@
       <if test="role != null">
         #{role,jdbcType=VARCHAR},
       </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
       <if test="adminEmail != null">
         #{adminEmail,jdbcType=VARCHAR},
       </if>
@@ -190,61 +233,66 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.admin.bean.Admin">
-    update xnote_admin
+    update XNOTE_ADMIN
     <set>
       <if test="loginName != null">
-        login_name = #{loginName,jdbcType=VARCHAR},
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
       </if>
       <if test="adminName != null">
-        admin_name = #{adminName,jdbcType=VARCHAR},
+        ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+        PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        STATUS = #{status,jdbcType=INTEGER},
       </if>
       <if test="role != null">
-        role = #{role,jdbcType=VARCHAR},
+        ROLE = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
       </if>
       <if test="adminEmail != null">
-        admin_email = #{adminEmail,jdbcType=VARCHAR},
+        ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
       </if>
       <if test="loginIp != null">
-        login_ip = #{loginIp,jdbcType=VARCHAR},
+        LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
       </if>
       <if test="loginTime != null">
-        login_time = #{loginTime,jdbcType=DATE},
+        LOGIN_TIME = #{loginTime,jdbcType=DATE},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=DATE},
+        CREATE_TIME = #{createTime,jdbcType=DATE},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=DATE},
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
       </if>
       <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
+        SORT = #{sort,jdbcType=INTEGER},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+        REMARK = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where ADMIN_ID = #{id,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.admin.bean.Admin">
-    update xnote_admin
-    set login_name = #{loginName,jdbcType=VARCHAR},
-      admin_name = #{adminName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      role = #{role,jdbcType=VARCHAR},
-      admin_email = #{adminEmail,jdbcType=VARCHAR},
-      login_ip = #{loginIp,jdbcType=VARCHAR},
-      login_time = #{loginTime,jdbcType=DATE},
-      create_time = #{createTime,jdbcType=DATE},
-      update_time = #{updateTime,jdbcType=DATE},
-      sort = #{sort,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    update XNOTE_ADMIN
+    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      ROLE = #{role,jdbcType=VARCHAR},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
+      LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
+      LOGIN_TIME = #{loginTime,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      SORT = #{sort,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ADMIN_ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -1,8 +1,10 @@
 package com.xnote.manage.modules.admin.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xnote.manage.common.constant.ResultConstant;
 import com.xnote.manage.common.constant.admin.AdminConstant;
-import com.xnote.manage.common.constant.load.LoadPathConstant;
+import com.xnote.manage.common.util.AdminUtils;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.admin.bean.Admin;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -71,16 +74,6 @@ public class AdminController extends BaseController
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * @DESC:   管理员添加页面
-     * @methodName: loadAdminEditView
-     */
-    @GetMapping("admin/add")
-    public String loadAdminAddView()
-    {
-        System.out.println("管理员添加页面");
-        return LoadPathConstant.ADMIN_FUNC_PATH.getValue()+"add";
-    }
 
     /**
      * @DESC:   添加管理员
@@ -88,16 +81,24 @@ public class AdminController extends BaseController
      */
     @PutMapping("/add")
     @ApiOperation(value="添加管理员", notes="新建管理员")
-    @ApiImplicitParam(name = "admin", value = "管理员bean", required = true, dataType = "Admin")
-    public Result insertAdmin(Admin admin)
+    @ApiImplicitParam(name = "formData", value = "表单数据，json格式的字符串", required = true, dataType = "String")
+    public Result insertAdmin(@RequestParam("formData") String formData, HttpSession session)
     {
-        if(ObjectUtils.isEmpty(admin))
+        if(StringUtils.isEmpty(formData))
         {
             return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1201, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1201);
         }
 
-        int count = adminService.insertAdmin(admin);
-        switch (count) {
+        JSONObject json = JSON.parseObject(formData);
+        Admin admin = JSON.toJavaObject(json, Admin.class);
+        if(ObjectUtils.isEmpty(admin))
+        {
+            return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1201, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1201);
+        }
+        AdminUtils.completionField(admin, session);
+
+        int code = adminService.insertAdmin(admin);
+        switch (code) {
             case 1202:
                 return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1202, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1202);
 
@@ -110,11 +111,143 @@ public class AdminController extends BaseController
         return result.success(AdminConstant.ADMIN_INSERT_SUCCESS_CODE, AdminConstant.ADMIN_INSERT_SUCCESS_MESSAGE);
     }
 
+    /**
+     * @DESC:   更新管理员
+     * @methodName: updateAdmin
+     */
     @PostMapping("/update")
     @ApiOperation(value = "管理员信息更新", notes = "更新管理员")
-    @ApiImplicitParam(name = "admin", value = "管理员bean", required = true, dataType = "Admin")
-    public Result updateAdmin(Admin admin)
+    @ApiImplicitParam(name = "formData", value = "表单数据，json格式的字符串", required = true, dataType = "String")
+    public Result updateAdmin(@RequestParam("formData") String formData)
     {
+        if(StringUtils.isEmpty(formData))
+        {
+            return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1401, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1401);
+        }
+
+        JSONObject json = JSON.parseObject(formData);
+        Admin admin = JSON.toJavaObject(json, Admin.class);
+        if(ObjectUtils.isEmpty(admin))
+        {
+            return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1402, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1402);
+        }
+
+        int code = adminService.updateAdmin(admin);
+        switch (code)
+        {
+            case 1401 :
+                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1401, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1401);
+
+            case 1402 :
+                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1402, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1402);
+
+            case 1403 :
+                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1403, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1403);
+
+            default:
+                return result.success(AdminConstant.ADMIN_UPDATE_SUCCESS_CODE, AdminConstant.ADMIN_UPDATE_SUCCESS_MESSAGE);
+        }
+    }
+
+    /**
+     * @DESC:   删除管理员
+     * @methodName: deleteAdmin
+     */
+    @DeleteMapping("/delete/{pass}/{id}")
+    @ApiOperation(value = "删除管理员", notes = "删除管理员")
+    @ApiImplicitParam(name = "id", value = "管理员ID", required = true, dataType = "String")
+    public Result deleteAdmin(@PathVariable("pass") String pass, @PathVariable("id") String id)
+    {
+        if (StringUtils.isEmpty(pass) || StringUtils.isEmpty(id))
+        {
+            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
+        }
+
+
+
+
+        boolean empty = adminService.isEmpty(id);
+        if(empty)
+        {
+            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
+        }
+
+        int code = adminService.deleteAdmin(id);
+        switch (code)
+        {
+            case 1301 :
+                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1401, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1401);
+
+            case 1302 :
+                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1402, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1402);
+
+            case 1303 :
+                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1403, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1403);
+
+            default:
+                return result.success(AdminConstant.ADMIN_DELETE_SUCCESS_CODE, AdminConstant.ADMIN_DELETE_SUCCESS_MESSAGE);
+        }
+    }
+
+    /**
+     * @DESC:   批量删除管理员
+     * @methodName: batchesDelAdmin
+     */
+    @DeleteMapping("/batchesDel")
+    @ApiOperation(value = "启用管理员", notes = "启用管理员")
+    @ApiImplicitParam(name = "ids", value = "管理员IDs", required = true, dataType = "String")
+    public Result batchesDelAdmin(@RequestParam("ids") String ids)
+    {
+        if (StringUtils.isEmpty(ids))
+        {
+            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
+        }
+
+        return result.success();
+    }
+
+    /**
+     * @DESC:   启用管理员
+     * @methodName: enableAdmin
+     */
+    @PostMapping("/enable")
+    @ApiOperation(value = "启用管理员", notes = "启用管理员")
+    @ApiImplicitParam(name = "id", value = "管理员ID", required = true, dataType = "String")
+    public Result enableAdmin(@RequestParam("id") String id)
+    {
+        if(StringUtils.isEmpty(id))
+        {
+            return result.failure(AdminConstant.ADMIN_ENDI_FAILD_MESSAGE_1501);
+        }
+
+        String message = adminService.enableAdmin(id);
+        if(!StringUtils.isEmpty(message))
+        {
+            return result.failure(message);
+        }
+
+        return result.success();
+    }
+
+    /**
+     * @DESC:   禁用管理员
+     * @methodName: disableAdmin
+     */
+    @PostMapping("/disable")
+    @ApiOperation(value = "禁用管理员", notes = "禁用管理员")
+    @ApiImplicitParam(name = "id", value = "管理员ID", required = true, dataType = "String")
+    public Result disableAdmin(@RequestParam("id") String id)
+    {
+        if(StringUtils.isEmpty(id))
+        {
+            return result.failure(AdminConstant.ADMIN_ENDI_FAILD_MESSAGE_1504);
+        }
+
+        String message = adminService.disableAdmin(id);
+        if(!StringUtils.isEmpty(message))
+        {
+            return result.failure(message);
+        }
 
         return result.success();
     }

@@ -11,9 +11,24 @@ public class ManageLog {
 
     private Integer actionResult;
 
+    private String actionContext;
+
     private Date loggingTime;
 
-    private String actionContext;
+    private String timestamp;
+
+    public ManageLog() {
+    }
+
+    public ManageLog(String logId, String actionType, String actionDesc, Integer actionResult, String actionContext, Date loggingTime, String timestamp) {
+        this.logId = logId;
+        this.actionType = actionType;
+        this.actionDesc = actionDesc;
+        this.actionResult = actionResult;
+        this.actionContext = actionContext;
+        this.loggingTime = loggingTime;
+        this.timestamp = timestamp;
+    }
 
     public String getLogId() {
         return logId;
@@ -61,5 +76,13 @@ public class ManageLog {
 
     public void setActionContext(String actionContext) {
         this.actionContext = actionContext == null ? null : actionContext.trim();
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
