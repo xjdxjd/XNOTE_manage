@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>dataInit</title>
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/moudles/system/system.css}">
+    <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+</head>
+<body>
+    <div class="x-nav">
+              <span class="layui-breadcrumb">
+                <a href="">系统配置</a>
+                <a>
+                  <cite>数据初始化</cite>
+                </a>
+              </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        </a>
+    </div>
+
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <span>管理员初始化</span>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-upload upload-div">
+                            <button id="admin-upload" type="button" class="layui-btn layui-btn-normal">
+                                <i class="layui-icon">&#xe655;</i>
+                                选择管理员 sql 文件
+                            </button>
+                            <button id="admin-upload-btn" type="button" class="layui-btn">
+                                <i class="layui-icon">&#xe681;</i>
+                                开始上传
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <span>管理员功能初始化</span>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-upload upload-div">
+                            <button id="admin-func-upload" type="button" class="layui-btn layui-btn-normal">
+                                <i class="layui-icon">&#xe655;</i>
+                                选择管理员功能 sql 文件
+                            </button>
+                            <button id="admin-func-upload-btn" type="button" class="layui-btn">
+                                <i class="layui-icon">&#xe681;</i>
+                                开始上传
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <span>系统配置初始化</span>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-upload upload-div">
+                            <button id="sys-cfg-upload" type="button" class="layui-btn layui-btn-normal">
+                                <i class="layui-icon">&#xe655;</i>
+                                选择系统配置 sql 文件
+                            </button>
+                            <button id="sys-cfg-upload-btn" type="button" class="layui-btn">
+                                <i class="layui-icon">&#xe681;</i>
+                                开始上传
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <span>系统配置初始化</span>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-upload upload-div">
+                            <button id="sys-cfg-upload" type="button" class="layui-btn layui-btn-normal">
+                                <i class="layui-icon">&#xe655;</i>
+                                选择系统配置 sql 文件
+                            </button>
+                            <button id="sys-cfg-upload-btn" type="button" class="layui-btn">
+                                <i class="layui-icon">&#xe681;</i>
+                                开始上传
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
+<script type="text/javascript" src="/" th:src="@{/static/js/modules/system/system.js}"></script>
+<script>
+layui.use('upload', function() {
+    var $ = layui.jquery
+        , upload = layui.upload;
+
+    upload.render({
+        elem: '#admin-upload'
+        ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+        ,auto: false
+        //,multiple: true
+        ,bindAction: '#admin-upload-btn'
+        ,done: function(res){
+            layer.msg('上传成功');
+            console.log(res)
+        }
+    });
+
+    upload.render({
+        elem: '#admin-func-upload'
+        ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+        ,auto: false
+        //,multiple: true
+        ,bindAction: '#admin-func-upload-btn'
+        ,done: function(res){
+            layer.msg('上传成功');
+            console.log(res)
+        }
+    });
+
+    upload.render({
+        elem: '#sys-cfg-upload'
+        ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+        ,auto: false
+        //,multiple: true
+        ,bindAction: '#sys-cfg-upload-btn'
+        ,done: function(res){
+            layer.msg('上传成功');
+            console.log(res)
+        }
+    });
+});
+</script>
+</html>

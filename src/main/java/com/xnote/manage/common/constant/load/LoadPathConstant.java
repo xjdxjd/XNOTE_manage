@@ -12,14 +12,15 @@ public enum LoadPathConstant {
     ADMIN_FUNC_PATH("/modules/admin/function/"),
     ADMIN_ROLE_PATH("/modules/admin/role/"),
 
-    LICENCE_PATH("/common/licence/");
+    LICENCE_PATH("/common/licence/"),
+
+
+    SYSTEM_DATAINIT_PATH("/modules/system/dataInit/");
 
     private String value;
-
     LoadPathConstant(String value) {
         this.value = value;
     }
-
     public String getValue() {
         return value;
     }
