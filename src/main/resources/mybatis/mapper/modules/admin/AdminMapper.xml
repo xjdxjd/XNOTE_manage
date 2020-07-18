@@ -121,6 +121,64 @@
     </where>
   </delete>
 
+  <delete id="batchesDelAdmin" parameterType="java.util.List">
+    DELETE FROM XNOTE_ADMIN
+    <where>
+      ADMIN_ID IN
+      <foreach item="id" collection="list" open="(" close=")" separator=",">
+        #{id,jdbcType=VARCHAR}
+      </foreach>
+    </where>
+  </delete>
+
+  <select id="search" resultType="com.xnote.manage.modules.admin.bean.Admin">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_ADMIN
+    <where>
+      1=1
+      <if test="admin.loginName != null">
+        AND LOGIN_NAME LIKE concat('%',#{admin.loginName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="admin.adminName != null">
+        AND ADMIN_NAME LIKE concat('%',#{admin.adminName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="admin.creator != null">
+        AND CREATOR LIKE concat('%',#{admin.creator,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="before != null">
+        AND CREATE_TIME &gt; #{before,jdbcType=DATE}
+      </if>
+      <if test="after != null">
+        AND CREATE_TIME &lt; #{after,jdbcType=DATE}
+      </if>
+      <if test="admin.role != null">
+        AND ROLE = #{admin.role,jdbcType=VARCHAR}
+      </if>
+      <if test="admin.status != null">
+        AND STATUS = #{admin.status,jdbcType=INTEGER}
+      </if>
+    </where>
+        ORDER BY SORT ASC
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -135,7 +193,6 @@
     from xnote_admin
     where id = #{id,jdbcType=VARCHAR}
   </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from xnote_admin
     where id = #{id,jdbcType=VARCHAR}

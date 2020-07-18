@@ -43,4 +43,5 @@ public class AdminUtils {
         admin.setUpdateTime(DateUtils.getCurrentDate());
         admin.setTimestamp(DateUtils.getTimestamp());
     }
+
 }

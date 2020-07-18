@@ -3,5 +3,5 @@ package com.xnote.manage.core.result;
 /**
  *
  */
-public class Result {
+public class Result<T> {
 }

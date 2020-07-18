@@ -41,6 +41,12 @@ public interface AdminService
     public int deleteAdmin(String id);
 
     /**
+     * @DESC:   批量删除管理员
+     * @methodName: deleteAdmin
+     */
+    public int batchesDelAdmin(List<String> ids);
+
+    /**
      * @DESC:   启用管理员
      * @methodName: enableAdmin
      */
@@ -57,4 +63,10 @@ public interface AdminService
      * @methodName: isEmpty
      */
     public boolean isEmpty(String id);
+
+    /**
+     * @DESC:   按条件查找管理员
+     * @methodName: isEmpty
+     */
+    public List<Admin> search(Admin admin, String[] createtims);
 }

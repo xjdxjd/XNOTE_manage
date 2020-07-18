@@ -5,14 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.xnote.manage.common.constant.ResultConstant;
 import com.xnote.manage.common.constant.admin.AdminConstant;
 import com.xnote.manage.common.util.AdminUtils;
+import com.xnote.manage.common.util.LoginUtils;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.admin.bean.Admin;
 import com.xnote.manage.modules.admin.service.AdminService;
+import com.xnote.manage.modules.login.bean.LoginAdmin;
+import com.xnote.manage.modules.role.service.AdminRoleService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @DESC:   管理员操作控制器
@@ -32,6 +36,8 @@ public class AdminController extends BaseController
 {
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private AdminRoleService adminRoleService;
 
     /**
      * @DESC:   获取所有管理员账号信息
@@ -42,12 +48,11 @@ public class AdminController extends BaseController
     public Result getAdminList(HttpServletRequest request, HttpServletResponse response)
     {
         List<Admin> admins = adminService.getAdminList();
-        if(CollectionUtils.isEmpty(admins))
-        {
-            return result.failure(ResultConstant.SELECT_FAILD_CODE, ResultConstant.SELECT_FAILD_MESSAGE,null);
-        }
 
-        return result.success(ResultConstant.SELECT_SUCCESS_CODE, ResultConstant.SELECT_SUCCESS_MESSAGE,admins);
+        Map<String, Object> adminsMap = new HashMap<>();
+        adminsMap.put("data", admins);
+        adminsMap.put("count",  admins.size());
+        return result.success(ResultConstant.SELECT_SUCCESS_CODE, ResultConstant.SELECT_SUCCESS_MESSAGE,adminsMap);
     }
 
     /**
@@ -156,33 +161,43 @@ public class AdminController extends BaseController
     @DeleteMapping("/delete/{pass}/{id}")
     @ApiOperation(value = "删除管理员", notes = "删除管理员")
     @ApiImplicitParam(name = "id", value = "管理员ID", required = true, dataType = "String")
-    public Result deleteAdmin(@PathVariable("pass") String pass, @PathVariable("id") String id)
+    public Result deleteAdmin(HttpSession session, @PathVariable("pass") String pass, @PathVariable("id") String id)
     {
         if (StringUtils.isEmpty(pass) || StringUtils.isEmpty(id))
         {
             return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
         }
 
-
-
+        String landerPass = LoginUtils.encrypt(pass);
+        LoginAdmin loginAdmin = (LoginAdmin) session.getAttribute("loginAdmin");
+        if(loginAdmin.getInfo().getPassword().equals(landerPass))
+        {
+            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
+        }
 
         boolean empty = adminService.isEmpty(id);
         if(empty)
         {
-            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
+            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1304, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1304);
         }
 
         int code = adminService.deleteAdmin(id);
         switch (code)
         {
             case 1301 :
-                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1401, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1401);
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
 
             case 1302 :
-                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1402, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1402);
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1302, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1302);
 
             case 1303 :
-                return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1403, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1403);
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
+
+            case 1304 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1304, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1304);
+
+            case 1305 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1305, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1305);
 
             default:
                 return result.success(AdminConstant.ADMIN_DELETE_SUCCESS_CODE, AdminConstant.ADMIN_DELETE_SUCCESS_MESSAGE);
@@ -194,16 +209,67 @@ public class AdminController extends BaseController
      * @methodName: batchesDelAdmin
      */
     @DeleteMapping("/batchesDel")
-    @ApiOperation(value = "启用管理员", notes = "启用管理员")
+    @ApiOperation(value = "批量删除管理员", notes = "批量删除管理员")
     @ApiImplicitParam(name = "ids", value = "管理员IDs", required = true, dataType = "String")
-    public Result batchesDelAdmin(@RequestParam("ids") String ids)
+    public Result batchesDelAdmin(HttpSession session, @RequestParam("pass") String pass, @RequestParam("ids") String ids)
     {
-        if (StringUtils.isEmpty(ids))
+        if (StringUtils.isEmpty(pass) || StringUtils.isEmpty(ids))
         {
             return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
         }
 
-        return result.success();
+        String landerPass = LoginUtils.encrypt(pass);
+        LoginAdmin loginAdmin = (LoginAdmin) session.getAttribute("loginAdmin");
+        if(!loginAdmin.getInfo().getPassword().equals(landerPass))
+        {
+            return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
+        }
+
+        List<String> delIds = JSON.parseArray(ids,String.class);;
+        int code = adminService.batchesDelAdmin(delIds);
+        switch (code)
+        {
+            case 1301 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
+
+            case 1302 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1302, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1302);
+
+            case 1303 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
+
+            case 1304 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1304, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1304);
+
+            case 1305 :
+                return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1305, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1305);
+
+            default:
+                return result.success(AdminConstant.ADMIN_DELETE_SUCCESS_CODE, AdminConstant.ADMIN_DELETE_SUCCESS_MESSAGE);
+        }
+    }
+
+    /**
+     * @DESC:   按条件查找管理员
+     * @methodName: search
+     */
+    @GetMapping("/search")
+    @ApiOperation(value = "按条件搜索管理员帐号", notes = "按条件搜索管理员帐号")
+    @ApiImplicitParam(name = "condit", value = "条件JSON字符串", required = true, dataType = "String")
+    public Result search(@RequestParam("condit") String condit)
+    {
+        JSONObject conditJson = JSON.parseObject(condit);
+        Admin admin = JSON.toJavaObject(conditJson, Admin.class);
+
+        String createDateRange = (String) conditJson.get("createDateRange");
+        String[] createtims = createDateRange.split(" - ");
+
+        List<Admin> admins = adminService.search(admin, createtims);
+
+        Map<String, Object> adminsMap = new HashMap<>();
+        adminsMap.put("data", admins);
+        adminsMap.put("count",  admins.size());
+        return result.success(ResultConstant.SELECT_SUCCESS_CODE, ResultConstant.SELECT_SUCCESS_MESSAGE,adminsMap);
     }
 
     /**

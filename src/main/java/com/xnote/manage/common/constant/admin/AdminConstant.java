@@ -38,9 +38,11 @@ public class AdminConstant {
     public final static Integer ADMIN_DELETE_FAILD_CODE_1302 = 1302;
     public final static String ADMIN_DELETE_FAILD_MESSAGE_1302 = "删除管理员失败,参数传入错误！";
     public final static Integer ADMIN_DELETE_FAILD_CODE_1303 = 1303;
-    public final static String ADMIN_DELETE_FAILD_MESSAGE_1303 = "删除管理员失败,没有此管理员账号或此账号已删除！";
+    public final static String ADMIN_DELETE_FAILD_MESSAGE_1303 = "删除管理员失败,当前管理员密码错误！";
     public final static Integer ADMIN_DELETE_FAILD_CODE_1304 = 1304;
-    public final static String ADMIN_DELETE_FAILD_MESSAGE_1304 = "删除管理员失败,请联系管理员！";
+    public final static String ADMIN_DELETE_FAILD_MESSAGE_1304 = "删除管理员失败,没有此管理员账号或此账号已删除！";
+    public final static Integer ADMIN_DELETE_FAILD_CODE_1305 = 1305;
+    public final static String ADMIN_DELETE_FAILD_MESSAGE_1305 = "删除管理员失败,请联系管理员！";
 
     public final static Integer ADMIN_UPDATE_SUCCESS_CODE = 0;
     public final static String ADMIN_UPDATE_SUCCESS_MESSAGE = "更新管理员成功！";

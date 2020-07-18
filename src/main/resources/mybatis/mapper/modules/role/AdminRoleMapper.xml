@@ -13,8 +13,8 @@
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    role_id, role_code, role_name, role_sort, role_status, role_remark, create_time,
-    update_time, timestamp
+    ROLE_ID, ROLE_CODE, ROLE_NAME, ROLE_SORT, ROLE_STATUS, ROLE_REMARK, CREATE_TIME,
+    UPDATE_TIME, TIMESTAMP
   </sql>
 <!-- 根据管理员id获取管理员角色 -->
   <select id="getRoleById" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -24,6 +24,11 @@
     <where>
       ROLE_ID = #{id,jdbcType=VARCHAR}
     </where>
+  </select>
+  <select id="getRoleList" resultType="com.xnote.manage.modules.role.bean.AdminRole">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM  XNOTE_ADMIN_ROLE
   </select>
 
 
@@ -46,7 +51,7 @@
     from xnote_admin_role
     where role_id = #{roleId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from xnote_admin_role
     where role_id = #{roleId,jdbcType=VARCHAR}
   </delete>

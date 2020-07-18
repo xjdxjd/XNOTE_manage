@@ -55,6 +55,22 @@ public class DateUtils {
     };
 
     /**
+     * 反格式化时间
+     */
+    public static Date unFormat_short(String dataString)
+    {
+        Date date = null;
+        try{
+
+            date = new SimpleDateFormat(CommonConstant.DATE_FORMAT_SHORT.getString()).parse(dataString);
+
+        }catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date;
+    };
+
+    /**
      * 第一个参数比第二个参数时间更早
      */
     public static boolean isBefore(Date firstDate, Date secondDate)

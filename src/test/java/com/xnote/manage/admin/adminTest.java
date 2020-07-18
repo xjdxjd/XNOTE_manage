@@ -112,4 +112,21 @@ public class adminTest {
         System.out.println("count = "+count);
         System.out.println("==============================================================");
     }
+
+    @Test
+    public void search()
+    {
+        Admin admin = new Admin();
+        admin.setStatus(0);
+        admin.setAdminName("系统管理员");
+        admin.setLoginName("sysAdmin");
+
+        String[] createtims = new String[2];
+        createtims[0] = "2019-09-20";
+        createtims[1] = "2019-10-20";
+        List<Admin> search = adminService.search(admin, createtims);
+        for (Admin s: search) {
+            System.out.println(s.getAdminName());
+        }
+    }
 }

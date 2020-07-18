@@ -25,7 +25,12 @@ public enum CommonConstant {
     TOP_LEVEL_FLAG("0"),
 
     /** 时间格式 */
-    DATE_FORMAT("yyyy-MM-dd HH:mm:ss");
+    DATE_FORMAT("yyyy-MM-dd HH:mm:ss"),
+
+    /**
+     * 时间格式
+     */
+    DATE_FORMAT_SHORT("yyyy-MM-dd");
 
     private Integer intValue;
     private String stringValue;

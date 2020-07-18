@@ -14,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,6 +117,20 @@ public class AdminServiceImpl implements AdminService
     }
 
     @Override
+    public int batchesDelAdmin(List<String> ids)
+    {
+        int code = -1;
+        if (StringUtils.isEmpty(ids))
+        {
+            return code = AdminConstant.ADMIN_DELETE_FAILD_CODE_1301;
+        }
+
+        adminMapper.batchesDelAdmin(ids);
+
+        return code;
+    }
+
+    @Override
     public String enableAdmin(String id)
     {
         String message = null;
@@ -178,5 +193,24 @@ public class AdminServiceImpl implements AdminService
         }
 
         return false;
+    }
+
+    @Override
+    public List<Admin> search(Admin admin, String[] createtims)
+    {
+        List<Admin> admins = null;
+        if(createtims.length == 2)
+        {
+            Date[] dates = new Date[2];
+            dates[0] = DateUtils.unFormat_short(createtims[0]);
+            dates[1] = DateUtils.unFormat_short(createtims[1]);
+
+            admins = adminMapper.search(admin,dates[0],dates[1]);
+        }
+        else
+        {
+            admins = adminMapper.search(admin,null,null);
+        }
+        return admins;
     }
 }

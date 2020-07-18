@@ -3,6 +3,7 @@ package com.xnote.manage.modules.admin.mapper;
 import com.xnote.manage.modules.admin.bean.Admin;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -57,11 +58,22 @@ public interface AdminMapper
     public int deleteAdmin(String id);
 
     /**
+     * @DESC:   批量删除管理员
+     * @methodName: batchesDelAdmin
+     */
+    public int batchesDelAdmin(List<String> ids);
+
+    /**
      * @DESC:   改变管理员状态
      * @methodName: changeAdminStatus
      */
     public void changeAdminStatus(Admin admin);
 
+    /**
+     * @DESC:   改变管理员状态
+     * @methodName: changeAdminStatus
+     */
+    public List<Admin> search(Admin admin, Date before, Date after);
 
 
     public int deleteByPrimaryKey(String id);

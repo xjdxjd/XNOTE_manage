@@ -3,6 +3,8 @@ package com.xnote.manage.modules.role.mapper;
 import com.xnote.manage.modules.role.bean.AdminRole;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface AdminRoleMapper
 {
@@ -12,6 +14,11 @@ public interface AdminRoleMapper
      */
     public AdminRole getRoleById(String id);
 
+    /**
+     * @DESC:   获取全部管理员角色
+     * @methodName: getRoleList
+     */
+    public List<AdminRole> getRoleList();
 
 
 
@@ -35,4 +42,5 @@ public interface AdminRoleMapper
     int updateByPrimaryKeySelective(AdminRole record);
 
     int updateByPrimaryKey(AdminRole record);
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @DESC:   管理员角色service实现类
@@ -28,5 +29,11 @@ public class AdminRoleServiceImpl implements AdminRoleService
 
         AdminRole role = adminRoleMapper.getRoleById(id);
         return role;
+    }
+
+    @Override
+    public List<AdminRole> getRoleList() {
+        List<AdminRole> adminRoles = adminRoleMapper.getRoleList();
+        return adminRoles;
     }
 }

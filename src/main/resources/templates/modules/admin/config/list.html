@@ -28,36 +28,36 @@
                     <div class="layui-card-body">
                         <form class="layui-form">
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="loginName" lay-verify="" placeholder="请输入用户名"
+                                <input type="text" id="loginName" name="loginName" lay-verify="" placeholder="请输入用户名"
                                        autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="loginName" lay-verify="" placeholder="请输入管理员名称"
+                                <input type="text" id="adminName" name="adminName" lay-verify="" placeholder="请输入管理员名称"
                                        autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="loginName" lay-verify="" placeholder="请输入创建者名称"
+                                <input type="text" id="creator" name="creator" lay-verify="" placeholder="请输入创建者名称"
                                        autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <input type="text" name="loginName" lay-verify="" placeholder="创建时间"
+                                <input type="text" id="createDateRange" name="createDateRange" lay-verify="" placeholder="创建日期范围"
                                        autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <select name="role" lay-verify="" lay-search>
-                                    <option value="-1">角色1</option>
-                                    <option value="-2">角色2</option>
-                                    <option value="-3">角色3</option>
-                                </select>
+                                <select id="role" name="role" layui-filter="roleSelect" lay-verify="" lay-search></select>
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <select name="status" lay-verify="" lay-search>
+                                <select is="status" name="status" lay-verify="" lay-search>
+                                    <option>全部管理员状态</option>
                                     <option value="0">启用</option>
                                     <option value="1">禁用</option>
+                                    <option value="-1">冻结</option>
+                                    <option value="-2">锁定</option>
+                                    <option value="-3">作废</option>
                                 </select>
                             </div>
                             <div class="layui-inline layui-show-xs-block">
-                                <button type="button" class="layui-btn"  lay-submit="" lay-filter="sreach">
+                                <button type="button" class="layui-btn"  lay-submit="" lay-filter="search">
                                     <i class="layui-icon">&#xe615;</i>
                                 </button>
                             </div>
@@ -83,6 +83,23 @@
                             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
                         </div>
                     </script>
+                    <script type="text/html" id="statusTPL">
+                        {{#  if(d.status === 0){ }}
+                        <span class="layui-badge layui-bg-green">{{ '正常' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === 1){ }}
+                        <span class="layui-badge layui-bg-gray">{{ '禁用' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === -1){ }}
+                        <span class="layui-badge layui-bg-blue">{{ '冻结' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === -2){ }}
+                        <span class="layui-badge layui-bg-orange">{{ '锁定' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === -3){ }}
+                        <span class="layui-badge layui-bg-black">{{ '作废' }}</span>
+                        {{#  } }}
+                    </script>
                     <script type="text/html" id="creatorTPL">
                         {{#  if(d.creator === '内置管理员'){ }}
                         <span style="color: #355A8B;">{{ d.creator }}</span>
@@ -106,13 +123,16 @@
 <script type="text/javascript" src="/" th:src="@{/static/js/common/DateFormat.js}"></script>
 <script>
     var ROOT_PATH = '[[@{/}]]';
-    layui.use(['form','table','util','layer'], function(){
+    loadAdminRole(ROOT_PATH);
+    layui.use(['form','table','util','layer','laydate'], function(){
         var form = layui.form,
             table = layui.table,
             util = layui.util,
+            laydate = layui.laydate,
             layer = layui.layer;
 
         tableRender(table, ROOT_PATH);
+        search(laydate, form, table, ROOT_PATH);
     });
 </script>
 </html>

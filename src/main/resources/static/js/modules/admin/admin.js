@@ -18,31 +18,20 @@ function tableRender(table, path)
             {field: 'loginName', title: '登录名', width:160},
             {field: 'adminName', title: '管理员名称', width:160},
             {field: 'sort', title: '排序', width:100, sort: true},
-            {field: 'status', title: '状态', width: 130, sort: true},
+            {field: 'status', title: '状态', width: 130, sort: true, templet: '#statusTPL'},
             {field: 'creatorId', title: '创建者ID',hide: true},
             {field: 'creator', title: '创建者', width: 150, templet: '#creatorTPL'},
             {field: 'createTime', title: '创建时间', width: 250, sort: true},
             {field: 'updateTime', title: '更新时间', width: 250, sort: true},
             {field: 'operation', title: '操作', width: 269, toolbar: '#adminListTableOperbar'}
-        ]],
-        done:function(res, curr, count){
-            $("[data-field='status']").children().each(function(){
-                if($(this).text() == '0'){
-                    $(this).html('<span class="layui-badge layui-bg-green">正常</span>')
-                }
-                if($(this).text() == '1'){
-                    $(this).html('<span class="layui-badge layui-bg-gray">禁用</span>')
-                }
-                if($(this).text() == '-1'){
-                    $(this).html('<span class="layui-badge layui-bg-blue">冻结</span>')
-                }
-                if($(this).text() == '-2'){
-                    $(this).html('<span class="layui-badge layui-bg-orange">锁定</span>')
-                }
-                if($(this).text() == '-3'){
-                    $(this).html('<span class="layui-badge layui-bg-black">作废</span>')
-                }
-            });
+        ]]
+        ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.message, //解析提示文本
+                "count": res.data.count, //解析数据长度
+                "data": res.data.data //解析数据列表
+            };
         }
     });
 
@@ -60,8 +49,29 @@ function tableRender(table, path)
 
         switch (ope.event) {
             case 'addAdmin': addAdmin(path, table); break;
+            case 'batchesDel':
+                var checkStatus = table.checkStatus(ope.config.id);
+                var data = checkStatus.data;
+                batchesDel(data, path, table);
+                break;
         }
     });
+}
+
+function loadAdminRole(path)
+{
+    $.get({
+        url: path+'adminRole/getRoleList',
+        dataType: 'json',
+        success: function(res){
+            var options="<option>全部管理员角色</option>";
+            $.each(res.data.data, function(i, item){
+                var option = '<option value="'+item.roleCode+'">'+item.roleName+'</option>';
+                options = options + option;
+            });
+            $("select#role").html(options);
+        }
+    })
 }
 
 function loadData(form, path)
@@ -158,6 +168,61 @@ function addAdmin(path, table)
         }
     });
 };
+
+function batchesDel(data, path, table)
+{
+    var aData = data, aPath = path, atable = table;
+
+    if(aData.length == 0){
+        layer.msg('未选中任何帐号，请勾选要删除的帐号！');
+        return false;
+    }
+    var ids = [];
+    for (var i = 0; i < aData.length; i++){
+        ids[i] = aData[i].id;
+    }
+    if(ids.length == 0){
+        layer.msg('数据转换出错，请联系管理员！');
+        return false;
+    }
+
+    layer.prompt({
+        formType: 1,
+        title: '请输入登录密码',
+        maxlength: 20
+    },function(value, index, layero){
+
+        var uri = aPath+'admin/batchesDel';
+        $.ajax({
+            url: uri,
+            type: 'DELETE',
+            dataType: 'json',
+            data: {
+                'pass': value,
+                'ids': JSON.stringify(ids),
+                '_csrf': $("meta[name = '_csrf']").attr("content"),
+                '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                '_': new Date().getTime()
+            },
+            success: function(res){
+                if(res.code == 0){
+                    layer.close(index);
+                    layer.msg(res.message);
+                    atable.reload('adminListTable', {
+                        url: path+"admin/getAllAdmin"
+                        ,page: {curr: 1}
+                    });
+                }else{
+                    layer.msg(res.message);
+                }
+            },
+            error: function(res){
+                layer.close(index);
+                layer.msg(res.message);
+            }
+        });
+    });
+}
 
 function enableAdmin(data, path, table)
 {
@@ -328,6 +393,27 @@ function delAdmin(data, path, table)
             }
         });
     });
-/*
-    */
 };
+
+function search(laydate, form, table, path)
+{
+    laydate.render({
+        elem: '#createDateRange'
+        ,range: true
+    });
+
+    form.on('submit(search)',function(data){
+
+        var condit = JSON.stringify(data.field);
+        console.log(path+"admin/search/"+condit);
+        table.reload('adminListTable', {
+            url: path+"admin/search",
+            page: {curr: 1},
+            where:{
+                'condit': condit
+            }
+        });
+
+        return false;
+    });
+}
