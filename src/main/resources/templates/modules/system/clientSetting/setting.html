@@ -15,11 +15,109 @@
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-card">
-                    <div class="layui-card-body">
-                        <table id="adminListTable" lay-filter="adminListTable" class="layui-table"></table>
+                    <div class="layui-card-header">
+                        <span>系统前台配置</span>
                     </div>
-                    <div class="" style="text-align: center; height: 30px; width: 100%;">
-                        <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
+                    <div class="layui-card-body">
+                        <form class="layui-form">
+                            <div class="layui-form-item layui-col-sm6">
+                                <label class="layui-form-label">项目名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" name="projectTitle" lay-filter="" value="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm6">
+                                <label class="layui-form-label">logo标题</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" name="logoText" lay-filter="" value="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm6">
+                                <label class="layui-form-label">公告</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" name="clientNotice" lay-filter="" value="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm6">
+                                <label class="layui-form-label">版权声明</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" name="clientCopyright" lay-filter="" value="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm6">
+                                <div class="layui-col-sm3 layui-col-sm-offset8">
+                                    <button class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
+                                    <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i>还&nbsp;原</button>
+                                </div>
+                            </div>
+                            <div class="layui-form-item"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <span>系统前台logo上传</span>
+                    </div>
+                    <div class="layui-card-body">
+                        <form class="layui-form">
+                            <div class="layui-form-item layui-col-sm6">
+                                <div class="layui-upload-drag" id="test10">
+                                    <i class="layui-icon"></i>
+                                    <p>点击上传，或将文件拖拽到此处</p>
+                                    <div class="layui-hide" id="uploadDemoView">
+                                        <hr>
+                                        <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <span>系统前台功能开关</span>
+                    </div>
+                    <div class="layui-card-body">
+                        <form class="layui-form">
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">登录功能</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="login" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">注册功能</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">评论功能</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">教程功能</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">资源下载</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-col-sm2">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe605;</i>确定</button>
+                                    <button class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe669;</i>还原</button>
+                                </div>
+                            </div>
+                            <div class="layui-form-item"></div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -32,6 +130,23 @@
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
 <script type="text/javascript" src="/" th:src="@{/static/js/modules/system/system.js}"></script>
 <script>
+    $(function(){
+       layui.use(['form','upload'], function(){
+          var form = layui.form,
+              upload = layui.upload;
 
+           //拖拽上传
+           upload.render({
+               elem: '#test10'
+               ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+               ,done: function(res){
+                   layer.msg('上传成功');
+                   layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
+                   console.log(res)
+               }
+           });
+       });
+
+    });
 </script>
 </html>

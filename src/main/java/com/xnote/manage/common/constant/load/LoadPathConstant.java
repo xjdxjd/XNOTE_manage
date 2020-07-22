@@ -15,7 +15,9 @@ public enum LoadPathConstant {
     LICENCE_PATH("/common/licence/"),
 
 
-    SYSTEM_DATAINIT_PATH("/modules/system/dataInit/");
+    SYSTEM_DATAINIT_PATH("/modules/system/dataInit/"),
+    //  客户端系统配置
+    SYSTEM_CLIENT_SETTING_PATH("/modules/system/clientSetting/");
 
     private String value;
     LoadPathConstant(String value) {
