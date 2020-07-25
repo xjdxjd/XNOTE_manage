@@ -14,7 +14,6 @@ spring:
   favicon:
     enabled: false
 
-
   # thymeleaf 模板引擎配置
   thymeleaf:
     cache: false
@@ -86,6 +85,11 @@ xnote:
 
 spring:
   profiles: dev
+  servlet:
+    # 上传文件设置
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 
 server:
   port: 9874

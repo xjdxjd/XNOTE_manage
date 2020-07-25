@@ -16,4 +16,11 @@ public interface SystemService
      * @methodName: getManageSystemConfig
      */
     public List<SysConfig> getManageSystemConfig();
+
+    /**
+     * @DESC:   获取系统前台配置
+     * @methodName: getSystemClientConfig
+     */
+    public List<SysConfig> getSystemClientConfig();
+
 }

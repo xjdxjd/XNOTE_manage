@@ -29,6 +29,17 @@
     </where>
   </select>
 
+  <select id="getSystemClientConfig" resultType="com.xnote.manage.modules.system.bean.SysConfig">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    ,
+    <include refid="Blob_Column_List"></include>
+    FROM XNOTE_SYS_CONFIG
+    <where>
+      CONFIG_TYPE = 1
+    </where>
+  </select>
+
 
 
 

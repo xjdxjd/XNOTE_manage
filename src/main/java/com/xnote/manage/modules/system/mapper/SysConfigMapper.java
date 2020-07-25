@@ -14,6 +14,12 @@ public interface SysConfigMapper {
      */
     public List<SysConfig> getManageSystemConfig();
 
+    /**
+     * @DESC:   获取系统前台配置
+     * @methodName: getSystemClientConfig
+     */
+    public List<SysConfig> getSystemClientConfig();
+
 
 
 
@@ -21,16 +27,10 @@ public interface SysConfigMapper {
 
 
     int deleteByPrimaryKey(String id);
-
     int insert(SysConfig record);
-
     int insertSelective(SysConfig record);
-
     SysConfig selectByPrimaryKey(String id);
-
     int updateByPrimaryKeySelective(SysConfig record);
-
     int updateByPrimaryKeyWithBLOBs(SysConfig record);
-
     int updateByPrimaryKey(SysConfig record);
 }

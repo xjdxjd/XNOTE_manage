@@ -24,4 +24,11 @@ public class SystemServiceImpl implements SystemService
         List<SysConfig> manageSysConfigs = sysConfigMapper.getManageSystemConfig();
         return manageSysConfigs;
     }
+
+    @Override
+    public List<SysConfig> getSystemClientConfig()
+    {
+        List<SysConfig> clientSysConfigs = sysConfigMapper.getSystemClientConfig();
+        return clientSysConfigs;
+    }
 }

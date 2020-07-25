@@ -11,7 +11,19 @@
     <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/moudles/system/system.css}">
 </head>
 <body>
-    <div id="s" class="layui-fluid">
+    <div class="x-nav">
+        <span class="layui-breadcrumb">
+            <a href="">页面功能管理</a>
+            <a>
+                <cite>系统前台配置</cite>
+            </a>
+        </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        </a>
+    </div>
+
+    <div class="layui-fluid">
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-card">
@@ -19,11 +31,11 @@
                         <span>系统前台配置</span>
                     </div>
                     <div class="layui-card-body">
-                        <form class="layui-form">
+                        <form class="layui-form layui-form-pane" id="systemForegroundConfig" lay-filter="systemForegroundConfig">
                             <div class="layui-form-item layui-col-sm6">
                                 <label class="layui-form-label">项目名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="projectTitle" lay-filter="" value="">
+                                    <input type="text" class="layui-input" name="projectTitle" lay-filter="projectTitle" lay-verify="projectTitle" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm6">
@@ -33,20 +45,20 @@
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm6">
-                                <label class="layui-form-label">公告</label>
-                                <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="clientNotice" lay-filter="" value="">
-                                </div>
-                            </div>
-                            <div class="layui-form-item layui-col-sm6">
                                 <label class="layui-form-label">版权声明</label>
                                 <div class="layui-input-block">
                                     <input type="text" class="layui-input" name="clientCopyright" lay-filter="" value="">
                                 </div>
                             </div>
+                            <div class="layui-form-item layui-form-text layui-col-sm6">
+                                <label class="layui-form-label">公告</label>
+                                <div class="layui-input-block">
+                                    <textarea name="clientNotice" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
                             <div class="layui-form-item layui-col-sm6">
                                 <div class="layui-col-sm3 layui-col-sm-offset8">
-                                    <button class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
+                                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="sub"><i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
                                     <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i>还&nbsp;原</button>
                                 </div>
                             </div>
@@ -59,9 +71,9 @@
                         <span>系统前台logo上传</span>
                     </div>
                     <div class="layui-card-body">
-                        <form class="layui-form">
+                        <form class="layui-form" id="systemLogoUpload" lay-filter="systemLogoUpload">
                             <div class="layui-form-item layui-col-sm6">
-                                <div class="layui-upload-drag" id="test10">
+                                <div class="layui-upload-drag layui-col-sm-offset2" id="uploadform">
                                     <i class="layui-icon"></i>
                                     <p>点击上传，或将文件拖拽到此处</p>
                                     <div class="layui-hide" id="uploadDemoView">
@@ -76,48 +88,80 @@
                 </div>
                 <div class="layui-card">
                     <div class="layui-card-header">
-                        <span>系统前台功能开关</span>
+                        <span>系统前台功能模块开关</span>
                     </div>
                     <div class="layui-card-body">
-                        <form class="layui-form">
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">登录功能</label>
+                        <form class="layui-form" id="systemFrontModuleSwitch" lay-filter="systemFrontModuleSwitch">
+                            <div class="layui-form-item layui-col-sm6">
+                                <label class="layui-form-label">项目版本</label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="login" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="projectVersion" value="0" title="单人版" checked>
+                                    <input type="radio" name="projectVersion" value="1" title="多用户版">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">项目选择单人版时，登录、注册、评论、留言、新增笔记 功能无法使用，将自动关闭</div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">登录模块
+                                    <i class="layui-badge-dot layui-bg-orange"></i>
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="loginSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">注册功能</label>
+                                <label class="layui-form-label">注册模块
+                                    <i class="layui-badge-dot layui-bg-orange"></i>
+                                </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="checkbox" name="registSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">评论功能</label>
+                                <label class="layui-form-label">新增笔记
+                                    <i class="layui-badge-dot layui-bg-orange"></i>
+                                </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="checkbox" name="addNoteSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">教程功能</label>
+                                <label class="layui-form-label">评论模块
+                                    <i class="layui-badge-dot layui-bg-orange"></i>
+                                </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="checkbox" name="commentSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">留言模块
+                                    <i class="layui-badge-dot layui-bg-orange"></i>
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="messageSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-sm2">
+                                <label class="layui-form-label">教程模块</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="courseSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
                                 <label class="layui-form-label">资源下载</label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="regist" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="checkbox" name="resDown" lay-skin="switch" lay-text="开启|关闭" checked="true">
                                 </div>
                             </div>
-                            <div class="layui-col-sm2">
-                                <div class="layui-input-block">
+                            <div class="layui-col-sm1">
+                                <div class="">
                                     <button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe605;</i>确定</button>
-                                    <button class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe669;</i>还原</button>
                                 </div>
                             </div>
                             <div class="layui-form-item"></div>
                         </form>
+                    </div>
+                    <div class="layui-card-body" style="text-align: center; height: 30px; width: 100%;">
+                        <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
                     </div>
                 </div>
             </div>
@@ -126,27 +170,39 @@
 </body>
 <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
 <script type="text/javascript" src="/" th:src="@{/static/js/modules/system/system.js}"></script>
 <script>
-    $(function(){
-       layui.use(['form','upload'], function(){
-          var form = layui.form,
-              upload = layui.upload;
+    var PATH = '[[@{/}]]';
+$(function(){
+    layui.use(['form','upload'], function(){
+        var form = layui.form,
+            upload = layui.upload;
 
-           //拖拽上传
-           upload.render({
-               elem: '#test10'
-               ,url: 'https://httpbin.org/post' //改成您自己的上传接口
-               ,done: function(res){
-                   layer.msg('上传成功');
-                   layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
-                   console.log(res)
-               }
-           });
-       });
-
+        loadForegroundConfig (form, PATH);
+        systemForegroundConfig (form, PATH);
+        //拖拽上传
+        upload.render({
+            elem: '#uploadform',
+            url: PATH + 'system/client/uploadLogo',
+            data: {
+                '_csrf': $("meta[name = '_csrf']").attr("content"),
+                '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                '_': new Date().getTime()
+            },
+            done: function(res){
+                if(res.code == 0)
+                {
+                    layer.msg(res.message);
+                }
+                layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
+                console.log(res)
+            }
+        });
     });
+});
 </script>
 </html>

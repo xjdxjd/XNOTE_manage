@@ -7,6 +7,9 @@ package com.xnote.manage.common.constant.load;
 public enum LoadPathConstant {
     LOGIN_PATH("/modules/login/"),
     WELCOME_PATH("/common/"),
+
+    NOTE_ADD_PATH("/modules/note/"),
+
     ADMIN_AUTH_PATH("/modules/admin/authority/"),
     ADMIN_CONFIG_PATH("/modules/admin/config/"),
     ADMIN_FUNC_PATH("/modules/admin/function/"),
