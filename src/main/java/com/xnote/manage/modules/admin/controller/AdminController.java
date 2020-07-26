@@ -1,7 +1,7 @@
 package com.xnote.manage.modules.admin.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xnote.manage.common.constant.ResultConstant;
 import com.xnote.manage.common.constant.admin.AdminConstant;
 import com.xnote.manage.common.util.AdminUtils;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,15 +88,13 @@ public class AdminController extends BaseController
     @PutMapping("/add")
     @ApiOperation(value="添加管理员", notes="新建管理员")
     @ApiImplicitParam(name = "formData", value = "表单数据，json格式的字符串", required = true, dataType = "String")
-    public Result insertAdmin(@RequestParam("formData") String formData, HttpSession session)
-    {
+    public Result insertAdmin(@RequestParam("formData") String formData, HttpSession session) throws JsonProcessingException {
         if(StringUtils.isEmpty(formData))
         {
             return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1201, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1201);
         }
-
-        JSONObject json = JSON.parseObject(formData);
-        Admin admin = JSON.toJavaObject(json, Admin.class);
+        ObjectMapper mapper = new ObjectMapper();
+        Admin admin = mapper.readValue(formData, Admin.class);
         if(ObjectUtils.isEmpty(admin))
         {
             return result.failure(AdminConstant.ADMIN_INSERT_FAILD_CODE_1201, AdminConstant.ADMIN_INSERT_FAILD_MESSAGE_1201);
@@ -123,15 +122,13 @@ public class AdminController extends BaseController
     @PostMapping("/update")
     @ApiOperation(value = "管理员信息更新", notes = "更新管理员")
     @ApiImplicitParam(name = "formData", value = "表单数据，json格式的字符串", required = true, dataType = "String")
-    public Result updateAdmin(@RequestParam("formData") String formData)
-    {
+    public Result updateAdmin(@RequestParam("formData") String formData) throws JsonProcessingException {
         if(StringUtils.isEmpty(formData))
         {
             return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1401, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1401);
         }
 
-        JSONObject json = JSON.parseObject(formData);
-        Admin admin = JSON.toJavaObject(json, Admin.class);
+        Admin admin = new ObjectMapper().readValue(formData, Admin.class);
         if(ObjectUtils.isEmpty(admin))
         {
             return result.failure(AdminConstant.ADMIN_UPDATE_FAILD_CODE_1402, AdminConstant.ADMIN_UPDATE_FAILD_MESSAGE_1402);
@@ -211,8 +208,7 @@ public class AdminController extends BaseController
     @DeleteMapping("/batchesDel")
     @ApiOperation(value = "批量删除管理员", notes = "批量删除管理员")
     @ApiImplicitParam(name = "ids", value = "管理员IDs", required = true, dataType = "String")
-    public Result batchesDelAdmin(HttpSession session, @RequestParam("pass") String pass, @RequestParam("ids") String ids)
-    {
+    public Result batchesDelAdmin(HttpSession session, @RequestParam("pass") String pass, @RequestParam("ids") String ids) throws JsonProcessingException {
         if (StringUtils.isEmpty(pass) || StringUtils.isEmpty(ids))
         {
             return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1301, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1301);
@@ -224,8 +220,7 @@ public class AdminController extends BaseController
         {
             return result.failure(AdminConstant.ADMIN_DELETE_FAILD_CODE_1303, AdminConstant.ADMIN_DELETE_FAILD_MESSAGE_1303);
         }
-
-        List<String> delIds = JSON.parseArray(ids,String.class);;
+        List<String> delIds = new ObjectMapper().readValue(ids, ArrayList.class);
         int code = adminService.batchesDelAdmin(delIds);
         switch (code)
         {
@@ -256,11 +251,11 @@ public class AdminController extends BaseController
     @GetMapping("/search")
     @ApiOperation(value = "按条件搜索管理员帐号", notes = "按条件搜索管理员帐号")
     @ApiImplicitParam(name = "condit", value = "条件JSON字符串", required = true, dataType = "String")
-    public Result search(@RequestParam("condit") String condit)
+    public Result search(@RequestParam("condit") String condit) throws JsonProcessingException
     {
-        JSONObject conditJson = JSON.parseObject(condit);
-        Admin admin = JSON.toJavaObject(conditJson, Admin.class);
+        Admin admin = new ObjectMapper().readValue(condit, Admin.class);
 
+        Map<String, Object> conditJson = new ObjectMapper().readValue(condit, Map.class);
         String createDateRange = (String) conditJson.get("createDateRange");
         String[] createtims = createDateRange.split(" - ");
 

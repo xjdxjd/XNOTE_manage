@@ -32,6 +32,7 @@ spring:
     username: root
     password: 1qaz@wsX
     url: jdbc:mysql://localhost:3306/xnote?useUnicode=true&characterEncoding=UTF-8&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    # &useAffectedRows=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     #   数据源其他配置
@@ -52,6 +53,22 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
+  ## cache 设置 ##
+  cache:
+    type: redis
+  ## redis链接设置 ##
+  redis:
+    database: 0
+    host: 118.24.21.83
+    port: 6379
+    password: root
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-active: 1000
+        max-wait: 2000
 ###############################################
 ##              mybatis 配置                 ##
 ###############################################

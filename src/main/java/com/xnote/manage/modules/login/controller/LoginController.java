@@ -14,10 +14,12 @@ import com.xnote.manage.modules.login.service.LoginService;
 import com.xnote.manage.modules.role.bean.AdminRole;
 import com.xnote.manage.modules.role.service.AdminRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,6 +31,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/login")
 public class LoginController extends BaseController {
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private LoginService loginService;
@@ -103,7 +108,6 @@ public class LoginController extends BaseController {
         LoginAdmin loginAdmin = new LoginAdmin(admin, adminRole, adminFunctions);
         request.getSession().setAttribute("loginAdmin",loginAdmin);
 
-        System.out.println(result.success(LoginConstant.LOGIN_SUCCESS_CODE, LoginConstant.LOGIN_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL));
         return result.success(LoginConstant.LOGIN_SUCCESS_CODE, LoginConstant.LOGIN_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL);
     }
     /**

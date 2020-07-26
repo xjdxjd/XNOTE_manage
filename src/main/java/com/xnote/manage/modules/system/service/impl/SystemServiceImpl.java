@@ -19,6 +19,7 @@ public class SystemServiceImpl implements SystemService
     private SysConfigMapper sysConfigMapper;
 
     @Override
+
     public List<SysConfig> getManageSystemConfig()
     {
         List<SysConfig> manageSysConfigs = sysConfigMapper.getManageSystemConfig();
@@ -28,7 +29,7 @@ public class SystemServiceImpl implements SystemService
     @Override
     public List<SysConfig> getSystemClientConfig()
     {
-        List<SysConfig> clientSysConfigs = sysConfigMapper.getSystemClientConfig();
+        List<SysConfig> clientSysConfigs = sysConfigMapper.getClientSystemConfig();
         return clientSysConfigs;
     }
 }
