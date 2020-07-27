@@ -6,6 +6,9 @@ package com.xnote.manage.common.constant;
  */
 public enum CommonConstant {
 
+    /** 操作状态--失败 */
+    STATUS_ZERO(0),
+
     /** 状态--正常 */
     STATUS_NORMAL(0),
 
@@ -27,10 +30,14 @@ public enum CommonConstant {
     /** 时间格式 */
     DATE_FORMAT("yyyy-MM-dd HH:mm:ss"),
 
-    /**
-     * 时间格式
-     */
-    DATE_FORMAT_SHORT("yyyy-MM-dd");
+    /** 时间格式--短格式 */
+    DATE_FORMAT_SHORT("yyyy-MM-dd"),
+
+    /** 系统配置类型--客户端 */
+    SYSCFG_TYPE_CLIENT(1),
+
+    /** 更新失败/删除失败/新增失败 */
+    SYSCFG_TYPE_MANAGE(2);
 
     private Integer intValue;
     private String stringValue;

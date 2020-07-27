@@ -12,15 +12,17 @@ public interface SystemService
 {
 
     /**
-     * @DESC:   获取系统配置
-     * @methodName: getManageSystemConfig
+     * @DESC:   根据configType获取系统配置
+     * @methodName: getSystemConfig
      */
-    public List<SysConfig> getManageSystemConfig();
+    public List<SysConfig> getSystemConfig(Integer configType);
 
     /**
-     * @DESC:   获取系统前台配置
-     * @methodName: getSystemClientConfig
+     * 更新系统前台配置
+     * @methodName: updateSysForegroundConfig
+     * @param clientcfgs 原数据
+     * @param clientCfgs 更新后的数据
+     * @return
      */
-    public List<SysConfig> getSystemClientConfig();
-
+    public List<SysConfig> updateSystemConfig(List<SysConfig> clientcfgs, List<SysConfig> clientCfgs, Integer configType);
 }

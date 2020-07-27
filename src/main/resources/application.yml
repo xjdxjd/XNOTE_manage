@@ -53,12 +53,20 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
+  ## RabbitMQ 配置 ##
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
   ## cache 设置 ##
   cache:
     type: redis
+
   ## redis链接设置 ##
   redis:
-    database: 0
+    database: 14
     host: 118.24.21.83
     port: 6379
     password: root

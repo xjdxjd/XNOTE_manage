@@ -1,5 +1,6 @@
 package com.xnote.manage.core.listener;
 
+import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.modules.system.bean.SysConfig;
 import com.xnote.manage.modules.system.service.SystemService;
 import org.springframework.context.ApplicationContext;
@@ -44,7 +45,7 @@ public class SystemListener implements HttpSessionListener
     private void init(HttpSessionEvent se)
     {
         Map<String, SysConfig> sysConfigMap = new HashMap<>();
-        List<SysConfig> manageSystemConfig = systemService.getManageSystemConfig();
+        List<SysConfig> manageSystemConfig = systemService.getSystemConfig(CommonConstant.SYSCFG_TYPE_MANAGE.getInt());
         for (SysConfig sysConfig : manageSystemConfig) {
             sysConfigMap.put(sysConfig.getConfigCode(),sysConfig);
         }

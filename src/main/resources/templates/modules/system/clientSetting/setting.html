@@ -58,8 +58,9 @@
                             </div>
                             <div class="layui-form-item layui-col-sm6">
                                 <div class="layui-col-sm3 layui-col-sm-offset8">
-                                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="sub"><i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
-                                    <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i>还&nbsp;原</button>
+                                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="foregroundSub">
+                                        <i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
+                                    <!--<button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i>还&nbsp;原</button>-->
                                 </div>
                             </div>
                             <div class="layui-form-item"></div>
@@ -98,8 +99,8 @@
                             <div class="layui-form-item layui-col-sm6">
                                 <label class="layui-form-label">项目版本</label>
                                 <div class="layui-input-block">
-                                    <input type="radio" name="projectVersion" value="0" title="单人版" checked>
-                                    <input type="radio" name="projectVersion" value="1" title="多用户版">
+                                    <input type="radio" name="projectVersion" value="user" title="单人版">
+                                    <input type="radio" name="projectVersion" value="users" title="多用户版">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">项目选择单人版时，登录、注册、评论、留言、新增笔记 功能无法使用，将自动关闭</div>
                             </div>
@@ -108,7 +109,8 @@
                                     <i class="layui-badge-dot layui-bg-orange"></i>
                                 </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="loginSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="loginSwitch" value="on" title="开启">
+                                    <input type="radio" name="loginSwitch" value="off" title="关闭">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
@@ -116,7 +118,8 @@
                                     <i class="layui-badge-dot layui-bg-orange"></i>
                                 </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="registSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="registSwitch" value="on" title="开启">
+                                    <input type="radio" name="registSwitch" value="off" title="关闭">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
@@ -124,7 +127,8 @@
                                     <i class="layui-badge-dot layui-bg-orange"></i>
                                 </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="addNoteSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="addNoteSwitch" value="on" title="开启">
+                                    <input type="radio" name="addNoteSwitch" value="off" title="关闭">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
@@ -132,7 +136,8 @@
                                     <i class="layui-badge-dot layui-bg-orange"></i>
                                 </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="commentSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="commentSwitch" value="on" title="开启">
+                                    <input type="radio" name="commentSwitch" value="off" title="关闭">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
@@ -140,24 +145,29 @@
                                     <i class="layui-badge-dot layui-bg-orange"></i>
                                 </label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="messageSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="messageSwitch" value="on" title="开启">
+                                    <input type="radio" name="messageSwitch" value="off" title="关闭">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
                                 <label class="layui-form-label">教程模块</label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="courseSwitch" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="courseSwitch" value="on" title="开启">
+                                    <input type="radio" name="courseSwitch" value="off" title="关闭">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-col-sm2">
                                 <label class="layui-form-label">资源下载</label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" name="resDown" lay-skin="switch" lay-text="开启|关闭" checked="true">
+                                    <input type="radio" name="resDown" value="on" title="开启">
+                                    <input type="radio" name="resDown" value="off" title="关闭">
                                 </div>
                             </div>
-                            <div class="layui-col-sm1">
-                                <div class="">
-                                    <button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe605;</i>确定</button>
+                            <div class="layui-col-sm3">
+                                <div class="layui-col-sm3 layui-col-sm-offset8">
+                                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="frontModuleSwitch">
+                                        <i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
+                                    <!--<button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i>还&nbsp;原</button>-->
                                 </div>
                             </div>
                             <div class="layui-form-item"></div>

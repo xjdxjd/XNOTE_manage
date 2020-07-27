@@ -17,29 +17,45 @@
   <sql id="Blob_Column_List">
     CONFIG_VALUE
   </sql>
-<!-- 获取管理端系统配置 -->
-  <select id="getManageSystemConfig" resultType="com.xnote.manage.modules.system.bean.SysConfig">
+
+<!-- 获取系统配置 -->
+  <select id="getSystemConfig" resultType="com.xnote.manage.modules.system.bean.SysConfig">
     SELECT
     <include refid="Base_Column_List"></include>
     ,
     <include refid="Blob_Column_List"></include>
     FROM XNOTE_SYS_CONFIG
     <where>
-      CONFIG_TYPE = 2
+      CONFIG_TYPE = #{configType,jdbcType=INTEGER}
     </where>
   </select>
 
-  <select id="getClientSystemConfig" resultType="com.xnote.manage.modules.system.bean.SysConfig">
-    SELECT
-    <include refid="Base_Column_List"></include>
-    ,
-    <include refid="Blob_Column_List"></include>
-    FROM XNOTE_SYS_CONFIG
-    <where>
-      CONFIG_TYPE = 1
-    </where>
-  </select>
-
+  <update id="updateSystemConfig" parameterType="java.util.List">
+    <foreach collection="clientCfgs" item="item" index="" open="" close="" separator=";">
+      UPDATE XNOTE_SYS_CONFIG
+      <set>
+        <if test="item.configName != null">
+          CONFIG_NAME = #{item.configName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.configCode != null">
+          CONFIG_CODE = #{item.configCode,jdbcType=VARCHAR},
+        </if>
+        <if test="item.configValue != null">
+          CONFIG_VALUE = #{item.configValue,jdbcType=LONGVARCHAR},
+        </if>
+        <if test="item.configType != null">
+          CONFIG_TYPE = #{item.configType,jdbcType=INTEGER},
+        </if>
+        <if test="item.configRemark != null">
+          CONFIG_REMARK = #{item.configRemark,jdbcType=VARCHAR},
+        </if>
+      </set>
+      <where>
+        ID = #{item.id,jdbcType=VARCHAR} AND
+        CONFIG_TYPE = #{configType,jdbcType=INTEGER}
+      </where>
+    </foreach>
+  </update>
 
 
 

@@ -1,5 +1,6 @@
 package com.xnote.manage.system;
 
+import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.modules.system.bean.SysConfig;
 import com.xnote.manage.modules.system.service.SystemService;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class SystemConfigTest
     @Test
     public void getManageSystemConfig()
     {
-        List<SysConfig> manageSystemConfig = systemService.getManageSystemConfig();
+        List<SysConfig> manageSystemConfig = systemService.getSystemConfig(CommonConstant.SYSCFG_TYPE_MANAGE.getInt());
         for (SysConfig sysConfig :manageSystemConfig )
         {
             System.out.println(sysConfig.getConfigCode()+" == "+sysConfig.getConfigName()+" == "+sysConfig.getConfigValue());
