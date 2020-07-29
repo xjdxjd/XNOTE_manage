@@ -5,7 +5,8 @@ import com.xnote.manage.core.redis.RedisUtils;
 import com.xnote.manage.modules.system.bean.SysConfig;
 import com.xnote.manage.modules.system.mapper.SysConfigMapper;
 import com.xnote.manage.modules.system.service.SystemService;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import com.xnote.manage.modules.user.bean.UserFunction;
+import com.xnote.manage.modules.user.mapper.UserFunctionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,11 +26,12 @@ public class SystemServiceImpl implements SystemService
 {
     @Resource
     private SysConfigMapper sysConfigMapper;
+    @Resource
+    private UserFunctionMapper userFunctionMapper;
     @Autowired
     private RedisUtils redisUtils;
 
     @Override
-    @RabbitListener(queues = "atguigu.news")
     @Cacheable(value = "systemConfig", key = "#p0")
     public List<SysConfig> getSystemConfig(Integer configType)
     {
@@ -38,7 +40,6 @@ public class SystemServiceImpl implements SystemService
     }
 
     @Override
-    @RabbitListener(queues = "atguigu.news")
     @CachePut(value = "systemConfig", key = "#p2")
     public List<SysConfig> updateSystemConfig(List<SysConfig> clientcfgs, List<SysConfig> clientCfgs, Integer configType)
     {
@@ -53,5 +54,57 @@ public class SystemServiceImpl implements SystemService
             return null;
         }
         return clientcfgs;
+    }
+
+    @Override
+    @Cacheable(value = "userfuncs", key = "#p0")
+    public List<UserFunction> getUserFunction(String cacheName)
+    {
+        //  获取功能
+        List<UserFunction> userFuncs = userFunctionMapper.getUserFunction();
+        return userFuncs;
+    }
+
+    @Override
+    @CachePut(value = "userfuncs", key = "#p0")
+    public List<UserFunction> updateUserFunction(String cacheName, List<UserFunction> userFunctions)
+    {
+        if (CollectionUtils.isEmpty(userFunctions))
+        {
+            return null;
+        }
+
+        //  修正次级功能的状态
+        for (UserFunction func: userFunctions)
+        {
+            //  如果客户端版本为user
+            if("version".equals(func.getFuncCode()) && "user".equals(func.getFuncSwitch()))
+            {
+                //  一级功能为关闭状态，则次级功能将全部关闭
+                userFunctions = correctStatusOfSecFunctions(userFunctions);
+                break;
+            }
+        }
+
+        for (UserFunction func: userFunctions)
+        {
+            System.out.println(func.getFuncName() + "==" + func.getFuncSwitch());
+        }
+
+        userFunctionMapper.updateUserFuncSwitch(userFunctions);
+
+        return userFunctions;
+    }
+
+    public List<UserFunction> correctStatusOfSecFunctions(List<UserFunction> funcs)
+    {
+        for (UserFunction func : funcs)
+        {
+            if(CommonConstant.FUNCTION_USER_SECONDARY.getInt().equals(func.getFuncType()))
+            {
+                func.setFuncSwitch(CommonConstant.FUNCTION_USER_SECONDARY_STATUS_STOP.getString());
+            }
+        }
+        return funcs;
     }
 }

@@ -36,8 +36,24 @@ public enum CommonConstant {
     /** 系统配置类型--客户端 */
     SYSCFG_TYPE_CLIENT(1),
 
-    /** 更新失败/删除失败/新增失败 */
-    SYSCFG_TYPE_MANAGE(2);
+    /** 系统配置类型--管理端 */
+    SYSCFG_TYPE_MANAGE(2),
+
+    /** 用户功能--主功能 */
+    FUNCTION_USER_MAJOR(0),
+
+    /** 用户功能--次级功能 */
+    FUNCTION_USER_SECONDARY(1),
+    /** 用户功能--次级功能 开启 */
+    FUNCTION_USER_SECONDARY_STATUS_OPEN("on"),
+    /** 用户功能--次级功能 关闭*/
+    FUNCTION_USER_SECONDARY_STATUS_STOP("off"),
+
+    /** 用户功能--cache名称 */
+//    SYSCFG_TYPE_CLIENT(1),
+
+    /** 用户功能--cache名称 */
+    FUNCTION_USER_CACHENAME("USERFUNCTIONS");
 
     private Integer intValue;
     private String stringValue;

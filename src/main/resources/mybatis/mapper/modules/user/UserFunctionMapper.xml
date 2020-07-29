@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnote.manage.modules.user.mapper.UserFunctionMapper">
+  <resultMap id="BaseResultMap" type="com.xnote.manage.modules.user.bean.UserFunction">
+    <id column="func_id" jdbcType="VARCHAR" property="funcId" />
+    <result column="func_code" jdbcType="VARCHAR" property="funcCode" />
+    <result column="func_name" jdbcType="VARCHAR" property="funcName" />
+    <result column="func_switch" jdbcType="VARCHAR" property="funcSwitch" />
+    <result column="func_type" jdbcType="INTEGER" property="funcType" />
+    <result column="func_parent_id" jdbcType="VARCHAR" property="funcParentId" />
+    <result column="func_url" jdbcType="VARCHAR" property="funcUrl" />
+    <result column="func_remark" jdbcType="VARCHAR" property="funcRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    FUNC_ID, FUNC_CODE, FUNC_NAME, FUNC_SWITCH, FUNC_TYPE, FUNC_PARENT_ID, FUNC_URL, FUNC_REMARK
+  </sql>
+
+  <select id="getUserFunction" resultType="com.xnote.manage.modules.user.bean.UserFunction">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM XNOTE_USER_FUNCTION
+  </select>
+
+  <update id="updateUserFuncSwitch">
+    <foreach collection="userFuncs" item="item" index="" open="" close="" separator=";">
+      UPDATE XNOTE_USER_FUNCTION
+      SET FUNC_SWITCH = #{item.funcSwitch,jdbcType=VARCHAR}
+      <where>
+        FUNC_ID =  #{item.funcId,jdbcType=INTEGER}
+      </where>
+    </foreach>
+  </update>
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xnote_user_function
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xnote_user_function
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xnote.manage.modules.user.bean.UserFunction">
+    insert into xnote_user_function (func_id, func_code, func_name,
+      func_switch, func_type, func_url,
+      func_remark)
+    values (#{funcId,jdbcType=VARCHAR}, #{funcCode,jdbcType=VARCHAR}, #{funcName,jdbcType=VARCHAR},
+      #{funcSwitch,jdbcType=VARCHAR}, #{funcType,jdbcType=INTEGER}, #{funcUrl,jdbcType=VARCHAR},
+      #{funcRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xnote.manage.modules.user.bean.UserFunction">
+    insert into xnote_user_function
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="funcId != null">
+        func_id,
+      </if>
+      <if test="funcCode != null">
+        func_code,
+      </if>
+      <if test="funcName != null">
+        func_name,
+      </if>
+      <if test="funcSwitch != null">
+        func_switch,
+      </if>
+      <if test="funcType != null">
+        func_type,
+      </if>
+      <if test="funcUrl != null">
+        func_url,
+      </if>
+      <if test="funcRemark != null">
+        func_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="funcId != null">
+        #{funcId,jdbcType=VARCHAR},
+      </if>
+      <if test="funcCode != null">
+        #{funcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="funcName != null">
+        #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcSwitch != null">
+        #{funcSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null">
+        #{funcType,jdbcType=INTEGER},
+      </if>
+      <if test="funcUrl != null">
+        #{funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="funcRemark != null">
+        #{funcRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.user.bean.UserFunction">
+    update xnote_user_function
+    <set>
+      <if test="funcCode != null">
+        func_code = #{funcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="funcName != null">
+        func_name = #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcSwitch != null">
+        func_switch = #{funcSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null">
+        func_type = #{funcType,jdbcType=INTEGER},
+      </if>
+      <if test="funcUrl != null">
+        func_url = #{funcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="funcRemark != null">
+        func_remark = #{funcRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.user.bean.UserFunction">
+    update xnote_user_function
+    set func_code = #{funcCode,jdbcType=VARCHAR},
+      func_name = #{funcName,jdbcType=VARCHAR},
+      func_switch = #{funcSwitch,jdbcType=VARCHAR},
+      func_type = #{funcType,jdbcType=INTEGER},
+      func_url = #{funcUrl,jdbcType=VARCHAR},
+      func_remark = #{funcRemark,jdbcType=VARCHAR}
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </update>
+</mapper>

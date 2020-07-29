@@ -99,78 +99,114 @@
                             <div class="layui-form-item layui-col-sm6">
                                 <label class="layui-form-label">项目版本</label>
                                 <div class="layui-input-block">
-                                    <input type="radio" name="projectVersion" value="user" title="单人版">
-                                    <input type="radio" name="projectVersion" value="users" title="多用户版">
+                                    <input type="radio" name="version" value="user" title="单人版">
+                                    <input type="radio" name="version" value="users" title="多用户版">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">项目选择单人版时，登录、注册、评论、留言、新增笔记 功能无法使用，将自动关闭</div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">登录模块
-                                    <i class="layui-badge-dot layui-bg-orange"></i>
-                                </label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="loginSwitch" value="on" title="开启">
-                                    <input type="radio" name="loginSwitch" value="off" title="关闭">
+                            <div class="layui-form-item">
+                                <div class="layui-col-sm3">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>登录模块
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="login" value="on" title="开启">
+                                        <input type="radio" name="login" value="off" title="关闭">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm2">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>注册模块
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="regist" value="on" title="开启">
+                                        <input type="radio" name="regist" value="off" title="关闭">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">注册模块
-                                    <i class="layui-badge-dot layui-bg-orange"></i>
-                                </label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="registSwitch" value="on" title="开启">
-                                    <input type="radio" name="registSwitch" value="off" title="关闭">
+                            <div class="layui-form-item">
+                                <div class="layui-col-sm3">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>新增笔记
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="add" value="on" title="开启">
+                                        <input type="radio" name="add" value="off" title="关闭">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm2">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>评论模块
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="comment" value="on" title="开启">
+                                        <input type="radio" name="comment" value="off" title="关闭">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">新增笔记
-                                    <i class="layui-badge-dot layui-bg-orange"></i>
-                                </label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="addNoteSwitch" value="on" title="开启">
-                                    <input type="radio" name="addNoteSwitch" value="off" title="关闭">
+                            <div class="layui-form-item">
+                                <div class="layui-col-sm3">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>点赞模块
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="star" value="on" title="开启">
+                                        <input type="radio" name="star" value="off" title="关闭">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm2">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>留言模块
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="message" value="on" title="开启">
+                                        <input type="radio" name="message" value="off" title="关闭">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">评论模块
-                                    <i class="layui-badge-dot layui-bg-orange"></i>
-                                </label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="commentSwitch" value="on" title="开启">
-                                    <input type="radio" name="commentSwitch" value="off" title="关闭">
+                            <div class="layui-form-item">
+                                <div class="layui-col-sm3">
+                                    <label class="layui-form-label">
+                                        <i class="layui-badge-dot layui-bg-orange"></i>检索模块
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="search" value="on" title="开启">
+                                        <input type="radio" name="search" value="off" title="关闭">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm2">
+                                    <label class="layui-form-label">教程模块</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="course" value="on" title="开启">
+                                        <input type="radio" name="course" value="off" title="关闭">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">留言模块
-                                    <i class="layui-badge-dot layui-bg-orange"></i>
-                                </label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="messageSwitch" value="on" title="开启">
-                                    <input type="radio" name="messageSwitch" value="off" title="关闭">
+                            <div class="layui-form-item">
+                                <div class="layui-col-sm3">
+                                    <label class="layui-form-label">资源下载</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="resourceDown" value="on" title="开启">
+                                        <input type="radio" name="resourceDown" value="off" title="关闭">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm2">
+                                    <label class="layui-form-label">关于用户</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="about" value="on" title="开启">
+                                        <input type="radio" name="about" value="off" title="关闭">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">教程模块</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="courseSwitch" value="on" title="开启">
-                                    <input type="radio" name="courseSwitch" value="off" title="关闭">
+                            <div class="layui-form-item">
+                                <div class="layui-col-sm1 layui-col-sm-offset3">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="frontModuleSwitch">
+                                            <i class="layui-icon">&#xe605;</i>确&nbsp;定
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="layui-form-item layui-col-sm2">
-                                <label class="layui-form-label">资源下载</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="resDown" value="on" title="开启">
-                                    <input type="radio" name="resDown" value="off" title="关闭">
-                                </div>
-                            </div>
-                            <div class="layui-col-sm3">
-                                <div class="layui-col-sm3 layui-col-sm-offset8">
-                                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="frontModuleSwitch">
-                                        <i class="layui-icon">&#xe605;</i>确&nbsp;定</button>
-                                    <!--<button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i>还&nbsp;原</button>-->
-                                </div>
-                            </div>
-                            <div class="layui-form-item"></div>
                         </form>
                     </div>
                     <div class="layui-card-body" style="text-align: center; height: 30px; width: 100%;">

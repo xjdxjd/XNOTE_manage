@@ -8,6 +8,7 @@ import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.system.bean.SysConfig;
 import com.xnote.manage.modules.system.service.SystemService;
+import com.xnote.manage.modules.user.bean.UserFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -90,38 +91,47 @@ public class SettingController extends BaseController
         return result.success();
     }
 
-    @PostMapping("/client/ssfms/save")
+    @GetMapping("/client/getUserFunc")
+    @ResponseBody
+    public Result getClientFunction()
+    {
+        Map<String, UserFunction> cliFuncMap = new HashMap<>();
+
+        List<UserFunction> userFunctions = systemService.getUserFunction(CommonConstant.FUNCTION_USER_CACHENAME.getString());
+        for (UserFunction userFunction : userFunctions) {
+            cliFuncMap.put(userFunction.getFuncCode(), userFunction);
+        }
+        return result.success(cliFuncMap);
+    }
+
+    @PostMapping("/client/ufunc/save")
     @ResponseBody
     public Result updateSysFrontModuleSwitch(@RequestParam("formData") String formData) throws JsonProcessingException {
 
-        List<SysConfig> clientCfgs = new ArrayList<>();
+        List<UserFunction> clientCfgs = new ArrayList<>();
         if(StringUtils.isEmpty(formData))
         {
             return result.failure();
         }
 
         Map<String, Object> configMap = new ObjectMapper().readValue(formData, Map.class);
-        List<SysConfig> clientcfgs = systemService.getSystemConfig(CommonConstant.SYSCFG_TYPE_CLIENT.getInt());
-        for (SysConfig sysConfig : clientcfgs)
+        List<UserFunction> clientcfgs = systemService.getUserFunction(CommonConstant.FUNCTION_USER_CACHENAME.getString());
+        for (UserFunction userFunction : clientcfgs)
         {
-            if(ObjectUtils.isEmpty(configMap.get(sysConfig.getConfigCode())))
+            if(ObjectUtils.isEmpty(configMap.get(userFunction.getFuncCode())))
             {
                 continue;
             }else{
-                sysConfig.setConfigValue((String)configMap.get(sysConfig.getConfigCode()));
-                clientCfgs.add(sysConfig);
+                userFunction.setFuncSwitch(configMap.get(userFunction.getFuncCode()).toString());
+                clientCfgs.add(userFunction);
             }
         }
 
-        List<SysConfig> cfgs = systemService.updateSystemConfig(clientcfgs, clientCfgs, CommonConstant.SYSCFG_TYPE_CLIENT.getInt());
+        List<UserFunction> cfgs = systemService.updateUserFunction(CommonConstant.FUNCTION_USER_CACHENAME.getString(), clientCfgs);
         if(CollectionUtils.isEmpty(cfgs))
         {
             return result.failure();
         }
         return result.success();
     }
-
-
-
-
 }

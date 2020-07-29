@@ -12,21 +12,36 @@ function loadForegroundConfig(form, path)
                     "clientNotice": clientSet['clientNotice'].configValue,
                     "clientCopyright": clientSet['clientCopyright'].configValue
                 });
+            }
+            return false;
+        }
+    });
 
+    $.get({
+        url: path + "system/client/getUserFunc",
+        dataType: 'json',
+        success: function (res) {
+            if(res.code == 0){
+                var clientSet = res.data;
                 form.val("systemFrontModuleSwitch", {
-                    "projectVersion": clientSet['projectVersion'].configValue,
-                    "loginSwitch": clientSet['loginSwitch'].configValue,
-                    "registSwitch": clientSet['registSwitch'].configValue,
-                    "addNoteSwitch": clientSet['addNoteSwitch'].configValue,
-                    "commentSwitch": clientSet['commentSwitch'].configValue,
-                    "messageSwitch": clientSet['messageSwitch'].configValue,
-                    "courseSwitch": clientSet['courseSwitch'].configValue,
-                    "resDown": clientSet['resDown'].configValue
+                    "version": clientSet['version'].funcSwitch,
+                    "login": clientSet['login'].funcSwitch,
+                    "regist": clientSet['regist'].funcSwitch,
+                    "add": clientSet['add'].funcSwitch,
+                    "comment": clientSet['comment'].funcSwitch,
+                    "star": clientSet['star'].funcSwitch,
+                    "message": clientSet['message'].funcSwitch,
+                    "search": clientSet['search'].funcSwitch,
+                    "course": clientSet['course'].funcSwitch,
+                    "resourceDown": clientSet['resourceDown'].funcSwitch,
+                    "about": clientSet['about'].funcSwitch
                 });
             }
             return false;
         }
     });
+
+
 }
 
 function systemForegroundConfig (form, path)
@@ -117,7 +132,7 @@ function systemForegroundConfig (form, path)
     form.on('submit(frontModuleSwitch)',function (data) {
 
         $.post({
-            url: path + 'system/client/ssfms/save',
+            url: path + 'system/client/ufunc/save',
             dataType: 'json',
             data: {
                 'formData': JSON.stringify(data.field),
