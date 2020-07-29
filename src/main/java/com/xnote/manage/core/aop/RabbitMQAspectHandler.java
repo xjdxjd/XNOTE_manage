@@ -38,10 +38,6 @@ public class RabbitMQAspectHandler
         String exchangeName = ProjectConstant.XNOTE_SYSTEM_EXCHANGE.getString();
         String routingKey = ProjectConstant.XNOTE_CLIENT_CONFIG_MESSAGE_KEY.getString();
 
-        for (SysConfig sysConfig: clientCfgs)
-        {
-            System.out.println(sysConfig.getConfigName());
-        }
         rabbitTemplate.convertAndSend(exchangeName, routingKey, clientCfgs);
     }
 

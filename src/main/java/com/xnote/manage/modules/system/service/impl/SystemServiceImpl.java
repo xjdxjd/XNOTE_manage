@@ -86,11 +86,6 @@ public class SystemServiceImpl implements SystemService
             }
         }
 
-        for (UserFunction func: userFunctions)
-        {
-            System.out.println(func.getFuncName() + "==" + func.getFuncSwitch());
-        }
-
         userFunctionMapper.updateUserFuncSwitch(userFunctions);
 
         return userFunctions;

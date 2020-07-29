@@ -11,6 +11,8 @@ public class UserFunction {
 
     private Integer funcType;
 
+    private Integer funcRole;
+
     private String funcParentId;
 
     private String funcUrl;
@@ -57,6 +59,14 @@ public class UserFunction {
         this.funcType = funcType;
     }
 
+    public Integer getFuncRole() {
+        return funcRole;
+    }
+
+    public void setFuncRole(Integer funcRole) {
+        this.funcRole = funcRole;
+    }
+
     public String getFuncParentId() {
         return funcParentId;
     }
@@ -81,4 +91,18 @@ public class UserFunction {
         this.funcRemark = funcRemark == null ? null : funcRemark.trim();
     }
 
+    @Override
+    public String toString() {
+        return "UserFunction{" +
+                "funcId='" + funcId + '\'' +
+                ", funcCode='" + funcCode + '\'' +
+                ", funcName='" + funcName + '\'' +
+                ", funcSwitch='" + funcSwitch + '\'' +
+                ", funcType=" + funcType +
+                ", funcRole=" + funcRole +
+                ", funcParentId='" + funcParentId + '\'' +
+                ", funcUrl='" + funcUrl + '\'' +
+                ", funcRemark='" + funcRemark + '\'' +
+                '}';
+    }
 }

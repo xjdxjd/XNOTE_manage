@@ -7,12 +7,13 @@
     <result column="func_name" jdbcType="VARCHAR" property="funcName" />
     <result column="func_switch" jdbcType="VARCHAR" property="funcSwitch" />
     <result column="func_type" jdbcType="INTEGER" property="funcType" />
+    <result column="func_role" jdbcType="INTEGER" property="funcRole" />
     <result column="func_parent_id" jdbcType="VARCHAR" property="funcParentId" />
     <result column="func_url" jdbcType="VARCHAR" property="funcUrl" />
     <result column="func_remark" jdbcType="VARCHAR" property="funcRemark" />
   </resultMap>
   <sql id="Base_Column_List">
-    FUNC_ID, FUNC_CODE, FUNC_NAME, FUNC_SWITCH, FUNC_TYPE, FUNC_PARENT_ID, FUNC_URL, FUNC_REMARK
+    FUNC_ID, FUNC_CODE, FUNC_NAME, FUNC_SWITCH, FUNC_TYPE, FUNC_ROLE, FUNC_PARENT_ID, FUNC_URL, FUNC_REMARK
   </sql>
 
   <select id="getUserFunction" resultType="com.xnote.manage.modules.user.bean.UserFunction">
