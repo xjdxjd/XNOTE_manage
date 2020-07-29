@@ -1,4 +1,4 @@
-package com.xnote.manage.modules.note;
+package com.xnote.manage.modules.note.controller;
 
 import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.core.controller.BaseController;

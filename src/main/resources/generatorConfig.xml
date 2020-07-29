@@ -18,20 +18,34 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="main.java.com.xnote.manage.modules.user.bean" targetProject="src">
+        <javaModelGenerator targetPackage="main.java.com.xnote.manage.modules.note.bean" targetProject="src">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="main.resources.mybatis.mapper.modules.user" targetProject="src">
+        <sqlMapGenerator targetPackage="main.resources.mybatis.mapper.modules.note" targetProject="src">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="main.java.com.xnote.manage.modules.user.mapper" targetProject="src">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="main.java.com.xnote.manage.modules.note.mapper" targetProject="src">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="xnote_user_function" domainObjectName="UserFunction" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="xnote_note"
+               domainObjectName="Note"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="xnote_note_category"
+               domainObjectName="NoteCategory"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="xnote_note_comment"
+               domainObjectName="NoteComment"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="xnote_note_content"
+               domainObjectName="NoteContent"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="xnote_note_star"
+               domainObjectName="NoteStar"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
         <!--
                 <table tableName="xnote_log_admin" domainObjectName="AdminLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
                 <table tableName="xnote_log_user" domainObjectName="UserLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
