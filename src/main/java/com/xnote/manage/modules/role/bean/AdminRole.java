@@ -1,5 +1,7 @@
 package com.xnote.manage.modules.role.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class AdminRole {
@@ -15,8 +17,10 @@ public class AdminRole {
 
     private String roleRemark;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date createTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date updateTime;
 
     private Long timestamp;

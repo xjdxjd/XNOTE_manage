@@ -1,5 +1,7 @@
 package com.xnote.manage.modules.note.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +15,10 @@ public class Note {
 
     private String noteCate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date createTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date updateTime;
 
     private Long timestamp;

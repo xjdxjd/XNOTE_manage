@@ -1,5 +1,7 @@
 package com.xnote.manage.modules.function.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +24,10 @@ public class AdminFunction {
 
     private String remark;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date funcCreateTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date funcUpdateTime;
 
     private String funcTimestamp;

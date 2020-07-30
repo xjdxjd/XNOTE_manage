@@ -1,5 +1,7 @@
 package com.xnote.manage.modules.log.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class AdminLog {
@@ -23,6 +25,7 @@ public class AdminLog {
 
     private String operationObject;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date operationTime;
 
     public String getLogId() {

@@ -1,5 +1,7 @@
 package com.xnote.manage.modules.note.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class NoteStar {
@@ -9,6 +11,7 @@ public class NoteStar {
 
     private Integer noteStar;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date updateTime;
 
     private Long updateTimestamp;
