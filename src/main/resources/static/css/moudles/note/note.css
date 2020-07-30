@@ -1,0 +1,27 @@
+.noteTextlabel{
+    display: block;
+    padding-left: 30px;
+    line-height: 50px;
+    background-color: rgba(239, 239, 239, 0.2);
+    height: 50px;
+}
+.noteTextlabel i{
+    margin-right: 10px;
+    color: #1e9fff;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.noteTextlabel .noteTextlabel-span{
+    margin-left: 20px;
+    color: #FF5722;
+}
+.md-textarea{
+    height: 460px;
+    resize: unset;
+}
+.md-div{
+    height: 460px;
+    overflow: hidden;
+    overflow-y: auto;
+    resize: unset;
+}

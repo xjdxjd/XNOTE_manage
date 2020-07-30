@@ -479,3 +479,26 @@ footer {
 .html-for-mac .context-menu {
     --item-hover-bg-color: #E6F0FE;
 }
+
+li {
+    list-style: revert;
+}
+
+code {
+    padding: 2px 4px;
+    border-radius: 3px;
+    background-color: rgba(255, 127, 33, 0.2);
+    color: #8c8c8c;
+}
+
+pre {
+    margin: 0 30px;
+    background-color: rgba(190, 190, 190, 0.1);
+    padding: 10px 0;
+    border-left: 3px solid #EAEAEA;
+}
+
+pre code{
+    padding: 0;
+    background-color:  rgba(0, 0, 0, 0);
+}

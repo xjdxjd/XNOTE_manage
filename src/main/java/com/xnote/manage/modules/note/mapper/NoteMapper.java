@@ -1,9 +1,13 @@
 package com.xnote.manage.modules.note.mapper;
 
 import com.xnote.manage.modules.note.bean.Note;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface NoteMapper {
+@Mapper
+public interface NoteMapper
+{
 
+    public Integer addNote(Note note);
 
 
 

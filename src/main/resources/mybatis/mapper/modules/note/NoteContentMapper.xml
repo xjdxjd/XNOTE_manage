@@ -9,11 +9,62 @@
     <result column="note_context" jdbcType="LONGVARCHAR" property="noteContext" />
   </resultMap>
   <sql id="Base_Column_List">
-    cont_id, note_id
+    CONT_ID, NOTE_ID
   </sql>
   <sql id="Blob_Column_List">
-    note_context
+    NOTE_CONTEXT
   </sql>
+
+
+  <insert id="addNoteContent">
+    INSERT INTO XNOTE_NOTE_CONTENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contId != null">
+        CONT_ID,
+      </if>
+      <if test="noteId != null">
+        NOTE_ID,
+      </if>
+      <if test="noteContext != null">
+        NOTE_CONTEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contId != null">
+        #{contId,jdbcType=VARCHAR},
+      </if>
+      <if test="noteId != null">
+        #{noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="noteContext != null">
+        #{noteContext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
@@ -57,7 +108,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.note.bean.NoteContent">
+    <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.note.bean.NoteContent">
     update xnote_note_content
     <set>
       <if test="noteId != null">

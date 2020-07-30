@@ -1,6 +1,7 @@
 package com.xnote.manage.modules.note.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class NoteComment {
     private String commId;
@@ -20,6 +21,8 @@ public class NoteComment {
     private Long createTimestamp;
 
     private String commText;
+
+    private List<NoteComment> comments;
 
     public String getCommId() {
         return commId;
@@ -91,5 +94,13 @@ public class NoteComment {
 
     public void setCommText(String commText) {
         this.commText = commText == null ? null : commText.trim();
+    }
+
+    public List<NoteComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<NoteComment> comments) {
+        this.comments = comments;
     }
 }

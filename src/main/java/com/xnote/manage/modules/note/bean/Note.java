@@ -1,6 +1,8 @@
 package com.xnote.manage.modules.note.bean;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class Note {
     private String noteId;
@@ -16,6 +18,15 @@ public class Note {
     private Date updateTime;
 
     private Long timestamp;
+
+    //  笔记内容
+    private NoteContent noteContent;
+    //  笔记分类
+    private Map<String,NoteCategory> noteCategory;
+    //  笔记评论
+    private List<NoteComment> comments;
+    //  笔记点赞量
+    private NoteStar noteStar;
 
     public String getNoteId() {
         return noteId;
@@ -71,5 +82,50 @@ public class Note {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public NoteContent getNoteContent() {
+        return noteContent;
+    }
+
+    public void setNoteContent(NoteContent noteContent) {
+        this.noteContent = noteContent;
+    }
+
+    public Map<String, NoteCategory> getNoteCategory() {
+        return noteCategory;
+    }
+
+    public void setNoteCategory(Map<String, NoteCategory> noteCategory) {
+        this.noteCategory = noteCategory;
+    }
+
+    public List<NoteComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<NoteComment> comments) {
+        this.comments = comments;
+    }
+
+    public NoteStar getNoteStar() {
+        return noteStar;
+    }
+
+    public void setNoteStar(NoteStar noteStar) {
+        this.noteStar = noteStar;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "noteId='" + noteId + '\'' +
+                ", noteTitle='" + noteTitle + '\'' +
+                ", noteCont='" + noteCont + '\'' +
+                ", noteCate='" + noteCate + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

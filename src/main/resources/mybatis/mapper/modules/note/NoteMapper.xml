@@ -14,6 +14,55 @@
     NOTE_ID, NOTE_TITLE, NOTE_CONT, NOTE_CATE, CREATE_TIME, UPDATE_TIME, TIMESTAMP
   </sql>
 
+  <insert id="addNote">
+    INSERT INTO XNOTE_NOTE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noteId != null">
+        note_id,
+      </if>
+      <if test="noteTitle != null">
+        note_title,
+      </if>
+      <if test="noteCont != null">
+        note_cont,
+      </if>
+      <if test="noteCate != null">
+        note_cate,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="timestamp != null">
+        timestamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noteId != null">
+        #{noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTitle != null">
+        #{noteTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noteCont != null">
+        #{noteCont,jdbcType=VARCHAR},
+      </if>
+      <if test="noteCate != null">
+        #{noteCate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
 
 
 
@@ -103,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.note.bean.Note">
+    <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.note.bean.Note">
     update xnote_note
     <set>
       <if test="noteTitle != null">

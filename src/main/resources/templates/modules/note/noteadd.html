@@ -8,7 +8,8 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
     <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
-    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/moudles/system/system.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/plugin/vueSkin/vue.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/moudles/note/note.css}">
 </head>
 <body>
     <div class="x-nav">
@@ -33,37 +34,36 @@
                     <div class="layui-card-body">
                         <form class="layui-form">
                             <div class="layui-form-item">
-                                <div>
-                                    <label class="layui-form-label" for="title">标题</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" name="title" class="layui-input" placeholder="请输入标题">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="layui-form-label" for="title">标题</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" name="title" class="layui-input" placeholder="请输入标题">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="layui-form-label" for="title">标题</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" name="title" class="layui-input" placeholder="请输入标题">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="layui-form-label" for="title">标题</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" name="title" class="layui-input" placeholder="请输入标题">
-                                    </div>
+                                <label class="layui-form-label">
+                                    <i class="layui-badge-dot layui-bg-orange"></i>笔记标题
+                                </label>
+                                <div class="layui-col-xs11">
+                                    <input type="text" name="noteTitle" class="layui-input" placeholder="请输入标题">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <div class="layui-col-sm6">
-                                    <textarea class="" id="noteText"></textarea>
+                                <label class="layui-form-label">笔记分类</label>
+                                <div id="noteCate" class="layui-col-xs11"></div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-col-xs12">
+                                    <label class="noteTextlabel">
+                                        <i class="layui-icon">&#xe63c;</i>笔记内容
+                                        <span class="noteTextlabel-span">
+                                            ( 左侧按照 markdown 语法格式编写，右侧会同步显示 markdown 文档 )
+                                        </span>
+                                    </label>
                                 </div>
-                                <div class="layui-col-sm6">
-                                    <textarea class="layui-textarea "></textarea>
+                                <div class="layui-col-xs6">
+                                    <textarea id="noteText" name="content" class="layui-textarea md-textarea"></textarea>
+                                </div>
+                                <div class="layui-col-xs6">
+                                    <div id="mdText" class="layui-textarea md-div"></div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-inline layui-col-xs-offset11">
+                                    <button class="layui-btn layui-btn-normal" lay-submit  lay-filter="addNote">添加笔记</button>
                                 </div>
                             </div>
                         </form>
@@ -82,16 +82,16 @@
 
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/static/plugin/xmSelect/xm-select.js}"></script>
 <script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
-<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/modules/user/user.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/plugin/showdown/showdown.min.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/modules/note/note.js}"></script>
 <script>
-    layui.use('layedit', function(){
-        var layedit = layui.layedit;
+    var PATH = '[[@{/}]]';
 
-        //建立编辑器
-        layedit.build('noteText',{
-            height: '570px'
-        });
+    $(function(){
+        xmSelectRun();
     });
+
 </script>
 </html>

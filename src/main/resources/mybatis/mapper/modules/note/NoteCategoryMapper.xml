@@ -12,6 +12,20 @@
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
 
+  <sql id="BaseColumn">
+    CATE_ID, CATE_CODE, CATE_NAME, CATE_PARENT_ID, CATE_SORT, CREATE_TIME, UPDATE_TIME, TIMESTAMP
+  </sql>
+
+  <select id="getNoteCategory" resultType="com.xnote.manage.modules.note.bean.NoteCategory">
+    SELECT
+    <include refid="BaseColumn"/>
+    FROM XNOTE_NOTE_CATEGORY
+    ORDER BY CATE_SORT ASC
+  </select>
+
+
+
+
 
   <insert id="insert" parameterType="com.xnote.manage.modules.note.bean.NoteCategory">
     insert into xnote_note_category (cate_id, cate_code, cate_name, 

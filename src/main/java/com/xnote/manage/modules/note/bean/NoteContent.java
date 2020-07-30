@@ -30,4 +30,13 @@ public class NoteContent {
     public void setNoteContext(String noteContext) {
         this.noteContext = noteContext == null ? null : noteContext.trim();
     }
+
+    @Override
+    public String toString() {
+        return "NoteContent{" +
+                "contId='" + contId + '\'' +
+                ", noteId='" + noteId + '\'' +
+                ", noteContext='" + noteContext + '\'' +
+                '}';
+    }
 }
