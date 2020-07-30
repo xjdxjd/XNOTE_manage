@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>笔记分类管理</title>
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/moudles/note/note.css}">
+</head>
+<body>
+    <div class="x-nav">
+        <span class="layui-breadcrumb">
+            <a href="">笔记管理</a>
+            <a>
+                <cite>笔记分类管理</cite>
+            </a>
+        </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        </a>
+    </div>
+
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <form class="layui-form">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">分类编码</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" name="cateCode" placeholder="请输入分类编码进行搜索">
+                                    </div>
+                                    <div class="layui-input-inline">
+                                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search">
+                                            <i class="layui-icon ">&#xe615;</i>搜索
+                                        </button>
+                                    </div>
+                                    <div class="layui-input-inline">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="layui-row">
+                            <table class="layui-table" id="noteCateTable" lay-filter="noteCateTable"></table>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="" style="text-align: center; height: 30px; width: 100%;">
+                                <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <!-- 顶部操作bar -->
+    <script type="text/html" id="noteCateTableTopbar">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchesDel"><i class="layui-icon">&#xe640;</i>批量删除</button>
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addCate"><i class="layui-icon">&#xe624;</i>添加笔记分类</button>
+        </div>
+    </script>
+
+    <!-- 行内操作bar -->
+    <script type="text/html" id="noteCateTableOperbar">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</button>
+        </div>
+    </script>
+</body>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<!--
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/static/plugin/xmSelect/xm-select.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/plugin/showdown/showdown.min.js}"></script>
+-->
+
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/modules/note/note.js}"></script>
+<script>
+    var PATH = '[[@{/}]]';
+</script>
+</html>

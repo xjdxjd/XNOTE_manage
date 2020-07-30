@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../../../../static/css/main/xadmin.css" th:href="@{/static/css/moudles/note/note.css}">
+</head>
+<body>
+    <form id="cateEditForm" class="layui-form layui-form-pane">
+        <div class="layui-card">
+            <div class="layui-card-body cate-form-item">
+                <div class="layui-form-item">
+                    <div class="layui-col-xs5 layui-col-xs-offset1">
+                        <label class="layui-form-label">分类编码</label>
+                        <div class="layui-input-inline">
+                            <input type="hidden" name="cateId" th:value="${cate.cateId}">
+                            <input type="text" class="layui-input" name="cateCode" placeholder="请输入分类编码" th:value="${cate.cateCode}">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs5">
+                        <label class="layui-form-label">分类名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="cateName" placeholder="请输入分类名称" th:value="${cate.cateName}">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-col-xs5 layui-col-xs-offset1">
+                        <label class="layui-form-label">分类父级</label>
+                        <div class="layui-input-inline">
+                            <select id="cateParentId" name="cateParentId" lay-search placeholder="输入关键字搜索">
+                                <option value="">顶级分类</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs5">
+                        <label class="layui-form-label">分类排序</label>
+                        <div class="layui-input-inline">
+                            <input type="number" class="layui-input" name="cateSort" placeholder="请输入分类排序" th:value="${cate.cateSort}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../../../../static/js/main/xadmin.js" th:src="@{/static/js/modules/note/note.js}"></script>
+<script>
+var PATH = '[[@{/}]]';
+$(function () {
+    layui.use('form',function(){
+        var form = layui.form;
+
+        $.get({
+            url: PATH + 'note/getNoteCategory',
+            dataType: 'json',
+            success: function (res) {
+                if(res.code == 0){
+                    var OPTION = '<option value="">顶级分类</option>';
+                    res.data.data.forEach(function(item){
+                        if(item.cateId == '[[${cate.cateParentId}]]'){
+                            OPTION = OPTION + '<option value="' + item.cateId + '" selected>' + item.cateName + '</option>';
+                        }else{
+                            OPTION = OPTION + '<option value="' + item.cateId + '">' + item.cateName + '</option>';
+                        }
+                    });
+                    $("#cateParentId").html(OPTION);
+                    form.render('select');
+                }
+            }
+        });
+    });
+});
+
+</script>
+</html>
