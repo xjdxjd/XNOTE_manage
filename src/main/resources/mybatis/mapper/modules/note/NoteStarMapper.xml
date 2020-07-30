@@ -5,7 +5,7 @@
     <id column="star_id" jdbcType="VARCHAR" property="starId" />
     <result column="note_id" jdbcType="VARCHAR" property="noteId" />
     <result column="note_star" jdbcType="INTEGER" property="noteStar" />
-    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_timestamp" jdbcType="BIGINT" property="updateTimestamp" />
   </resultMap>
   <sql id="Base_Column_List">

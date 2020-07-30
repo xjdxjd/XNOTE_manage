@@ -6,8 +6,8 @@
     <result column="note_title" jdbcType="VARCHAR" property="noteTitle" />
     <result column="note_cont" jdbcType="VARCHAR" property="noteCont" />
     <result column="note_cate" jdbcType="VARCHAR" property="noteCate" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
-    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">

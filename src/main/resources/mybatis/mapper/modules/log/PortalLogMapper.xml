@@ -6,7 +6,7 @@
     <result column="action_type" jdbcType="VARCHAR" property="actionType" />
     <result column="action_desc" jdbcType="VARCHAR" property="actionDesc" />
     <result column="action_result" jdbcType="INTEGER" property="actionResult" />
-    <result column="logging_time" jdbcType="DATE" property="loggingTime" />
+    <result column="logging_time" jdbcType="TIMESTAMP" property="loggingTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xnote.manage.modules.log.bean.PortalLog">
     <result column="action_context" jdbcType="LONGVARCHAR" property="actionContext" />

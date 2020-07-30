@@ -11,7 +11,7 @@
 <!--    <result column="operation_status" jdbcType="INTEGER" property="operationStatus" />-->
 <!--    <result column="operation_object_id" jdbcType="INTEGER" property="operationObjectId" />-->
 <!--    <result column="operation_object" jdbcType="VARCHAR" property="operationObject" />-->
-<!--    <result column="operation_time" jdbcType="DATE" property="operationTime" />-->
+<!--    <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />-->
 <!--  </resultMap>-->
 <!--  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xnote.manage.modules.log.bean.AdminLogWithBLOBs">-->
 <!--    <result column="operation_result" jdbcType="LONGVARCHAR" property="operationResult" />-->

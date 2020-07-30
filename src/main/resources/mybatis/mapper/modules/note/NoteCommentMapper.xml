@@ -8,7 +8,7 @@
     <result column="note_id" jdbcType="VARCHAR" property="noteId" />
     <result column="comm_c_id" jdbcType="VARCHAR" property="commCId" />
     <result column="comm_cate" jdbcType="INTEGER" property="commCate" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_timestamp" jdbcType="BIGINT" property="createTimestamp" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xnote.manage.modules.note.bean.NoteComment">

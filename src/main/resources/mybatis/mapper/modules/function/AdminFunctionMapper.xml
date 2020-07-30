@@ -11,8 +11,8 @@
     <result column="parent_name" jdbcType="VARCHAR" property="parentName" />
     <result column="func_url" jdbcType="VARCHAR" property="funcUrl" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="func_create_time" jdbcType="DATE" property="funcCreateTime" />
-    <result column="func_update_time" jdbcType="DATE" property="funcUpdateTime" />
+    <result column="func_create_time" jdbcType="TIMESTAMP" property="funcCreateTime" />
+    <result column="func_update_time" jdbcType="TIMESTAMP" property="funcUpdateTime" />
     <result column="func_timestamp" jdbcType="VARCHAR" property="funcTimestamp" />
   </resultMap>
   <sql id="Base_Column_List">
