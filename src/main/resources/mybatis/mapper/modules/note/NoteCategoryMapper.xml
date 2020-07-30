@@ -23,44 +23,62 @@
     ORDER BY CATE_SORT ASC
   </select>
 
+  <select id="getCategoryById" resultType="com.xnote.manage.modules.note.bean.NoteCategory">
+    SELECT
+    <include refid="BaseColumn"/>
+    FROM XNOTE_NOTE_CATEGORY
+    <where>
+      CATE_ID = #{cateId,jdbcType=VARCHAR}
+    </where>
+  </select>
 
+  <select id="getCategoryByCode" resultType="com.xnote.manage.modules.note.bean.NoteCategory">
+    SELECT
+    <include refid="BaseColumn"/>
+    FROM XNOTE_NOTE_CATEGORY
+    <where>
+      CATE_CODE = #{cateCode,jdbcType=VARCHAR}
+    </where>
+  </select>
 
+  <select id="searchCate" resultType="com.xnote.manage.modules.note.bean.NoteCategory">
+    SELECT
+    <include refid="BaseColumn"/>
+    FROM XNOTE_NOTE_CATEGORY
+    <if test="cateCode != null">
+      <where>
+        CATE_CODE LIKE concat('%',#{cateCode, jdbcType=VARCHAR},'%')
+      </where>
+    </if>
+    ORDER BY CATE_SORT ASC
+  </select>
 
-
-  <insert id="insert" parameterType="com.xnote.manage.modules.note.bean.NoteCategory">
-    insert into xnote_note_category (cate_id, cate_code, cate_name, 
-      cate_parent_id, cate_sort, create_time, 
-      update_time, timestamp)
-    values (#{cateId,jdbcType=VARCHAR}, #{cateCode,jdbcType=VARCHAR}, #{cateName,jdbcType=VARCHAR}, 
-      #{cateParentId,jdbcType=VARCHAR}, #{cateSort,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
-      #{updateTime,jdbcType=DATE}, #{timestamp,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.xnote.manage.modules.note.bean.NoteCategory">
-    insert into xnote_note_category
+  <insert id="addCate" parameterType="com.xnote.manage.modules.note.bean.NoteCategory">
+    INSERT INTO XNOTE_NOTE_CATEGORY
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="cateId != null">
-        cate_id,
+        CATE_ID,
       </if>
       <if test="cateCode != null">
-        cate_code,
+        CATE_CODE,
       </if>
       <if test="cateName != null">
-        cate_name,
+        CATE_NAME,
       </if>
       <if test="cateParentId != null">
-        cate_parent_id,
+        CATE_PARENT_ID,
       </if>
       <if test="cateSort != null">
-        cate_sort,
+        CATE_SORT,
       </if>
       <if test="createTime != null">
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
-        update_time,
+        UPDATE_TIME,
       </if>
       <if test="timestamp != null">
-        timestamp,
+        TIMESTAMP,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -90,4 +108,48 @@
       </if>
     </trim>
   </insert>
+
+  <update id="updateCate" parameterType="com.xnote.manage.modules.note.bean.NoteCategory">
+    UPDATE XNOTE_NOTE_CATEGORY SET
+    <trim suffixOverrides=",">
+      <if test="cateCode != null">
+        CATE_CODE = #{cateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cateName != null">
+        CATE_NAME = #{cateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateParentId != null">
+        CATE_PARENT_ID = #{cateParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="cateSort != null">
+        CATE_SORT = #{cateSort,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="timestamp != null">
+        TIMESTAMP = #{timestamp,jdbcType=BIGINT},
+      </if>
+    </trim>
+    <where>
+      CATE_ID = #{cateId,jdbcType=VARCHAR}
+    </where>
+  </update>
+
+  <delete id="delCateById">
+    DELETE FROM XNOTE_NOTE_CATEGORY
+    <where>
+      CATE_ID = #{cateId,jdbcType=VARCHAR}
+    </where>
+  </delete>
+
+  <delete id="batchesDelCate">
+    DELETE FROM XNOTE_NOTE_CATEGORY
+    <where>
+      CATE_ID IN
+      <foreach item="id" collection="list" open="(" close=")" separator=",">
+        #{id,jdbcType=VARCHAR}
+      </foreach>
+    </where>
+  </delete>
 </mapper>

@@ -9,6 +9,7 @@ public enum LoadPathConstant {
     WELCOME_PATH("/common/"),
 
     NOTE_ADD_PATH("/modules/note/"),
+    NOTE_CATE_PATH("/modules/note/category/"),
 
     ADMIN_AUTH_PATH("/modules/admin/authority/"),
     ADMIN_CONFIG_PATH("/modules/admin/config/"),

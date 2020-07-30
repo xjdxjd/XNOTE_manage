@@ -86,4 +86,18 @@ public class NoteCategory {
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "NoteCategory{" +
+                "cateId='" + cateId + '\'' +
+                ", cateCode='" + cateCode + '\'' +
+                ", cateName='" + cateName + '\'' +
+                ", cateParentId='" + cateParentId + '\'' +
+                ", cateSort=" + cateSort +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

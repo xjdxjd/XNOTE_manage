@@ -1,3 +1,4 @@
+/*******************[ noteadd ]*******************/
 .noteTextlabel{
     display: block;
     padding-left: 30px;
@@ -24,4 +25,10 @@
     overflow: hidden;
     overflow-y: auto;
     resize: unset;
+}
+
+/*******************[ cateadd ]*******************/
+.cate-form-item{
+    height: auto;
+    padding: 30px 18px;
 }

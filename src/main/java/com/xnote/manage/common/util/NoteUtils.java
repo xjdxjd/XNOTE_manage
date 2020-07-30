@@ -2,6 +2,7 @@ package com.xnote.manage.common.util;
 
 import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.modules.note.bean.Note;
+import com.xnote.manage.modules.note.bean.NoteCategory;
 import com.xnote.manage.modules.note.bean.NoteContent;
 import com.xnote.manage.modules.note.bean.NoteStar;
 import org.springframework.util.ObjectUtils;
@@ -42,7 +43,7 @@ public class NoteUtils
     }
 
     /**
-     * 组装笔记内容
+     * 组装笔记内容类
      * @param contentId
      * @param noteId
      * @param content
@@ -70,7 +71,7 @@ public class NoteUtils
     }
 
     /**
-     * 组装笔记内容
+     * 组装笔记点赞类
      * @param noteId
      * @param star
      * @return
@@ -102,5 +103,31 @@ public class NoteUtils
         }
 
         return star;
+    }
+
+    /**
+     * 组装笔记分类bean
+     * @param category
+     * @return
+     */
+    public static NoteCategory assembleNoteCate(NoteCategory category)
+    {
+        if(StringUtils.isEmpty(category.getCateId())){
+            category.setCateId(UUIDUtils.getUUID());
+        }
+
+        if(ObjectUtils.isEmpty(category.getCreateTime())){
+            category.setCreateTime(DateUtils.getCurrentDate());
+        }
+
+        if(ObjectUtils.isEmpty(category.getUpdateTime())){
+            category.setUpdateTime(DateUtils.getCurrentDate());
+        }
+
+        if(ObjectUtils.isEmpty(category.getTimestamp())){
+            category.setTimestamp(DateUtils.getTimestamp());
+        }
+
+        return category;
     }
 }
