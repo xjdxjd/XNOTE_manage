@@ -1,11 +1,11 @@
-###############################################
-##               spring 配置                 ##
-###############################################
+
+#############################################[ 公共配置 ]#############################################
 spring:
   profiles:
     active: dev
   main:
     allow-bean-definition-overriding: true
+
   # 项目静态资源路径
   mvc:
     static-path-pattern: /static/**
@@ -27,11 +27,67 @@ spring:
   aop:
     auto: true
 
+---
+#############################################[ 开发环境 ]#############################################
+# servlet配置
+server:
+  servlet:
+    context-path: /manage
+  port: 9874
+
+# mybatis 配置
+mybatis:
+  # config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 日志配置  
+logging:
+  config: classpath:logback.xml
+  level:
+    com.xnote.manage.modules.**.service.impl: trace
+
+###==[ spring配置 ]==###
+spring:
+  profiles: dev
+
+  # 上传文件设置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # cache 设置
+  cache:
+    type: redis
+
+  # RabbitMQ 配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+  # redis链接设置
+  redis:
+    database: 14
+    host: 127.0.0.1
+    port: 6379
+    password: 1qaz@wsX
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-active: 1000
+        max-wait: 2000
+
   # 数据源配置
   datasource:
     username: root
     password: 1qaz@wsX
-    url: jdbc:mysql://localhost:3306/xnote?useUnicode=true&characterEncoding=UTF-8&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/xnote?useUnicode=true&characterEncoding=UTF-8&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
     # &useAffectedRows=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -53,18 +109,140 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
-  ## RabbitMQ 配置 ##
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
+  # 项目配置
+xnote:
+  licence: # 许可配置
+    path: /lic/licence.lic
 
-  ## cache 设置 ##
+---
+#############################################[ 测试环境 ]#############################################
+# servlet配置
+server:
+  servlet:
+    context-path: /manage-test
+  port: 8090
+
+# mybatis 配置
+mybatis:
+  # config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 日志配置  
+logging:
+  config: classpath:logback.xml
+  level:
+    com.xnote.manage.modules.**.service.impl: trace
+
+###==[ spring配置 ]==###
+spring:
+  profiles: test
+
+  # 上传文件设置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # cache 设置
   cache:
     type: redis
 
-  ## redis链接设置 ##
+  # RabbitMQ 配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+
+  # redis链接设置
+  redis:
+    database: 14
+    host: 127.0.0.1
+    port: 6379
+    password: root
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-active: 1000
+        max-wait: 2000
+
+  # 数据源配置
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/xnote?useUnicode=true&characterEncoding=UTF-8&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    # &useAffectedRows=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+# 项目配置
+xnote:
+  licence: # 许可配置
+    path: /lic/licence.lic
+
+---
+#############################################[ 生产环境 ]#############################################
+server:
+  servlet:
+    context-path: /xnmanage
+  port: 18765
+
+# mybatis 配置
+mybatis:
+  # config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 日志配置  
+logging:
+  config: classpath:logback.xml
+  level:
+    com.xnote.manage.modules.**.service.impl: trace
+
+###==[ spring配置 ]==###
+spring:
+  profiles: prod
+
+  # 上传文件设置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # cache 设置
+  cache:
+    type: redis
+
+  # RabbitMQ 配置
+  rabbitmq:
+    host: 118.24.21.83
+    port: 5672
+    username: admin
+    password: admin
+
+  # redis链接设置
   redis:
     database: 14
     host: 118.24.21.83
@@ -77,87 +255,36 @@ spring:
         min-idle: 50
         max-active: 1000
         max-wait: 2000
-###############################################
-##              mybatis 配置                 ##
-###############################################
 
-mybatis:
-#  config-location: classpath:mybatis/mybatis-config.xml
-  mapper-locations: classpath:mybatis/mapper/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
+  # 数据源配置
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://118.24.21.83:3306/XNOTE?useUnicode=true&characterEncoding=UTF-8&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    # &useAffectedRows=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
-###############################################
-##                xnote 配置                  ##
-###############################################
-# 服务配置
-server:
-  servlet:
-    context-path: /manage
-
+# 项目配置
 xnote:
-  # 许可配置
-  licence:
-    path: /lic/licence.lic
-  # 视频地址
-  video:
-    rootPath: E:\devVideo\
-    suffix: .mp4
-
-
-
----
-
-spring:
-  profiles: dev
-  servlet:
-    # 上传文件设置
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
-
-server:
-  port: 9874
-
-xnote:
-  # 许可配置
-  licence:
-    path: /lic/licence.lic
-  video:
-    rootPath: /video/
-    suffix: .mp4
-
-logging:
-  config: logback.xml
-  level:
-    com.xnote.manage.modules.**.service.impl: trace
----
-
-spring:
-  profiles: test
-
-server:
-  port: 8090
-
-xnote:
-  # 许可配置
-  licence:
-    path: /lic/licence.lic
-  video:
-    rootPath: E:\devVideo\
-    suffix: .mp4
----
-
-spring:
-  profiles: prod
-
-server:
-  port: 18765
-
-xnote:
-  # 许可配置
-  licence:
-    path: /lic/licence.lic
-  video:
-    rootPath: /usr/xnoteVlog/
-    suffix: .mp4
+  licence: # 许可配置
+    path: /lic/licence.lic 
+                
+    

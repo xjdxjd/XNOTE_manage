@@ -4,7 +4,6 @@ import com.xnote.manage.core.exception.LicenceFileNotFoundException;
 import com.xnote.manage.core.licence.bean.Licence;
 import com.xnote.manage.core.licence.generate.GenerateLic;
 import com.xnote.manage.core.licence.service.LicenceService;
-import com.xnote.manage.modules.log.bean.ManageLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -23,7 +22,7 @@ public class LicenceServiceImpl implements LicenceService
 {
     private final static Logger logger = LoggerFactory.getLogger(LicenceServiceImpl.class);
 
-    private ManageLog manageLog = null;
+//    private ManageLog manageLog = null;
 
     @Override
     public Licence getLocalLicence(String licencePath) throws LicenceFileNotFoundException {

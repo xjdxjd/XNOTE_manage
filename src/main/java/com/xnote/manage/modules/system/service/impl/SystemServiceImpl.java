@@ -36,6 +36,7 @@ public class SystemServiceImpl implements SystemService
     public List<SysConfig> getSystemConfig(Integer configType)
     {
         List<SysConfig> manageSysConfigs = sysConfigMapper.getSystemConfig(configType);
+
         return manageSysConfigs;
     }
 

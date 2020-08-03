@@ -32,7 +32,25 @@ public enum  ProjectConstant
      */
     XNOTE_MANAGE_CONFIG_MESSAGE_KEY("xnote.ManageCfg"),
 
-    cc_(0);
+    /**
+     * 日志级别--DEBUG
+     */
+    XNOTE_LOG_LEVEL_DEBUG(1),
+
+    /**
+     * 日志级别--INFO
+     */
+    XNOTE_LOG_LEVEL_INFO(2),
+
+    /**
+     * 日志级别--WARN
+     */
+    XNOTE_LOG_LEVEL_WARN(3),
+
+    /**
+     * 日志级别--ERROR
+     */
+    XNOTE_LOG_LEVEL_ERROR(4);
 
     private Integer intValue;
     private String stringValue;
