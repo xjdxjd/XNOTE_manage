@@ -44,8 +44,10 @@ public enum CommonConstant {
 
     /** 用户功能--次级功能 */
     FUNCTION_USER_SECONDARY(1),
+
     /** 用户功能--次级功能 开启 */
     FUNCTION_USER_SECONDARY_STATUS_OPEN("on"),
+
     /** 用户功能--次级功能 关闭*/
     FUNCTION_USER_SECONDARY_STATUS_STOP("off"),
 
@@ -53,7 +55,31 @@ public enum CommonConstant {
 //    SYSCFG_TYPE_CLIENT(1),
 
     /** 用户功能--cache名称 */
-    FUNCTION_USER_CACHENAME("USERFUNCTIONS");
+    FUNCTION_USER_CACHENAME("USERFUNCTIONS"),
+
+//////////////////////////////////////=[ 日志分类 ]=//////////////////////////////////////
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_AL("alLogs"),
+
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_AO("aoLogs"),
+
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_UL("ulLogs"),
+
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_AL("uoLogs"),
+
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_AL("manageLogs"),
+
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_AL("clientLogs"),
+
+    /** 日志分类--管理员登录日志 */
+    LOGTYPE_AL("serverLogs"),
+
+    ;
 
     private Integer intValue;
     private String stringValue;
