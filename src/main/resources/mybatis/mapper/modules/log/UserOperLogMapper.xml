@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xnote.manage.modules.log.mapper.ManageOperLogMapper">
-  <resultMap id="BaseResultMap" type="com.xnote.manage.modules.log.bean.ManageOperLog">
+<mapper namespace="com.xnote.manage.modules.log.mapper.UserOperLogMapper">
+  <resultMap id="BaseResultMap" type="com.xnote.manage.modules.log.bean.ClientOperLog">
     <id column="log_id" jdbcType="VARCHAR" property="logId" />
-    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="operate_ip" jdbcType="VARCHAR" property="operateIp" />
     <result column="operate_type" jdbcType="INTEGER" property="operateType" />
     <result column="log_content" jdbcType="LONGVARCHAR" property="logContent" />
@@ -12,37 +12,37 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
-  <sql id="BASE_COLUMN_LIST">
-    LOG_ID, LOGIN_NAME, OPERATE_IP, OPERATE_TYPE, LOG_CONTENT, OPERATE_RESULT, FAILURE_CAUSE, CREATE_TIME, TIMESTAMP
+  <sql id="Base_Column_List">
+    LOG_ID, ACCOUNT, OPERATE_IP, OPERATE_TYPE, LOG_CONTENT, OPERATE_RESULT, FAILURE_CAUSE, CREATE_TIME, TIMESTAMP
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
-    <include refid="BASE_COLUMN_LIST" />
-    from xnote_log_oper_manage
+    <include refid="Base_Column_List" />
+    from xnote_log_oper_client
     where log_id = #{logId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from xnote_log_oper_manage
+    delete from xnote_log_oper_client
     where log_id = #{logId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.xnote.manage.modules.log.bean.ManageOperLog">
-    insert into xnote_log_oper_manage (log_id, login_name, operate_ip, 
+  <insert id="insert" parameterType="com.xnote.manage.modules.log.bean.ClientOperLog">
+    insert into xnote_log_oper_client (log_id, account, operate_ip, 
       operate_type, operate_result, create_time, 
       timestamp, log_content, failure_cause
       )
-    values (#{logId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{operateIp,jdbcType=VARCHAR}, 
+    values (#{logId,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{operateIp,jdbcType=VARCHAR}, 
       #{operateType,jdbcType=INTEGER}, #{operateResult,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{timestamp,jdbcType=BIGINT}, #{logContent,jdbcType=LONGVARCHAR}, #{failureCause,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.xnote.manage.modules.log.bean.ManageOperLog">
-    insert into xnote_log_oper_manage
+  <insert id="insertSelective" parameterType="com.xnote.manage.modules.log.bean.ClientOperLog">
+    insert into xnote_log_oper_client
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="logId != null">
         log_id,
       </if>
-      <if test="loginName != null">
-        login_name,
+      <if test="account != null">
+        account,
       </if>
       <if test="operateIp != null">
         operate_ip,
@@ -70,8 +70,8 @@
       <if test="logId != null">
         #{logId,jdbcType=VARCHAR},
       </if>
-      <if test="loginName != null">
-        #{loginName,jdbcType=VARCHAR},
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
       </if>
       <if test="operateIp != null">
         #{operateIp,jdbcType=VARCHAR},
@@ -96,11 +96,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.log.bean.ManageOperLog">
-    update xnote_log_oper_manage
+  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.log.bean.ClientOperLog">
+    update xnote_log_oper_client
     <set>
-      <if test="loginName != null">
-        login_name = #{loginName,jdbcType=VARCHAR},
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
       </if>
       <if test="operateIp != null">
         operate_ip = #{operateIp,jdbcType=VARCHAR},
@@ -126,9 +126,9 @@
     </set>
     where log_id = #{logId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xnote.manage.modules.log.bean.ManageOperLog">
-    update xnote_log_oper_manage
-    set login_name = #{loginName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xnote.manage.modules.log.bean.ClientOperLog">
+    update xnote_log_oper_client
+    set account = #{account,jdbcType=VARCHAR},
       operate_ip = #{operateIp,jdbcType=VARCHAR},
       operate_type = #{operateType,jdbcType=INTEGER},
       operate_result = #{operateResult,jdbcType=INTEGER},
@@ -138,9 +138,9 @@
       failure_cause = #{failureCause,jdbcType=LONGVARCHAR}
     where log_id = #{logId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.log.bean.ManageOperLog">
-    update xnote_log_oper_manage
-    set login_name = #{loginName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.xnote.manage.modules.log.bean.ClientOperLog">
+    update xnote_log_oper_client
+    set account = #{account,jdbcType=VARCHAR},
       operate_ip = #{operateIp,jdbcType=VARCHAR},
       operate_type = #{operateType,jdbcType=INTEGER},
       operate_result = #{operateResult,jdbcType=INTEGER},

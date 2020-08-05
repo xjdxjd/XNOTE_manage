@@ -2,7 +2,7 @@ package com.xnote.manage.modules.log.mapper;
 
 import com.xnote.manage.modules.log.bean.ManageOperLog;
 
-public interface ManageOperLogMapper {
+public interface AdminOperLogMapper {
     int deleteByPrimaryKey(String logId);
 
     int insert(ManageOperLog record);
