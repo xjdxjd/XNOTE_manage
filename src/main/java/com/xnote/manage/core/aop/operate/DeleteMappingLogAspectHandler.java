@@ -1,17 +1,17 @@
 package com.xnote.manage.core.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @DESC:   DeleteMapping切面日志手脚架
  * @ClassName: DeleteMappingLogAspectHandler
  */
+@Aspect
+@Component
 public class DeleteMappingLogAspectHandler extends LogAspectHandler
 {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
