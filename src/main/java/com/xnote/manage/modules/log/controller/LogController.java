@@ -68,7 +68,7 @@ public class LogController extends BaseController
     @GetMapping("/clientOperLogs")
     public String uoLogsView()
     {
-        return LoadPathConstant.LOG_PATH.getValue() + "uoLogs";
+        return LoadPathConstant.LOG_PATH.getValue() + "clientOperLogs";
     }
 
     /**
