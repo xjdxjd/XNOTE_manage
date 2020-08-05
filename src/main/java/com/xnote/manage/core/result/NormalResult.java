@@ -8,39 +8,6 @@ import com.xnote.manage.common.constant.ResultConstant;
  */
 public class NormalResult extends Result {
 
-    // 操作结果码
-    private Integer code;
-
-    // 操作结果消息
-    private String message;
-
-    // 操作结果返回数据
-    private Object data;
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
     public NormalResult() {
     }
 
@@ -182,4 +149,6 @@ public class NormalResult extends Result {
         this.data = data;
         return this;
     }
+
+
 }

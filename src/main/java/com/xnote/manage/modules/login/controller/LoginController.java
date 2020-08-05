@@ -23,7 +23,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 登录操作Controller
@@ -98,7 +100,8 @@ public class LoginController extends BaseController {
 
         // 更新管理员信息
         String loginIP = LoginUtils.getLoginIP(request);
-        boolean isFaild = loginService.updateLogin(loginIP, admin);
+        admin.setLoginIp(loginIP);
+        boolean isFaild = loginService.updateLogin(admin);
         if(isFaild)
         {
             return error.error(ResultConstant.COMMON_ERROR_CODE, ResultConstant.COMMON_ERROR_MESSAGE);
@@ -106,10 +109,16 @@ public class LoginController extends BaseController {
 
         // 将管理员账号、管理员权限、管理员功能放入session
         LoginAdmin loginAdmin = new LoginAdmin(admin, adminRole, adminFunctions);
-        request.getSession().setAttribute("loginAdmin",loginAdmin);
+        HttpSession session = request.getSession();
+        session.setAttribute("loginAdmin",loginAdmin);
 
-        return result.success(LoginConstant.LOGIN_SUCCESS_CODE, LoginConstant.LOGIN_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL);
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put("admin", loginAdmin);
+        resMap.put("url", LoginConstant.LOGIN_SUCCESS_URL);
+
+        return result.success(LoginConstant.LOGIN_SUCCESS_CODE, LoginConstant.LOGIN_SUCCESS_MESSAGE, resMap);
     }
+
     /**
      * @DESC:   退出登录
      * @methodName: signOut
@@ -118,7 +127,14 @@ public class LoginController extends BaseController {
     public Result signOut(HttpServletRequest request, HttpServletResponse response)
     {
         HttpSession session = request.getSession();
+        LoginAdmin loginAdmin = (LoginAdmin) session.getAttribute("loginAdmin");
+
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put("admin", loginAdmin);
+        resMap.put("url", LoginConstant.LOGOUT_SUCCESS_URL);
+
         session.invalidate();
-        return result.success(LoginConstant.LOGOUT_SUCCESS_CODE, LoginConstant.LOGOUT_SUCCESS_MESSAGE, LoginConstant.LOGIN_SUCCESS_URL);
+
+        return result.success(LoginConstant.LOGOUT_SUCCESS_CODE, LoginConstant.LOGOUT_SUCCESS_MESSAGE, resMap);
     }
 }

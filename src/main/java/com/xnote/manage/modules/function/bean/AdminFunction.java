@@ -30,7 +30,7 @@ public class AdminFunction {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     private Date funcUpdateTime;
 
-    private String funcTimestamp;
+    private Long funcTimestamp;
 
     private List<AdminFunction> functionList;
 
@@ -122,12 +122,12 @@ public class AdminFunction {
         this.funcUpdateTime = funcUpdateTime;
     }
 
-    public String getFuncTimestamp() {
+    public Long getFuncTimestamp() {
         return funcTimestamp;
     }
 
-    public void setFuncTimestamp(String funcTimestamp) {
-        this.funcTimestamp = funcTimestamp == null ? null : funcTimestamp.trim();
+    public void setFuncTimestamp(Long funcTimestamp) {
+        this.funcTimestamp = funcTimestamp == null ? null : funcTimestamp;
     }
 
     public List<AdminFunction> getFunctionList() {

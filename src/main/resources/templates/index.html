@@ -73,10 +73,12 @@
                     '_': new Date().getTime()
                 },
                 success: function(res){
-                    if(res.code == 0)
+                    if(res.code == 1)
                     {
                         layer.msg(res.message);
-                        window.location.replace('[[@{/}]]'+ res.data);
+                        console.log(res.data.url);
+                        console.log('[[@{/}]]'+ res.data.url);
+                        window.location.replace('[[@{/}]]'+ res.data.url);
                     }
                     return false;
                 },

@@ -8,24 +8,57 @@
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="login_type" jdbcType="INTEGER" property="loginType" />
     <result column="login_status" jdbcType="INTEGER" property="loginStatus" />
+    <result column="log_content" jdbcType="LONGVARCHAR" property="logContent" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xnote.manage.modules.log.bean.AdminLoginLog">
-    <result column="log_content" jdbcType="LONGVARCHAR" property="logContent" />
-  </resultMap>
   <sql id="Base_Column_List">
-    log_id, login_name, admin_name, login_ip, login_type, login_status, create_time, 
-    timestamp
+    LOG_ID, LOGIN_NAME, ADMIN_NAME, LOGIN_IP, LOGIN_TYPE, LOGIN_STATUS,LOG_CONTENT, CREATE_TIME, TIMESTAMP
   </sql>
-  <sql id="Blob_Column_List">
-    log_content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+
+  <select id="getCount" resultType="java.lang.Integer">
+    SELECT COUNT(LOG_ID)
+    FROM XNOTE_LOG_LOGIN_ADMIN
+  </select>
+
+  <select id="getLogs" resultType="com.xnote.manage.modules.log.bean.AdminLoginLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_LOG_LOGIN_ADMIN
+    ORDER BY TIMESTAMP DESC
+    LIMIT #{code}, #{size}
+  </select>
+  <!-- 记录日志 -->
+  <insert id="insertLog">
+    INSERT INTO XNOTE_LOG_LOGIN_ADMIN (
+      LOG_ID, LOGIN_NAME, ADMIN_NAME,
+      LOGIN_IP, LOGIN_TYPE, LOGIN_STATUS,
+      LOG_CONTENT, CREATE_TIME, TIMESTAMP
+      )
+    values (
+      #{logId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR},
+      #{loginIp,jdbcType=VARCHAR}, #{loginType,jdbcType=INTEGER}, #{loginStatus,jdbcType=INTEGER},
+      #{logContent,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{timestamp,jdbcType=BIGINT}
+      )
+  </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from xnote_log_login_admin
     where log_id = #{logId,jdbcType=VARCHAR}
   </select>
@@ -34,14 +67,7 @@
     where log_id = #{logId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xnote.manage.modules.log.bean.AdminLoginLog">
-    insert into xnote_log_login_admin (log_id, login_name, admin_name, 
-      login_ip, login_type, login_status, 
-      create_time, timestamp, log_content
-      )
-    values (#{logId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
-      #{loginIp,jdbcType=VARCHAR}, #{loginType,jdbcType=INTEGER}, #{loginStatus,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{timestamp,jdbcType=BIGINT}, #{logContent,jdbcType=LONGVARCHAR}
-      )
+
   </insert>
   <insert id="insertSelective" parameterType="com.xnote.manage.modules.log.bean.AdminLoginLog">
     insert into xnote_log_login_admin

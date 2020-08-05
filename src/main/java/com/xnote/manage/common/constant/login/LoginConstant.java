@@ -27,7 +27,8 @@ public class LoginConstant {
     public final static Integer LOGIN_FAILD_CODE_1005 = 1005;
     public final static String LOGIN_FAILD_MESSAGE_1005 = "登陆失败，此管理员还未分配角色！";
 
-    public final static Integer LOGOUT_SUCCESS_CODE = 0;
+    public final static Integer LOGOUT_SUCCESS_CODE = 1;
     public final static String LOGOUT_SUCCESS_MESSAGE = "成功退出登录！";
+    public final static String LOGOUT_SUCCESS_URL = "login";
 
 }

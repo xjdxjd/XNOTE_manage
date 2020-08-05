@@ -26,6 +26,9 @@ public class LoginAdmin {
     // 管理员功能bean
     private List<AdminFunction> funcs;
 
+    public LoginAdmin() {
+    }
+
     public LoginAdmin(Admin admin, AdminRole role, List<AdminFunction> funcs) {
         this.id = admin.getId();
         this.name = admin.getAdminName();

@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService
     }
 
     @Override
-    public boolean updateLogin(String ipaddr, Admin admin)
+    public boolean updateLogin(Admin admin)
     {
         boolean isFaild = false;
         if (ObjectUtils.isEmpty(admin))
@@ -44,7 +44,6 @@ public class LoginServiceImpl implements LoginService
         }
 
         Date date = DateUtils.getCurrentDate();
-        admin.setLoginIp(ipaddr);
         admin.setLoginTime(date);
         admin.setUpdateTime(date);
         admin.setTimestamp(DateUtils.getTimestamp());

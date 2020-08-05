@@ -13,7 +13,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="func_create_time" jdbcType="TIMESTAMP" property="funcCreateTime" />
     <result column="func_update_time" jdbcType="TIMESTAMP" property="funcUpdateTime" />
-    <result column="func_timestamp" jdbcType="VARCHAR" property="funcTimestamp" />
+    <result column="func_timestamp" jdbcType="BIGINT" property="funcTimestamp" />
   </resultMap>
   <sql id="Base_Column_List">
     FUNC_ID, FUNC_ICON, FUNC_NAME, FUNC_SORT, IS_LEAF, PARENT_ID, PARENT_NAME, FUNC_URL,

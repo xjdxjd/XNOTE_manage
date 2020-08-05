@@ -34,6 +34,7 @@ public class XnoteWebMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/verifyCode")
                 .excludePathPatterns("/login/**")
+                .excludePathPatterns("/druid/**")
                 .excludePathPatterns("/swagger-resources/**")
                 .excludePathPatterns("/swagger-ui.html")
                 .excludePathPatterns("/error/**");

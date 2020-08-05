@@ -4,7 +4,6 @@ import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.common.constant.login.LoginConstant;
 import com.xnote.manage.common.util.DateUtils;
 import com.xnote.manage.common.util.UUIDUtils;
-import com.xnote.manage.common.util.XnoteUtils;
 import com.xnote.manage.core.aop.LogAspectHandler;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.log.bean.AdminLoginLog;
@@ -21,9 +20,9 @@ import java.util.Map;
 
 @Aspect
 @Component
-public class AdminLoginAspectHandler extends LogAspectHandler
+public class LoginLogAspectHandler extends LogAspectHandler
 {
-    private final static Logger logger = LoggerFactory.getLogger(AdminLoginAspectHandler.class);
+    private final static Logger logger = LoggerFactory.getLogger(LoginLogAspectHandler.class);
     @Autowired
     private AdminLoginLogService adminLoginLogService;
 
@@ -54,7 +53,7 @@ public class AdminLoginAspectHandler extends LogAspectHandler
         alLogs.setLogId(UUIDUtils.getUUID());
         alLogs.setLoginName(admin.getName());
         alLogs.setAdminName(admin.getName());
-        alLogs.setLoginIp(XnoteUtils.getLoginIPv4addr());
+        alLogs.setLoginIp(admin.getInfo().getLoginIp());
         alLogs.setLoginType(result.getCode());
         alLogs.setCreateTime(DateUtils.getCurrentDate());
         alLogs.setTimestamp(DateUtils.getTimestamp());

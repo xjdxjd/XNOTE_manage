@@ -1,5 +1,6 @@
 package com.xnote.manage.log;
 
+import com.xnote.manage.common.util.XnoteUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -18,6 +19,11 @@ public class LogTest
 {
     private final static Logger logger = LoggerFactory.getLogger(LogTest.class);
 
+    @Test
+    public void logTest0()
+    {
+        XnoteUtils.getLocalIPv4addr();
+    }
     @Test
     public void logTest1()
     {

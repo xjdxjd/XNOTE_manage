@@ -16,5 +16,5 @@ public interface LoginService
     /*
      *  更新登录者信息
      */
-    public boolean updateLogin(String ipaddr, Admin admin);
+    public boolean updateLogin(Admin admin);
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户操作日志</title>
+    <title>管理员操作日志</title>
     <!--csrf token-->
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -13,9 +13,9 @@
 <body>
 <div class="x-nav">
               <span class="layui-breadcrumb">
-                <a href="">管理员管理</a>
+                <a href="">系统日志管理</a>
                 <a>
-                  <cite>管理员配置</cite>
+                  <cite>管理员操作日志</cite>
                 </a>
               </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">

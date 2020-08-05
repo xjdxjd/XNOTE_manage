@@ -132,11 +132,10 @@
                         if(res.code == 0)
                         {
                             layer.msg(res.message);
+                            window.location.replace('[[@{/}]]'+ res.data.url);
                         }else{
                             layer.msg(res.message);
                         }
-                        console.log(res.data);
-                        window.location.replace('[[@{/}]]'+ res.data);
                         return false;
                     },
                     error: function(res) {

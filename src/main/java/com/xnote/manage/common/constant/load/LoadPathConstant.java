@@ -18,6 +18,8 @@ public enum LoadPathConstant {
 
     LICENCE_PATH("/common/licence/"),
 
+    LOG_PATH("/modules/log/"),
+
 
     SYSTEM_DATAINIT_PATH("/modules/system/dataInit/"),
     //  客户端系统配置
