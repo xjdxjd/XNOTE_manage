@@ -4,7 +4,7 @@ import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.NormalResult;
 import com.xnote.manage.modules.log.bean.AdminLoginLog;
-import com.xnote.manage.modules.log.service.AdminLoginLogService;
+import com.xnote.manage.modules.log.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +22,16 @@ public class LogController extends BaseController
 {
     @Autowired
     private AdminLoginLogService adminLoginLogService;
+    @Autowired
+    private AdminOperLogService adminOperLogService;
+    @Autowired
+    private ClientRunLogService clientRunLogService;
+    @Autowired
+    private ManageRunLogService manageRunLogService;
+    @Autowired
+    private UserLoginLogService userLoginLogService;
+    @Autowired
+    private ClientOperLogService clientOperLogService;
 
     /**
      * 管理员登录日志页面
