@@ -20,10 +20,11 @@ public enum LoadPathConstant {
 
     LOG_PATH("/modules/log/"),
 
-
     SYSTEM_DATAINIT_PATH("/modules/system/dataInit/"),
     //  客户端系统配置
-    SYSTEM_CLIENT_SETTING_PATH("/modules/system/clientSetting/");
+    SYSTEM_CLIENT_SETTING_PATH("/modules/system/clientSetting/"),
+
+    ERROR_PATH("/error/");
 
     private String value;
     LoadPathConstant(String value) {

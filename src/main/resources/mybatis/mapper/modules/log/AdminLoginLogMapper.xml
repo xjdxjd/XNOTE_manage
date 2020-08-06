@@ -28,6 +28,15 @@
     ORDER BY TIMESTAMP DESC
     LIMIT #{code}, #{size}
   </select>
+
+  <select id="getLogInfoById" resultType="com.xnote.manage.modules.log.bean.AdminLoginLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_LOG_LOGIN_ADMIN
+    <where>
+      LOG_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
   <!-- 记录日志 -->
   <insert id="insertLog">
     INSERT INTO XNOTE_LOG_LOGIN_ADMIN (
@@ -62,7 +71,7 @@
     from xnote_log_login_admin
     where log_id = #{logId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from xnote_log_login_admin
     where log_id = #{logId,jdbcType=VARCHAR}
   </delete>

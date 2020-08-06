@@ -61,23 +61,23 @@ public enum CommonConstant {
     /** 日志分类--管理员登录日志 */
     LOGTYPE_AL("alLogs"),
 
-    /** 日志分类--管理员登录日志 */
-    LOGTYPE_AO("aoLogs"),
-
-    /** 日志分类--管理员登录日志 */
+    /** 日志分类--用户登录日志 */
     LOGTYPE_UL("ulLogs"),
 
-    /** 日志分类--管理员登录日志 */
-    LOGTYPE_AL("uoLogs"),
+    /** 日志分类--管理端操作日志 */
+    LOGTYPE_MO("moLogs"),
 
-    /** 日志分类--管理员登录日志 */
-    LOGTYPE_AL("manageLogs"),
+    /** 日志分类--客户端操作日志 */
+    LOGTYPE_CO("coLogs"),
 
-    /** 日志分类--管理员登录日志 */
-    LOGTYPE_AL("clientLogs"),
+    /** 日志分类--管理端运行日志 */
+    LOGTYPE_ML("manageLogs"),
 
-    /** 日志分类--管理员登录日志 */
-    LOGTYPE_AL("serverLogs"),
+    /** 日志分类--客户端运行日志 */
+    LOGTYPE_CL("clientLogs"),
+
+    /** 日志分类--服务调用日志 */
+    LOGTYPE_SL("serverLogs"),
 
     ;
 

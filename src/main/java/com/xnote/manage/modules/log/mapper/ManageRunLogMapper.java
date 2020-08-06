@@ -1,7 +1,9 @@
 package com.xnote.manage.modules.log.mapper;
 
 import com.xnote.manage.modules.log.bean.ManageRunLog;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ManageRunLogMapper {
     int deleteByPrimaryKey(String logId);
 

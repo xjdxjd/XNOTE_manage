@@ -1,7 +1,9 @@
 package com.xnote.manage.modules.log.mapper;
 
 import com.xnote.manage.modules.log.bean.ClientOperLog;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ClientOperLogMapper {
     int deleteByPrimaryKey(String logId);
 

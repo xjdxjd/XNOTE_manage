@@ -27,4 +27,10 @@ public interface AdminLoginLogService
      */
     Integer saveAdminLoginLog(AdminLoginLog adminLoginLog);
 
+    /**
+     * 根据ID获取日志全部信息
+     * @param id
+     * @return
+     */
+    AdminLoginLog getLogInfoById(String id);
 }

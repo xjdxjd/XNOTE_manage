@@ -5,7 +5,7 @@ layui.use(['form','table'], function () {
    table.render({
        id: 'adminLoginLogsTable',
        elem: '#admin-login-logs-table',
-       url: PATH + "log/adminLogin/getLogs",
+       url: PATH + "log/alLogs/getLogs",
        height: 'full-203',
        title: '管理员登录日志表',
        page: true,
@@ -16,8 +16,8 @@ layui.use(['form','table'], function () {
        cols:[[
            {type: 'checkbox'},
            {field: 'index', title: '序号', width:80, type:'numbers'},
-           {field: 'logId', title: 'ID', sort: true, hide: true},
-           {field: 'loginName', title: '登录者', width:200, align: 'center'},
+           {field: 'logId', title: 'ID', hide: true},
+           {field: 'loginName', title: '登录帐号', width:200, align: 'center'},
            {field: 'loginIp', title: 'IP地址', width:200, align: 'center'},
            {field: 'loginType', title: '登录/登出', width:100, templet: '#typeTPL', align: 'center'},
            {field: 'loginStatus', title: '操作结果', width:100, templet: '#statusTPL', align: 'center'},
@@ -33,5 +33,27 @@ layui.use(['form','table'], function () {
                "data": res.data.data //解析数据列表
            };
        }
-   })
+   });
+
+   table.on('tool(admin-login-logs-table)', function (d) {
+       switch(d.event){
+           case 'info':
+               getInfo(d.data);
+               break;
+       }
+   });
 });
+
+function getInfo(data)
+{
+    layer.open({
+        type: 2,
+        title: '详细信息',
+        area: ['1080px', '580px'],
+        offset: 'auto',
+        fixed: false,
+        maxmin: true,
+        shadeClose: true,
+        content: PATH + 'log/alLogs/getlog/'+data.logId
+    });
+}

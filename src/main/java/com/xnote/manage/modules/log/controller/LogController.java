@@ -2,14 +2,17 @@ package com.xnote.manage.modules.log.controller;
 
 import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.core.controller.BaseController;
-import com.xnote.manage.core.result.NormalResult;
+import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.log.bean.AdminLoginLog;
+import com.xnote.manage.modules.log.bean.UserLoginLog;
 import com.xnote.manage.modules.log.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,16 +23,21 @@ public class LogController extends BaseController
 {
     @Autowired
     private AdminLoginLogService adminLoginLogService;
+
     @Autowired
     private UserLoginLogService userLoginLogService;
+
     @Autowired
     private ClientRunLogService clientRunLogService;
+
     @Autowired
     private ManageRunLogService manageRunLogService;
+
     @Autowired
     private ClientOperLogService clientOperLogService;
+
     @Autowired
-    private manageOperLogsOperLogService manageOperLogsOperLogService;
+    private ManageOperLogService manageOperLogService;
 
     /**
      * 管理员登录日志页面
@@ -58,7 +66,7 @@ public class LogController extends BaseController
     @GetMapping("/manageOperLogs")
     public String aoLogsView()
     {
-        return LoadPathConstant.LOG_PATH.getValue() + "manageOperLogs";
+        return LoadPathConstant.LOG_PATH.getValue() + "moLogs";
     }
 
     /**
@@ -68,7 +76,7 @@ public class LogController extends BaseController
     @GetMapping("/clientOperLogs")
     public String uoLogsView()
     {
-        return LoadPathConstant.LOG_PATH.getValue() + "clientOperLogs";
+        return LoadPathConstant.LOG_PATH.getValue() + "coLogs";
     }
 
     /**
@@ -108,69 +116,54 @@ public class LogController extends BaseController
      * @param pageSize  每页条数
      * @return
      */
-    @GetMapping("/adminLogin/getLogs/{type}")
+    @GetMapping("/alLogs/getLogs")
     @ResponseBody
-    public NormalResult getAdminLoginLogs(@PathVariable("type") String logType, @RequestParam("page") Integer pageCode, @RequestParam("limit") Integer pageSize)
+    public Result getAdminLoginLogs(@RequestParam("page") Integer pageCode, @RequestParam("limit") Integer pageSize)
     {
-        List<AdminLoginLog> logs = new ArrayList<>();
+        Integer count = adminLoginLogService.getCount();
+        List<AdminLoginLog> logs = adminLoginLogService.getLogs(pageCode, pageSize);
+
         Map<String, Object> resultMap = new HashMap<>();
-        if("alLogs".equals(logType))
+        resultMap.put("count", count);
+        resultMap.put("data", logs);
+
+        return result.success(resultMap);
+    }
+
+    @GetMapping("/alLogs/getlog/{id}")
+    public String getAdminLoginLogInfo(@PathVariable("id") String id, Model model)
+    {
+        if(StringUtils.isEmpty(id))
         {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
+            return  LoadPathConstant.ERROR_PATH.getValue() + "4xx";
         }
 
-        if("alLogs".equals(logType))
+        AdminLoginLog log = adminLoginLogService.getLogInfoById(id);
+        if(ObjectUtils.isEmpty(log))
         {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
+            model.addAttribute("log", log);
+            return LoadPathConstant.ERROR_PATH.getValue() + "4xx";
         }
+        model.addAttribute("log", log);
+        return LoadPathConstant.LOG_PATH.getValue() + "info/alLog";
+    }
 
-        if("alLogs".equals(logType))
-        {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
-        }
+    /**
+     * 分页获取用户登录日志
+     * @param pageCode  页码
+     * @param pageSize  每页条数
+     * @return
+     */
+    @GetMapping("/ulLogs/getLogs")
+    @ResponseBody
+    public Result getUserLoginLogs(@RequestParam("page") Integer pageCode, @RequestParam("limit") Integer pageSize)
+    {
+        Integer count = userLoginLogService.getCount();
+        List<UserLoginLog> logs = userLoginLogService.getLogs(pageCode, pageSize);
 
-        if("alLogs".equals(logType))
-        {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
-        }
-
-        if("alLogs".equals(logType))
-        {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
-        }
-
-        if("alLogs".equals(logType))
-        {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
-        }
-
-        if("alLogs".equals(logType))
-        {
-            Integer count = adminLoginLogService.getCount();
-            logs = adminLoginLogService.getLogs(pageCode, pageSize);
-            resultMap.put("count", count);
-            resultMap.put("data", logs);
-        }
-
-
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("count", count);
+        resultMap.put("data", logs);
 
         return result.success(resultMap);
     }

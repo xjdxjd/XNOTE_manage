@@ -7,6 +7,7 @@ import com.xnote.manage.modules.log.mapper.AdminLoginLogMapper;
 import com.xnote.manage.modules.log.service.AdminLoginLogService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -68,5 +69,17 @@ public class AdminLoginLogServiceImpl implements AdminLoginLogService
         }
         Integer row = adminLoginLogMapper.insertLog(log);
         return row;
+    }
+
+    @Override
+    public AdminLoginLog getLogInfoById(String id)
+    {
+        if(StringUtils.isEmpty(id))
+        {
+            return null;
+        }
+
+        AdminLoginLog log = adminLoginLogMapper.getLogInfoById(id);
+        return log;
     }
 }

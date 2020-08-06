@@ -14,6 +14,37 @@
   <sql id="Base_Column_List">
     log_id, account, login_ip, login_type, login_status, log_content, create_time, timestamp
   </sql>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    SELECT COUNT(LOG_ID)
+    FROM XNOTE_LOG_LOGIN_USER
+    </select>
+
+  <select id="getLogs" resultType="com.xnote.manage.modules.log.bean.UserLoginLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_LOG_LOGIN_USER
+    ORDER BY TIMESTAMP DESC
+    LIMIT #{code}, #{size}
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
