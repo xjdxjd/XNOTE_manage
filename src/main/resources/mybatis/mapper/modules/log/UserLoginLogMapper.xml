@@ -28,6 +28,12 @@
     LIMIT #{code}, #{size}
   </select>
 
+  <select id="getLogInfoById" resultType="com.xnote.manage.modules.log.bean.UserLoginLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_LOG_LOGIN_USER
+    WHERE LOG_ID = #{id,jdbcType=VARCHAR}
+  </select>
 
 
 

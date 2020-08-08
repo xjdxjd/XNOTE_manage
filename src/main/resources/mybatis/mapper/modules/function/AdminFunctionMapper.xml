@@ -36,12 +36,16 @@
 
   <select id="getFuncByFuncId" resultType="com.xnote.manage.modules.function.bean.AdminFunction">
     SELECT
-    <include refid="Base_Column_List" />
-    FROM XNOTE_ADMIN_FUNCTION
+    func.FUNC_ID, FUNC_ICON, FUNC_NAME, FUNC_SORT, IS_LEAF, PARENT_ID, PARENT_NAME, FUNC_URL,
+    REMARK, FUNC_CREATE_TIME, FUNC_UPDATE_TIME, FUNC_TIMESTAMP
+    FROM XNOTE_ADMIN_FUNCTION func
+    LEFT JOIN XNOTE_ADMIN_ROLE_FUNCTION_RELATION rela
+    ON func.FUNC_ID = rela.FUNC_ID
     <where>
-    PARENT_ID = #{funcId,jdbcType=VARCHAR}
+      ROLE_ID = #{roleId,jdbcType=VARCHAR}
+      AND PARENT_ID = #{funcId,jdbcType=VARCHAR}
     </where>
-    ORDER BY FUNC_SORT;
+    ORDER BY func.FUNC_SORT;
   </select>
 
 

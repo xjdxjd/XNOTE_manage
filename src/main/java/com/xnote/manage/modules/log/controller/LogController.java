@@ -130,6 +130,12 @@ public class LogController extends BaseController
         return result.success(resultMap);
     }
 
+    /**
+     * 根据id获取管理员登录日志
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/alLogs/getlog/{id}")
     public String getAdminLoginLogInfo(@PathVariable("id") String id, Model model)
     {
@@ -167,4 +173,29 @@ public class LogController extends BaseController
 
         return result.success(resultMap);
     }
+
+    /**
+     * 根据id获取用户登录日志
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/ulLogs/getlog/{id}")
+    public String getUserLoginLogInfo(@PathVariable("id") String id, Model model)
+    {
+        if(StringUtils.isEmpty(id))
+        {
+            return  LoadPathConstant.ERROR_PATH.getValue() + "4xx";
+        }
+
+        UserLoginLog log = userLoginLogService.getLogInfoById(id);
+        if(ObjectUtils.isEmpty(log))
+        {
+            model.addAttribute("log", log);
+            return LoadPathConstant.ERROR_PATH.getValue() + "4xx";
+        }
+        model.addAttribute("log", log);
+        return LoadPathConstant.LOG_PATH.getValue() + "info/ulLog";
+    }
+
 }

@@ -42,9 +42,11 @@ public class AdminFuncServiceImpl implements AdminFuncService
             AdminFunction func = iterator.next();
             if(CommonConstant.TOP_LEVEL_FLAG.getString().equals(func.getParentId()))
             {
-                List<AdminFunction> secondFuncs = adminFunctionMapper.getFuncByFuncId(func.getId());
+                List<AdminFunction> secondFuncs = adminFunctionMapper.getFuncByFuncId(id, func.getId());
+
                 func.setFunctionList(secondFuncs);
             }else {
+
                 iterator.remove();
             }
         }

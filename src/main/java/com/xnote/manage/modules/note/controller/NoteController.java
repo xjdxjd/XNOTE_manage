@@ -120,16 +120,19 @@ public class NoteController extends BaseController
     @ResponseBody
     public Result getNoteCategory()
     {
-        List<NoteCategory> cates = noteCategoryService.getNoteCategory();
+        Map<String, Object> cateMap = new HashMap<>();
+        List<NoteCategory> cates = new ArrayList<>();
+        cates = noteCategoryService.getNoteCategory();
         if(CollectionUtils.isEmpty(cates))
         {
-            return result.failure();
+            cateMap.put("count", CommonConstant.STATUS_ZERO.getInt());
+        }
+        else
+        {
+            cateMap.put("count", cates.size());
         }
 
-        Map<String, Object> cateMap = new HashMap<>();
-        cateMap.put("count", cates.size());
         cateMap.put("data", cates);
-
         return result.success(cateMap);
     }
 

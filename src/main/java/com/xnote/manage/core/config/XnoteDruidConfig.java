@@ -1,7 +1,10 @@
 package com.xnote.manage.core.config;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.alibaba.druid.filter.Filter;
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.wall.WallConfig;
+import com.alibaba.druid.wall.WallFilter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -9,9 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Configuration
 public class XnoteDruidConfig {
@@ -19,11 +20,19 @@ public class XnoteDruidConfig {
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
     public DataSource druid(){
-        return DruidDataSourceBuilder.create().build();
+        DruidDataSource druidDataSource = new DruidDataSource();
+        List<Filter> filterList = new ArrayList<>();
+        filterList.add(wallFilter());
+        druidDataSource.setProxyFilters(filterList);
+        return druidDataSource;
+//        return DruidDataSourceBuilder.create().build();
     }
 
     //  配置Druid监控
-    //  1、配置一个管理后台的servlet
+    /**
+     * 1、配置一个管理后台的servlet
+     * @return
+     */
     public ServletRegistrationBean statViewServlet(){
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
 
@@ -36,7 +45,11 @@ public class XnoteDruidConfig {
         bean.setInitParameters(initParems);
         return bean;
     }
-    //  2、配置一个web监控的filter
+
+    /**
+     * 2、配置一个web监控的filter
+     * @return
+     */
     public FilterRegistrationBean webStatFilter() {
         FilterRegistrationBean bean = new FilterRegistrationBean();
 
@@ -46,5 +59,29 @@ public class XnoteDruidConfig {
         bean.setInitParameters(initParems);
         bean.setUrlPatterns(Arrays.asList("/*"));
         return bean;
+    }
+
+    /**
+     * 3、配置防火墙过滤器
+     * @return
+     */
+    @Bean
+    public WallFilter wallFilter(){
+        WallFilter wallFilter = new WallFilter();
+        wallFilter.setConfig(wallConfig());
+        return wallFilter;
+    }
+
+    /**
+     * 4、配置防火墙
+     * @return
+     */
+    @Bean
+    public WallConfig wallConfig()
+    {
+        WallConfig config = new WallConfig();
+        config.setMultiStatementAllow(true);
+        config.setNoneBaseStatementAllow(true);
+        return config;
     }
 }

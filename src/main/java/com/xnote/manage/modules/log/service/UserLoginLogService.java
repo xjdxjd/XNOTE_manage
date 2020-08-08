@@ -18,4 +18,10 @@ public interface UserLoginLogService
      */
     List<UserLoginLog> getLogs(Integer pageCode, Integer pageSize);
 
+    /**
+     * 根据id获取用户登录日志
+     * @param id
+     * @return
+     */
+    UserLoginLog getLogInfoById(String id);
 }

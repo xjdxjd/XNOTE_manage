@@ -63,10 +63,13 @@
                     <div class="layui-card-body">
                         <table id="admin-login-logs-table" lay-filter="admin-login-logs-table" class="layui-table"></table>
                     </div>
+                    <div class="layui-card-body" style="text-align: center; width: 100%;padding-bottom: 20px;">
+                        <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
+                    </div>
                 </div>
                 <script type="text/html" id="operation-bar">
                     <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="info">
-                        <i class="layui-icon">&#xe60a;</i>详细信息
+                        <i class="layui-icon">&#xe60a;</i>查看
                     </button>
                 </script>
                 <script type="text/html" id="typeTPL">

@@ -2,6 +2,7 @@ package com.xnote.manage.modules.function.mapper;
 
 import com.xnote.manage.modules.function.bean.AdminFunction;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface AdminFunctionMapper {
      * @DESC:   根据一级功能id获取管理员二级功能
      * @methodName: getAdminFuncByRoleId
      */
-    public List<AdminFunction> getFuncByFuncId(String funcId);
+    public List<AdminFunction> getFuncByFuncId(@Param("roleId") String roleId, @Param("funcId") String funcId);
 
 
 

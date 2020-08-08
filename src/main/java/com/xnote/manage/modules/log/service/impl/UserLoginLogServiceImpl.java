@@ -5,6 +5,7 @@ import com.xnote.manage.modules.log.mapper.UserLoginLogMapper;
 import com.xnote.manage.modules.log.service.UserLoginLogService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,5 +32,17 @@ public class UserLoginLogServiceImpl implements UserLoginLogService
         List<UserLoginLog> logs = userLoginLogMapper.getLogs((pageCode - 1) * pageSize, pageSize);
 
         return logs;
+    }
+
+    @Override
+    public UserLoginLog getLogInfoById(String id)
+    {
+        if(StringUtils.isEmpty(id))
+        {
+            return null;
+        }
+
+        UserLoginLog log = userLoginLogMapper.getLogInfoById(id);
+        return log;
     }
 }

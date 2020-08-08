@@ -2,6 +2,7 @@ package com.xnote.manage.modules.log.mapper;
 
 import com.xnote.manage.modules.log.bean.UserLoginLog;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,8 +19,14 @@ public interface UserLoginLogMapper
      * 获取全部日志记录
      * @return
      */
-    List<UserLoginLog> getLogs(Integer pageCode, Integer pageSize);
+    List<UserLoginLog> getLogs(@Param("code") Integer pageCode, @Param("size") Integer pageSize);
 
+    /**
+     * 根据id获取用户登录日志
+     * @param id
+     * @return
+     */
+    UserLoginLog getLogInfoById(@Param("id") String id);
 
 
 

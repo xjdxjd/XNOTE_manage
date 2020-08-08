@@ -95,6 +95,11 @@ public class LoginUtils {
         return codeMap;
     }
 
+    /**
+     * 获取登录IP
+     * @param request
+     * @return
+     */
     public static String getLoginIP(HttpServletRequest request)
     {
         String ip = request.getHeader("x-forwarded-for");

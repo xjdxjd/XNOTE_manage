@@ -71,7 +71,7 @@ public class LoginController extends BaseController {
 
         // 校验管理员密码
         String pwdEncrypt = LoginUtils.encrypt(password);
-        if (StringUtils.isEmpty(pwdEncrypt) || pwdEncrypt.equals(admin.getPassword()))
+        if (StringUtils.isEmpty(pwdEncrypt) ||!pwdEncrypt.equals(admin.getPassword()))
         {
             return result.failure(LoginConstant.LOGIN_FAILD_CODE_1003, LoginConstant.LOGIN_FAILD_MESSAGE_1003, LoginConstant.LOGIN_FAILD_URL);
         }

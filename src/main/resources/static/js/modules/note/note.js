@@ -1,13 +1,12 @@
 
 var noteContext = '';
 layui.use(['form','table','util'], function(){
-    var form = layui.form
+    var form = layui.form,
         table = layui.table,
         util = layui.util;
 
     form.on('submit(addNote)', function(data){
         data.field.content = noteContext;
-        console.log(JSON.stringify(data.field));
         $.ajax({
             url: PATH + 'note/addNote',
             type: 'put',
@@ -167,7 +166,6 @@ layui.use(['form','table','util'], function(){
                 var iframeWin = window[layero.find('iframe')[0]['name']];
                 var cateAddForm = iframeWin.document.getElementById('cateEditForm');
                 var dataArray = $(cateAddForm).serializeArray(), datas = {};
-                console.log(dataArray);
                 $.each(dataArray, function(){
                     datas[this.name] = this.value;
                 });
@@ -234,17 +232,14 @@ layui.use(['form','table','util'], function(){
 
     function batchesDelCate(data, table) {
 
-        console.log(data.data);
         if(data.data.length == 0){
             layer.msg('未选中任何数据，请勾选数据！');
             return false;
         }
         var ids = [];
         for (var i = 0; i < data.data.length; i++){
-            console.log(data.data[i].cateId);
             ids[i] = data.data[i].cateId;
         }
-        console.log(ids);
         if(ids.length == 0){
             layer.msg('数据转换出错，请联系管理员！');
             return false;
