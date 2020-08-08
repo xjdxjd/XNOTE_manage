@@ -44,7 +44,7 @@ mybatis:
 
 # 日志配置  
 logging:
-  config: classpath:logback.xml
+  config: classpath:config/log/log4j.xml
   level:
     com.xnote.manage.modules.**.service.impl: trace
 
@@ -131,7 +131,7 @@ mybatis:
 
 # 日志配置  
 logging:
-  config: classpath:logback.xml
+  config: classpath:config/log/log4j.xml
   level:
     com.xnote.manage.modules.**.service.impl: trace
 
@@ -217,7 +217,7 @@ mybatis:
 
 # 日志配置  
 logging:
-  config: classpath:logback.xml
+  config: classpath:config/log/log4j.xml
   level:
     com.xnote.manage.modules.**.service.impl: trace
 
