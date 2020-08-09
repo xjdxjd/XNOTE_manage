@@ -30,7 +30,7 @@ public class AdminRoleController extends BaseController
      * @return
      */
     @GetMapping("/getRoleList")
-    @ApiOperation(value="获取管理员账号列表", notes="获取管理员账号列表，用于反显页面")
+    @ApiOperation(value="获取管理员角色列表", notes="获取管理员角色列表，用于反显页面")
     public Result getAdminRoleList(HttpServletRequest request, HttpServletResponse response)
     {
         List<AdminRole> roles = adminRoleService.getRoleList();

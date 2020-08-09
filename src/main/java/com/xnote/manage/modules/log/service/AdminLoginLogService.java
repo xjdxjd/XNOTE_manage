@@ -17,6 +17,8 @@ public interface AdminLoginLogService
 
     /**
      * 获取全部日志记录
+     * @param pageCode
+     * @param pageSize
      * @return
      */
     List<AdminLoginLog> getLogs(Integer pageCode, Integer pageSize);

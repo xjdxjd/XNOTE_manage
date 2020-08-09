@@ -4,6 +4,7 @@ import com.xnote.manage.common.constant.load.LoadPathConstant;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.log.bean.AdminLoginLog;
+import com.xnote.manage.modules.log.bean.ClientRunLog;
 import com.xnote.manage.modules.log.bean.UserLoginLog;
 import com.xnote.manage.modules.log.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,6 +155,7 @@ public class LogController extends BaseController
         return LoadPathConstant.LOG_PATH.getValue() + "info/alLog";
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * 分页获取用户登录日志
      * @param pageCode  页码
@@ -198,4 +200,38 @@ public class LogController extends BaseController
         return LoadPathConstant.LOG_PATH.getValue() + "info/ulLog";
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/clientLogs/getlogs")
+    @ResponseBody
+    public Result getClientRunLogs(@RequestParam("page") Integer pageCode, @RequestParam("limit") Integer pageSize)
+    {
+
+        Integer count = clientRunLogService.getCount();
+        List<ClientRunLog> logs = clientRunLogService.getLogs(pageCode, pageSize);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("count", count);
+        resultMap.put("data", logs);
+
+        return result.success(resultMap);
+    }
+    @GetMapping("/clientLogs/getlog/{id}")
+    public String getClientRunLogInfo(@PathVariable("id") String id, Model model)
+    {
+
+        if(StringUtils.isEmpty(id))
+        {
+            return  LoadPathConstant.ERROR_PATH.getValue() + "4xx";
+        }
+
+        ClientRunLog log = clientRunLogService.getLogInfoById(id);
+        if(ObjectUtils.isEmpty(log))
+        {
+            model.addAttribute("log", log);
+            return LoadPathConstant.ERROR_PATH.getValue() + "4xx";
+        }
+        model.addAttribute("log", log);
+        return LoadPathConstant.LOG_PATH.getValue() + "info/clientlog";
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

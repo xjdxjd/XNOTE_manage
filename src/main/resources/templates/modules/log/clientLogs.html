@@ -28,31 +28,69 @@
                 <div class="layui-card">
                     <div class="layui-card-body">
                         <form id="search-form" class="layui-form">
-
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="loginName" class="layui-input" placeholder="请输入登录帐号">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="loginName" class="layui-input" placeholder="请输入IP地址">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="loginName" class="layui-input" placeholder="请选择操作类型">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="loginName" class="layui-input" placeholder="请选择操作结果">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="loginName" class="layui-input" placeholder="请选择时间范围">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <div class="layui-input-inline">
+                                    <button class="layui-btn"><i class="layui-icon">&#xe615;</i></button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="layui-card-body">
-                        <table id="admin-login-logs-table" lay-filter="admin-login-logs-table" class="layui-table"></table>
+                        <table id="client-run-logs-table" lay-filter="client-run-logs-table" class="layui-table"></table>
+                    </div>
+                    <div class="layui-card-body" style="text-align: center; width: 100%;padding-bottom: 20px;">
+                        <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
                     </div>
                 </div>
-                <script type="text/html" id="operation-bar">
-                    <button class="layui-btn layui-btn-sm layui-btn-normal">
-                        <i class="layui-icon">&#xe60a;</i>详细信息
+                <script type="text/html" id="oper-bar">
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="info">
+                        <i class="layui-icon">&#xe60a;</i>查看
                     </button>
                 </script>
                 <script type="text/html" id="typeTPL">
-                    {{#  if(d.loginType === 0){ }}
-                    <span class="layui-badge layui-bg-green">{{ '登录' }}</span>
+                    {{#  if(d.runningType === 0){ }}
+                    <span class="layui-badge layui-bg-green">{{ '配置' }}</span>
                     {{#  } }}
-                    {{#  if(d.loginType === 1){ }}
-                    <span class="layui-badge layui-bg-gray">{{ '退出' }}</span>
+                    {{#  if(d.runningType === 1){ }}
+                    <span class="layui-badge layui-bg-blue">{{ '过滤器' }}</span>
+                    {{#  } }}
+                    {{#  if(d.runningType === 2){ }}
+                    <span class="layui-badge layui-bg-orange">{{ '监听器' }}</span>
+                    {{#  } }}
+                    {{#  if(d.runningType === 3){ }}
+                    <span class="layui-badge layui-bg-gray">{{ '拦截器' }}</span>
                     {{#  } }}
                 </script>
-                <script type="text/html" id="statusTPL">
-                    {{#  if(d.loginStatus === 0){ }}
+                <script type="text/html" id="resultTPL">
+                    {{#  if(d.runningResult === 0){ }}
                     <span class="layui-badge layui-bg-blue">{{ '成功' }}</span>
                     {{#  } }}
-                    {{#  if(d.loginStatus === 1){ }}
+                    {{#  if(d.runningResult === 1){ }}
                     <span class="layui-badge layui-bg-red">{{ '失败' }}</span>
                     {{#  } }}
                 </script>

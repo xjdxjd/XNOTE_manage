@@ -12,8 +12,60 @@
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    LOG_ID, RUNNING_IP, RUNNING_TYPE,LOG_CONTENT, RUNNING_RESULT,FAILURE_CAUSE, CREATE_TIME, TIMESTAMP
+    LOG_ID, RUNNING_IP, RUNNING_TYPE, LOG_CONTENT, RUNNING_RESULT, FAILURE_CAUSE, CREATE_TIME, TIMESTAMP
   </sql>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    SELECT COUNT(LOG_ID)
+    FROM XNOTE_LOG_RUNNING_CLIENT
+  </select>
+
+  <select id="getLogs" resultType="com.xnote.manage.modules.log.bean.ClientRunLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_LOG_RUNNING_CLIENT
+    ORDER BY TIMESTAMP DESC
+    LIMIT #{code}, #{size}
+  </select>
+
+  <select id="getLogInfoById" resultType="com.xnote.manage.modules.log.bean.ClientRunLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM XNOTE_LOG_RUNNING_CLIENT
+    <where>
+      LOG_ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
