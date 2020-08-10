@@ -51,7 +51,7 @@ public class LoginUtils {
     }
 
     /**
-     * 获取随机颜色
+     * 获取验证码
      */
     public static Map<String, Object> generateVCode(Random random)
     {

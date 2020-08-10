@@ -13,7 +13,7 @@
 <!--    <link rel="stylesheet" href="../static/css/font/font.css" th:href="@{/css/font/font.css}">-->
     <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
     <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
-    <link id="theme" rel="stylesheet" href="../static/css/theme/theme.css" th:href="@{/static/css/theme/skyBlue.css}">
+    <link id="theme" rel="stylesheet" href="../static/css/theme/theme.css" th:href="@{/static/css/theme}+${session.sysConfig.get('colorSchemes').getConfigValue()}">
     <script>
         // 是否开启刷新记忆tab功能
         // var is_remember = false;
@@ -60,8 +60,20 @@
     <script>
         function switchTheme(themeName)
         {
-            var themeUrl = '[[@{/static/css/theme/}]]'+ themeName + '.css';
+            var themeUrl = '[[@{/static/css/theme}]]'+ themeName;
             $("#theme").attr("href", themeUrl);
+            $.post({
+                url: '[[@{/}]]system/manage/changecolorscheme',
+                data: {
+                    'theme': themeName,
+                    '_csrf': $("meta[name = '_csrf']").attr("content"),
+                    '_csrf_header': $("meta[name = '_csrf_header']").attr("content"),
+                    '_': new Date().getTime()
+                },
+                success: function (res) {
+                    layer.msg(res.message);
+                }
+            })
         }
         function signout(){
             $.ajax({

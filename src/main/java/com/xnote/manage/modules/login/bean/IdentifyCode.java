@@ -1,4 +1,4 @@
-package com.xnote.client.common.bean;
+package com.xnote.manage.modules.login.bean;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -53,14 +53,13 @@ public class IdentifyCode {
 
     // 生成图片
     private void creatImage() {
-        int fontWidth = width / codeCount - 2;// 字体的宽度
-        int fontHeight = height - 7;// 字体的高度
-        int codeY = height - 8;
+        int fontWidth = width / codeCount;// 字体的宽度
+        int fontHeight = height - 15;// 字体的高度
+        int codeY = height - 12;
 
         // 图像buffer
         buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics g = buffImg.getGraphics();
-        // Graphics2D g = buffImg.createGraphics();
         // 设置背景色
         g.setColor(getRandColor(200, 250));
         g.fillRect(0, 0, width, height);
@@ -118,12 +117,20 @@ public class IdentifyCode {
 
     // 得到随机颜色
     private Color getRandColor(int fc, int bc) {// 给定范围获得随机颜色
-        if (fc > 255) fc = 255;
-        if (bc > 255) bc = 255;
+        if (fc > 255)
+        {
+            fc = 255;
+        }
+        if (bc > 255)
+        {
+            bc = 255;
+        }
+
         int r = fc + random.nextInt(bc - fc);
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);
-        return new Color(r, g, b);
+
+        return new Color(r, g, b,bc);
     }
 
     /**

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.common.constant.load.LoadPathConstant;
+import com.xnote.manage.common.constant.system.ConfigConstant;
 import com.xnote.manage.core.controller.BaseController;
 import com.xnote.manage.core.result.Result;
 import com.xnote.manage.modules.system.bean.SysConfig;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -133,5 +135,40 @@ public class SettingController extends BaseController
             return result.failure();
         }
         return result.success();
+    }
+
+    /**
+     * 更改配色方案
+     * @param theme
+     * @return
+     */
+    @PostMapping("/manage/changecolorscheme")
+    @ResponseBody
+    public Result changeColorScheme(@RequestParam("theme") String theme, HttpSession session)
+    {
+        if(StringUtils.isEmpty(theme))
+        {
+            return result.failure(ConfigConstant.CONFIG_OPERTATION_CODE.code(), ConfigConstant.CONFIG_CHANGE_COLOR_SCHEME_FAILURE_MSG.msg());
+        }
+
+        Map<String, SysConfig> sysConfigMap = (Map<String, SysConfig>) session.getAttribute("sysConfig");
+        if (CollectionUtils.isEmpty(sysConfigMap))
+        {
+            return result.failure(ConfigConstant.CONFIG_OPERTATION_CODE.code(), ConfigConstant.CONFIG_CHANGE_COLOR_SCHEME_FAILURE_MSG.msg());
+        }
+
+        List<SysConfig> clientcfgs = systemService.getSystemConfig(CommonConstant.SYSCFG_TYPE_MANAGE.getInt());
+
+        for (SysConfig cfg : clientcfgs)
+        {
+            if(ConfigConstant.CONFIG_CODE_THEME.msg().equals(cfg.getConfigCode()) && cfg.getConfigValue() != theme)
+            {
+                cfg.setConfigValue(theme);
+                sysConfigMap.put(ConfigConstant.CONFIG_CODE_THEME.msg(), cfg);
+            }
+        }
+
+        systemService.updateSystemConfig(clientcfgs, clientcfgs, CommonConstant.SYSCFG_TYPE_MANAGE.getInt());
+        return result.success(ConfigConstant.CONFIG_OPERTATION_CODE.code(), ConfigConstant.CONFIG_CHANGE_COLOR_SCHEME_SUCCESS_MSG.msg());
     }
 }

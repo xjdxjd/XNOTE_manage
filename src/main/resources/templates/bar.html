@@ -15,59 +15,65 @@
     <div class="left_open">
         <a><i title="展开左侧栏" class="layui-icon">&#xe66b;</i></a>
     </div>
-    <ul class="layui-nav left fast-add" lay-filter="">
-        <li class="layui-nav-item">
-            <a href="javascript:;"><i class="layui-icon"></i>+新增</a>
-            <dl class="layui-nav-child">
-                <!-- 二级菜单 -->
-                <dd>
-                    <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
-                        <i class="iconfont">&#xe66a;</i>弹出最大化</a></dd>
-                <dd>
-                    <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
-                        <i class="iconfont">&#xe66a;</i>弹出自动宽高</a></dd>
-                <dd>
-                    <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
-                        <i class="iconfont">&#xe66a;</i>弹出指定宽高</a></dd>
-                <dd>
-                    <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
-                        <i class="iconfont">&#xe66a;</i>在tab打开</a></dd>
-                <dd>
-                    <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
-                        <i class="iconfont">&#xe66a;</i>在tab打开刷新</a></dd>
-            </dl>
-        </li>
-    </ul>
+<!--    -->
+<!--    <ul class="layui-nav left fast-add" lay-filter="">-->
+<!--        <li class="layui-nav-item">-->
+<!--            <a href="javascript:;"><i class="layui-icon"></i>+新增</a>-->
+<!--            <dl class="layui-nav-child">-->
+<!--                &lt;!&ndash; 二级菜单 &ndash;&gt;-->
+<!--                <dd>-->
+<!--                    <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">-->
+<!--                        <i class="iconfont">&#xe66a;</i>弹出最大化</a></dd>-->
+<!--                <dd>-->
+<!--                    <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">-->
+<!--                        <i class="iconfont">&#xe66a;</i>弹出自动宽高</a></dd>-->
+<!--                <dd>-->
+<!--                    <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">-->
+<!--                        <i class="iconfont">&#xe66a;</i>弹出指定宽高</a></dd>-->
+<!--                <dd>-->
+<!--                    <a onclick="xadmin.add_tab('在tab打开','member-list.html')">-->
+<!--                        <i class="iconfont">&#xe66a;</i>在tab打开</a></dd>-->
+<!--                <dd>-->
+<!--                    <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">-->
+<!--                        <i class="iconfont">&#xe66a;</i>在tab打开刷新</a></dd>-->
+<!--            </dl>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    -->
     <ul class="layui-nav left fast-add" lay-filter="">
         <li class="layui-nav-item">
             <a href="javascript:;">
                 <i class="layui-icon">&#xe66a;</i>
-                <span>切换配色</span>
+                <span>切换配色方案</span>
             </a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="switchTheme('skyBlue')">
+                    <a onclick="switchTheme('/skyBlue.css')">
                         <i class="layui-icon">&#xe66a;</i>淡蓝1</a>
                 </dd>
                 <dd>
-                    <a onclick="switchTheme('paleBlue')">
+                    <a onclick="switchTheme('/paleBlue.css')">
                         <i class="layui-icon">&#xe66a;</i>淡蓝2</a>
                 </dd>
                 <dd>
-                    <a onclick="switchTheme('theme')">
+                    <a onclick="switchTheme('/theme.css')">
                         <i class="layui-icon">&#xe66a;</i>学院蓝</a>
                 </dd>
                 <dd>
-                    <a onclick="switchTheme('gradually')">
+                    <a onclick="switchTheme('/gradually.css')">
                         <i class="layui-icon">&#xe66a;</i>渐变色</a>
+                </dd>
+                <dd>
+                    <a onclick="switchTheme('/professionalBlue.css')">
+                        <i class="layui-icon">&#xe66a;</i>专业蓝</a>
                 </dd>
             </dl>
         </li>
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item to-index">
-            <a href="/">前台首页</a>
+            <a href="javascript:;" target="_blank">前台首页</a>
         </li>
         <li class="layui-nav-item">
             <a href="javascript:;">

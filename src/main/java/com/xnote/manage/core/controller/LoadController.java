@@ -1,21 +1,18 @@
 package com.xnote.manage.core.controller;
 
 import com.xnote.manage.common.constant.load.LoadPathConstant;
-import com.xnote.manage.common.util.LoginUtils;
+import com.xnote.manage.modules.login.bean.IdentifyCode;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * @DESC:   加载页面控制器
@@ -62,20 +59,29 @@ public class LoadController {
     @GetMapping("/verifyCode")
     public void loadVerifyCode(String time,HttpServletResponse response, HttpSession session) throws IOException
     {
-        Map<String, Object> codeMap = LoginUtils.generateVCode(new Random());
-        String codeStr = (String)codeMap.get("codeStr");
-        BufferedImage image = (BufferedImage)codeMap.get("image");
+        try{
+            // 设置响应的类型格式为图片格式
+            response.setContentType("image/jpeg");
+            // 禁止图像缓存。
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expires", 0);
 
-        session.setAttribute("verifyCode",codeStr);
-
-        //设置response头信息
-        //禁止缓存
-        response.setHeader("Pragma", "No-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 0);
-        ImageIO.write(image, "JPEG", response.getOutputStream());
-
-        response.getOutputStream().flush();
+            // 自定义宽、高、字数和干扰线的条数
+            IdentifyCode code = new IdentifyCode(110, 50, 4, 10);
+            // 存入session
+            session.setAttribute("vCode", code.getCode());
+            // 响应图片
+            ServletOutputStream out = response.getOutputStream();
+            code.write(out);
+            try {
+                out.flush();
+            } finally {
+                out.close();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
     ////////////////////////////////////////////////////[ 管理员管理 ]////////////////////////////////////////////////////

@@ -19,7 +19,7 @@ public interface SystemService
     public List<SysConfig> getSystemConfig(Integer configType);
 
     /**
-     * 更新系统前台配置
+     * 更新系统配置
      * @param clientcfgs 原数据
      * @param clientCfgs 更新后的数据
      * @return

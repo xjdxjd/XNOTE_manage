@@ -77,7 +77,7 @@ public class LoginController extends BaseController {
         }
 
         // 校验验证码
-        String code = (String) request.getSession().getAttribute("verifyCode");
+        String code = (String) request.getSession().getAttribute("vCode");
         if(StringUtils.isEmpty(code) || !code.equals(verifyCode))
         {
             return result.failure(LoginConstant.LOGIN_FAILD_CODE_1004, LoginConstant.LOGIN_FAILD_MESSAGE_1004, LoginConstant.LOGIN_FAILD_URL);

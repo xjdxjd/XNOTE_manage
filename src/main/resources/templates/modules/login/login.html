@@ -39,10 +39,10 @@
                            lay-verify="verifyCode" placeholder="请输入验证码" autocomplete="off">
                 </div>
                 <div class="layui-col-md4">
-                    <img class="verifyCode" th:src="@{/verifyCode}">
+                    <img class="verifyCode" th:src="@{/verifyCode}" onclick="refrashVCode();">
                 </div>
                 <div class="layui-col-md1">
-                    <a href="#">
+                    <a class="refrash" href="javascript:;" onclick="refrashVCode();">
                         <i class="layui-icon">&#xe669;</i>
                     </a>
                 </div>
@@ -148,5 +148,9 @@
             });
         });
     })
+
+    function refrashVCode() {
+        $(".verifyCode").attr("src","[[@{/verifyCode}]]?time="+new Date().getTime());
+    };
 </script>
 </html>
