@@ -30,7 +30,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">登录IP</label>
                         <div class="layui-input-block">
-                            <input class="layui-input" th:value="${log.loginIp}">
+                            <input class="layui-input" th:value="${log.loginIp == null ? '0.0.0.0' : log.loginIp}">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -45,10 +45,14 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">操作状态</label>
                         <div class="layui-input-block" style="padding: 7px 0 0 31px;">
-                            <span class="layui-badge layui-bg-blue" style="padding: 2px 10px 2px 10px;"
-                                  th:if="${log.loginStatus == 0 }">成功</span>
-                            <span class="layui-badge layui-bg-red" style="padding: 2px 10px 2px 10px;"
-                                  th:if="${log.loginStatus == 1 }">失败</span>
+                            <span th:if="${log.loginStatus == 0 }"
+                                  class="layui-badge layui-bg-blue" style="padding: 2px 10px 2px 10px;">成功</span>
+
+                            <span th:if="${log.loginStatus == 1 }"
+                                  class="layui-badge layui-bg-red" style="padding: 2px 10px 2px 10px;">失败</span>
+
+                            <span th:if="${log.loginStatus >= 2 }" th:text="${log.loginStatus}"
+                                  class="layui-badge layui-bg-orange" style="padding: 2px 10px 2px 10px;">1111</span>
                         </div>
                     </div>
                     <div class="layui-form-item">

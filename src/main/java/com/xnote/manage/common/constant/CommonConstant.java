@@ -9,7 +9,9 @@ public enum CommonConstant {
     /** 操作状态--失败 */
     STATUS_ZERO(0),
 
-    /** 状态--正常 */
+    /**
+     * 标识：状态--正常
+     * */
     STATUS_NORMAL(0),
 
     /** 状态--冻结 */

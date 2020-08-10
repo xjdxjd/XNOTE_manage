@@ -87,6 +87,9 @@
                     {{#  if(d.loginStatus === 1){ }}
                     <span class="layui-badge layui-bg-red">{{ '失败' }}</span>
                     {{#  } }}
+                    {{#  if(d.loginStatus >= 2){ }}
+                    <span class="layui-badge layui-bg-orange">{{ d.loginStatus }}</span>
+                    {{#  } }}
                 </script>
             </div>
         </div>

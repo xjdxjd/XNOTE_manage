@@ -1,8 +1,11 @@
 package com.xnote.manage.modules.log.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xnote.manage.common.util.DateUtils;
+import com.xnote.manage.common.util.UUIDUtils;
 
 import java.util.Date;
+import java.util.Map;
 
 public class AdminLoginLog
 {
@@ -110,5 +113,26 @@ public class AdminLoginLog
                 ", createTime=" + createTime +
                 ", timestamp=" + timestamp +
                 '}';
+    }
+
+
+    /**
+     * 组装日志
+     * @param logParams
+     */
+    public void assembleLog(Map<String, Object> logParams)
+    {
+
+        this.logId = UUIDUtils.getUUID();
+        this.createTime = DateUtils.getCurrentDate();
+        this.timestamp = DateUtils.getTimestamp();
+
+
+        this.loginIp = (String) logParams.get("ip");
+        this.loginName = (String) logParams.get("loginName");
+        this.adminName = (String) logParams.get("adminName");
+        this.loginType = (Integer) logParams.get("type");
+        this.loginStatus = (Integer) logParams.get("status");
+        this.logContent = (String) logParams.get("content");
     }
 }

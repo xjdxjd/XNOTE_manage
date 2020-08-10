@@ -56,43 +56,57 @@ public class LoginController extends BaseController {
                          @RequestParam(value = "password", required = true) String password,
                          @RequestParam(value = "verifyCode", required = true) String verifyCode)
     {
+        Map<String, Object> resMap = new HashMap<>();
+
         // 校验管理员账号
         Admin admin = loginService.getAdminByLoginName(loginName);
         if(ObjectUtils.isEmpty(admin))
         {
-            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1001, LoginConstant.LOGIN_FAILD_MESSAGE_1001, LoginConstant.LOGIN_FAILD_URL);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1001, LoginConstant.LOGIN_FAILD_MESSAGE_1001, resMap);
         }
 
         // 检查管理员账号状态
         if(!admin.getStatus().equals(CommonConstant.STATUS_NORMAL.getInt()))
         {
-            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1002, LoginConstant.LOGIN_FAILD_MESSAGE_1002, LoginConstant.LOGIN_FAILD_URL);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1002, LoginConstant.LOGIN_FAILD_MESSAGE_1002,resMap);
         }
 
         // 校验管理员密码
         String pwdEncrypt = LoginUtils.encrypt(password);
         if (StringUtils.isEmpty(pwdEncrypt) ||!pwdEncrypt.equals(admin.getPassword()))
         {
-            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1003, LoginConstant.LOGIN_FAILD_MESSAGE_1003, LoginConstant.LOGIN_FAILD_URL);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1003, LoginConstant.LOGIN_FAILD_MESSAGE_1003, resMap);
         }
 
         // 校验验证码
         String code = (String) request.getSession().getAttribute("vCode");
         if(StringUtils.isEmpty(code) || !code.equals(verifyCode))
         {
-            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1004, LoginConstant.LOGIN_FAILD_MESSAGE_1004, LoginConstant.LOGIN_FAILD_URL);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1004, LoginConstant.LOGIN_FAILD_MESSAGE_1004,resMap);
         }
 
         // 获取管理员角色
         AdminRole adminRole = adminRoleService.getRoleById(admin.getRole());
         if(ObjectUtils.isEmpty(adminRole))
         {
-            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1005, LoginConstant.LOGIN_FAILD_MESSAGE_1005, LoginConstant.LOGIN_FAILD_URL);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1005, LoginConstant.LOGIN_FAILD_MESSAGE_1005, resMap);
         }
         // 检查管理员角色状态
         else if(!adminRole.getRoleStatus().equals(CommonConstant.STATUS_NORMAL.getInt()))
         {
-            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1002, LoginConstant.LOGIN_FAILD_MESSAGE_1002, LoginConstant.LOGIN_FAILD_URL);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(LoginConstant.LOGIN_FAILD_CODE_1002, LoginConstant.LOGIN_FAILD_MESSAGE_1002, resMap);
         }
 
         // 获取管理员功能权限
@@ -104,7 +118,9 @@ public class LoginController extends BaseController {
         boolean isFaild = loginService.updateLogin(admin);
         if(isFaild)
         {
-            return error.error(ResultConstant.COMMON_ERROR_CODE, ResultConstant.COMMON_ERROR_MESSAGE);
+            resMap.put("loginName", loginName);
+            resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
+            return result.failure(ResultConstant.COMMON_ERROR_CODE, ResultConstant.COMMON_ERROR_MESSAGE, resMap);
         }
 
         // 将管理员账号、管理员权限、管理员功能放入session
@@ -112,7 +128,6 @@ public class LoginController extends BaseController {
         HttpSession session = request.getSession();
         session.setAttribute("loginAdmin",loginAdmin);
 
-        Map<String, Object> resMap = new HashMap<>();
         resMap.put("admin", loginAdmin);
         resMap.put("url", LoginConstant.LOGIN_SUCCESS_URL);
 
@@ -124,7 +139,7 @@ public class LoginController extends BaseController {
      * @methodName: signOut
      */
     @GetMapping("/signout")
-    public Result signOut(HttpServletRequest request, HttpServletResponse response)
+    public Result signOut(HttpServletRequest request)
     {
         HttpSession session = request.getSession();
         LoginAdmin loginAdmin = (LoginAdmin) session.getAttribute("loginAdmin");
