@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>资源管理</title>
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
+    <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+</head>
+<body>
+    <div class="x-nav">
+        <span class="layui-breadcrumb">
+        <a href="">资源下载管理</a>
+        <a><cite>资源管理</cite></a>
+        </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        </a>
+    </div>
+
+    <div id="s" class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <!--
+                        <form class="layui-form">
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" id="loginName" name="loginName" lay-verify="" placeholder="请输入用户名"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" id="adminName" name="adminName" lay-verify="" placeholder="请输入管理员名称"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" id="creator" name="creator" lay-verify="" placeholder="请输入创建者名称"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" id="createDateRange" name="createDateRange" lay-verify="" placeholder="创建日期范围"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <select id="role" name="role" layui-filter="roleSelect" lay-verify="" lay-search></select>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <select is="status" name="status" lay-verify="" lay-search>
+                                    <option>全部管理员状态</option>
+                                    <option value="0">启用</option>
+                                    <option value="1">禁用</option>
+                                    <option value="-1">冻结</option>
+                                    <option value="-2">锁定</option>
+                                    <option value="-3">作废</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <button type="button" class="layui-btn"  lay-submit="" lay-filter="search">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </button>
+                            </div>
+                        </form>
+                        -->
+                    </div>
+                    <div class="layui-card-body">
+                        <table id="resListTable" lay-filter="resListTable" class="layui-table"></table>
+                    </div>
+                    <div class="" style="text-align: center; height: 30px; width: 100%;">
+                        <span th:text="${session.sysConfig.get('manageCopyright').getConfigValue()}">ssss</span>
+                    </div>
+                    <script type="text/html" id="adminListTableTopbar">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchesDel">批量删除</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addAdmin">添加帐号</button>
+                        </div>
+                    </script>
+                    <script type="text/html" id="adminListTableOperbar">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" lay-event="enable">启用</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="disable">禁用</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+                        </div>
+                    </script>
+                    <script type="text/html" id="statusTPL">
+                        {{#  if(d.status === 0){ }}
+                        <span class="layui-badge layui-bg-green">{{ '正常' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === 1){ }}
+                        <span class="layui-badge layui-bg-gray">{{ '禁用' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === -1){ }}
+                        <span class="layui-badge layui-bg-blue">{{ '冻结' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === -2){ }}
+                        <span class="layui-badge layui-bg-orange">{{ '锁定' }}</span>
+                        {{#  } }}
+                        {{#  if(d.status === -3){ }}
+                        <span class="layui-badge layui-bg-black">{{ '作废' }}</span>
+                        {{#  } }}
+                    </script>
+                    <script type="text/html" id="creatorTPL">
+                        {{#  if(d.creator === '内置管理员'){ }}
+                        <span style="color: #355A8B;">{{ d.creator }}</span>
+                        {{#  } }}
+                        {{#  if(d.creator === '系统管理员'){ }}
+                        <span style="color: #33ABA0;">{{ d.creator }}</span>
+                        {{#  } }}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
+<script type="text/javascript" src="/" th:src="@{/static/js/modules/resource/res.js}"></script>
+<script>
+    var ROOT_PATH = '[[@{/}]]';
+</script>
+</html>

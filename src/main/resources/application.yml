@@ -34,7 +34,7 @@ server:
   servlet:
     context-path: /manage
     session:
-      timeout: 30
+      timeout: 1800
   port: 9874
 
 # mybatis 配置
@@ -123,7 +123,7 @@ server:
   servlet:
     context-path: /manage-test
     session:
-      timeout: 1
+      timeout: 600
   port: 8090
 
 # mybatis 配置
@@ -211,7 +211,7 @@ server:
   servlet:
     context-path: /xnmanage
     session:
-      timeout: 60
+      timeout: 3600
   port: 18765
 
 # mybatis 配置
