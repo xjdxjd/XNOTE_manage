@@ -33,6 +33,8 @@ spring:
 server:
   servlet:
     context-path: /manage
+    session:
+      timeout: 30
   port: 9874
 
 # mybatis 配置
@@ -120,6 +122,8 @@ xnote:
 server:
   servlet:
     context-path: /manage-test
+    session:
+      timeout: 1
   port: 8090
 
 # mybatis 配置
@@ -206,6 +210,8 @@ xnote:
 server:
   servlet:
     context-path: /xnmanage
+    session:
+      timeout: 60
   port: 18765
 
 # mybatis 配置

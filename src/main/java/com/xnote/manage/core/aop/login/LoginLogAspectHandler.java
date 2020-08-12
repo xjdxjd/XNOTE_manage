@@ -44,13 +44,13 @@ public class LoginLogAspectHandler extends LogAspectHandler
             String logContent = "管理员登录成功, 管理员名称: " + admin.getName()
                     + "  状态码: " + result.code
                     + ", 状态消息: " + result.message
-                    + ", 记录时间: " + DateUtils.format(DateUtils.getCurrentDate());
+                    + ", 记录时间: " + DateUtils.formatCurrentDate();
 
             //  日志输出
             logger.info(logContent);
 
             params.put("ip", admin.getInfo().getLoginIp());
-            params.put("loginName", admin.getName());
+            params.put("loginName", admin.getInfo().getLoginName());
             params.put("adminName", admin.getInfo().getAdminName());
             params.put("type", LoginConstant.LOGIN_SUCCESS_CODE.intValue());
             params.put("status", result.code);
@@ -64,13 +64,13 @@ public class LoginLogAspectHandler extends LogAspectHandler
             String logContent = "管理员登出成功, 管理员名称: " + admin.getName()
                     + "  状态码: " + result.code
                     + ", 状态消息: " + result.message
-                    + ", 记录时间: " + DateUtils.format(DateUtils.getCurrentDate());
+                    + ", 记录时间: " + DateUtils.formatCurrentDate();
 
             //  日志输出
             logger.info(logContent);
 
             params.put("ip", admin.getInfo().getLoginIp());
-            params.put("loginName", admin.getName());
+            params.put("loginName", admin.getInfo().getLoginName());
             params.put("adminName", admin.getInfo().getAdminName());
             params.put("type", LoginConstant.LOGOUT_SUCCESS_CODE.intValue());
             params.put("status", CommonConstant.STATUS_NORMAL.getInt());
@@ -84,7 +84,7 @@ public class LoginLogAspectHandler extends LogAspectHandler
             String logContent = "管理员登录失败, 管理员账号: " + loginName
                     + "  状态码: " + result.code
                     + ", 状态消息: " + result.message
-                    + ", 记录时间: " + DateUtils.format(DateUtils.getCurrentDate());
+                    + ", 记录时间: " + DateUtils.formatCurrentDate();
 
             //  日志输出
             logger.error(logContent);

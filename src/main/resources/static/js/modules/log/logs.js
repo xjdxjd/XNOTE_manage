@@ -14,7 +14,7 @@ layui.use(['form','table'], function () {
         page: true,
         height: 'full-242',
         limit: 13,
-        limits: [5,10,15,20,35,50],
+        limits: [13,15,20,35,50],
         text: {
             none: '暂无相关数据'
         },
@@ -57,7 +57,7 @@ layui.use(['form','table'], function () {
         page: true,
         height: 'full-242',
         limit: 13,
-        limits: [5,10,15,20,35,50],
+        limits: [13,15,20,35,50],
         text: {
             none: '暂无相关数据'
         },
@@ -99,7 +99,7 @@ layui.use(['form','table'], function () {
         page: true,
         height: 'full-242',
         limit: 13,
-        limits: [5,10,15,20,35,50],
+        limits: [13,15,20,35,50],
         text: {
             none: '暂无相关数据'
         },

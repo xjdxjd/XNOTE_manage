@@ -77,18 +77,15 @@
                     <span class="layui-badge layui-bg-green">{{ '登录' }}</span>
                     {{#  } }}
                     {{#  if(d.loginType === 1){ }}
-                    <span class="layui-badge layui-bg-gray">{{ '退出' }}</span>
+                    <span class="layui-badge layui-bg-cyan">{{ '登出' }}</span>
                     {{#  } }}
                 </script>
                 <script type="text/html" id="statusTPL">
-                    {{#  if(d.loginStatus === 0){ }}
+                    {{#  if(d.loginStatus == 0){ }}
                     <span class="layui-badge layui-bg-blue">{{ '成功' }}</span>
                     {{#  } }}
-                    {{#  if(d.loginStatus === 1){ }}
+                    {{#  if(d.loginStatus > 0){ }}
                     <span class="layui-badge layui-bg-red">{{ '失败' }}</span>
-                    {{#  } }}
-                    {{#  if(d.loginStatus >= 2){ }}
-                    <span class="layui-badge layui-bg-orange">{{ d.loginStatus }}</span>
                     {{#  } }}
                 </script>
             </div>

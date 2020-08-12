@@ -39,6 +39,15 @@ public class DateUtils {
     };
 
     /**
+     * 返回当前时间格式化
+     */
+    public static String formatCurrentDate()
+    {
+        String dateString = new SimpleDateFormat(CommonConstant.DATE_FORMAT.getString()).format(new Date());
+        return dateString;
+    };
+
+    /**
      * 反格式化时间
      */
     public static Date unFormat(String dataString)

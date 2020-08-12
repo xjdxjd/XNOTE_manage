@@ -38,6 +38,16 @@ public class LoadController {
     }
 
     /**
+     * @DESC:   重新登录页
+     * @methodName: loadLoginView
+     */
+    @GetMapping("/relogin")
+    public String loadReLoginView(HttpServletRequest request, HttpServletResponse response){
+
+        return LOGIN_PATH+"relogin";
+    }
+
+    /**
      * @DESC:   欢迎页
      * @methodName: loadMainView
      */

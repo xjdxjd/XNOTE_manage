@@ -20,5 +20,9 @@ public class XnoteSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers()
                 .frameOptions().sameOrigin()
                 .httpStrictTransportSecurity().disable();
+
+        http.sessionManagement().invalidSessionUrl("/login");
     }
+
+
 }

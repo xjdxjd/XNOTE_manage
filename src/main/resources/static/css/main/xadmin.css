@@ -528,3 +528,79 @@ table th, table td {
     color: #393D49;
 }
 
+.themes-card {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0px;
+    padding: 0px 100px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+    background-color: #FAFAFA;
+    z-index: 100;
+    border: 3px solid #E2E2E2;
+    border-radius: 4px;
+    box-shadow: 10px 10px 20px rgba(50, 50, 50, 0.4);
+}
+
+.themes-card .themes-item {
+    display: inline-block;
+}
+
+.themes-card .theme-item {
+    margin: 10px 30px;
+    width: 120px;
+    height: 100px;
+    box-shadow: 5px 5px 2px rgba(50, 50, 50, 0.4);
+}
+
+.themes-card .theme-item .theme-item-top{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+}
+
+
+.themes-card .theme-item .theme-item-center{
+    text-align: left;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    top: -11px;
+    height: 75px;
+    background-color: #FAFAFA;
+}
+.themes-card .theme-item .theme-item-center .theme-item-left{
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    height: 81px;
+}
+
+.themes-card .theme-item .theme-item-center .theme-item-right{
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 90px;
+    height: 81px;
+    background-color: #EFEEF0;
+}
+
+.themes-card .theme-text {
+    margin: 0;
+    padding: 0;
+}
+
+.themes-card .theme-text span {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}

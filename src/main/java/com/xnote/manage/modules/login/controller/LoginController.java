@@ -14,12 +14,10 @@ import com.xnote.manage.modules.login.service.LoginService;
 import com.xnote.manage.modules.role.bean.AdminRole;
 import com.xnote.manage.modules.role.service.AdminRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,10 +31,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/login")
 public class LoginController extends BaseController {
-
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
-
     @Autowired
     private LoginService loginService;
 
@@ -65,6 +59,19 @@ public class LoginController extends BaseController {
             resMap.put("loginName", loginName);
             resMap.put("url", LoginConstant.LOGIN_FAILD_URL);
             return result.failure(LoginConstant.LOGIN_FAILD_CODE_1001, LoginConstant.LOGIN_FAILD_MESSAGE_1001, resMap);
+        }
+
+        //  检查管理员是否已经登录
+        HttpSession session = request.getSession();
+        if(!ObjectUtils.isEmpty(session.getAttribute("loginAdmin")))
+        {
+            LoginAdmin loginAdmin = (LoginAdmin) session.getAttribute("loginAdmin");
+            if(loginAdmin.getInfo().getLoginName().equals(loginName))
+            {
+                resMap.put("loginName", loginAdmin.getName());
+                resMap.put("url", LoginConstant.LOGIN_SUCCESS_URL);
+                return result.failure(LoginConstant.LOGIN_FAILD_CODE_1006, LoginConstant.LOGIN_FAILD_MESSAGE_1006, resMap);
+            }
         }
 
         // 检查管理员账号状态
@@ -125,7 +132,6 @@ public class LoginController extends BaseController {
 
         // 将管理员账号、管理员权限、管理员功能放入session
         LoginAdmin loginAdmin = new LoginAdmin(admin, adminRole, adminFunctions);
-        HttpSession session = request.getSession();
         session.setAttribute("loginAdmin",loginAdmin);
 
         resMap.put("admin", loginAdmin);
@@ -150,6 +156,6 @@ public class LoginController extends BaseController {
 
         session.invalidate();
 
-        return result.success(LoginConstant.LOGOUT_SUCCESS_CODE, LoginConstant.LOGOUT_SUCCESS_MESSAGE, resMap);
+        return result.success(LoginConstant.LOGOUT_SUCCESS_CODE, LoginConstant.LOGOUT_SUCCESS_MESSAGE_2001, resMap);
     }
 }

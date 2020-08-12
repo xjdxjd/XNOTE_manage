@@ -67,6 +67,7 @@ public class AdminLoginLogServiceImpl implements AdminLoginLogService
         {
             log.setTimestamp(DateUtils.getTimestamp());
         }
+
         Integer row = adminLoginLogMapper.insertLog(log);
         return row;
     }
