@@ -28,6 +28,18 @@ public interface XResourceMapper
      */
     XResource getResourceById(@Param("id") String id);
 
+    /**
+     * 添加资源
+     * @param xres
+     * @return
+     */
+    Integer addResource(XResource xres);
+    /**
+     * 更新资源记录
+     * @param res
+     * @return
+     */
+    Integer updateResource(XResource res);
 
 
 

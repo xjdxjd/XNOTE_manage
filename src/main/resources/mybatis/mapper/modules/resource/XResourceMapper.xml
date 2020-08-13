@@ -6,12 +6,13 @@
     <result column="res_title" jdbcType="VARCHAR" property="resTitle" />
     <result column="res_icon" jdbcType="VARCHAR" property="resIcon" />
     <result column="res_desc" jdbcType="VARCHAR" property="resDesc" />
+    <result column="res_url" jdbcType="VARCHAR" property="resUrl" />
     <result column="down_nub" jdbcType="INTEGER" property="downNub" />
     <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
     <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
   </resultMap>
   <sql id="Base_Column_List">
-    RES_ID, RES_TITLE, RES_ICON, RES_DESC, DOWN_NUB, UPLOAD_TIME, TIMESTAMP
+    RES_ID, RES_TITLE, RES_ICON, RES_DESC, RES_URL, DOWN_NUB, UPLOAD_TIME, TIMESTAMP
   </sql>
 
   <!-- 获取资源总条数 -->
@@ -41,6 +42,42 @@
     </where>
   </select>
 
+  <!-- 添加资源 -->
+  <insert id="addResource" parameterType="com.xnote.manage.modules.resource.bean.XResource">
+    insert into xnote_resource (<include refid="Base_Column_List"/>)
+    values (#{resId,jdbcType=VARCHAR}, #{resTitle,jdbcType=VARCHAR}, #{resIcon,jdbcType=VARCHAR},
+        #{resDesc,jdbcType=VARCHAR}, #{resUrl,jdbcType=VARCHAR}, #{downNub,jdbcType=INTEGER},
+        #{uploadTime,jdbcType=TIMESTAMP}, #{timestamp,jdbcType=BIGINT})
+  </insert>
+
+  <!-- 更新资源记录 -->
+  <update id="updateResource" parameterType="com.xnote.manage.modules.resource.bean.XResource">
+    UPDATE XNOTE_RESOURCE
+    <set>
+      <if test="resTitle != null">
+        RES_TITLE = #{resTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="resIcon != null">
+        RES_ICON = #{resIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="resDesc != null">
+        RES_DESC = #{resDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null">
+        RES_URL = #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downNub != null">
+        DOWN_NUB = #{downNub,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTime != null">
+        UPLOAD_TIME = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timestamp != null">
+        TIMESTAMP = #{timestamp,jdbcType=BIGINT},
+      </if>
+    </set>
+    where RES_ID = #{resId,jdbcType=VARCHAR}
+  </update>
 
 
 
@@ -128,7 +165,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.resource.bean.XResource">
+    <update id="updateByPrimaryKeySelective" parameterType="com.xnote.manage.modules.resource.bean.XResource">
     update xnote_resource
     <set>
       <if test="resTitle != null">

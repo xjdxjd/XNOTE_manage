@@ -18,7 +18,6 @@ public class RabbitMQConfig
     @Bean
     public MessageConverter messageConverter()
     {
-        System.out.println("===创建自定义消息转换器===");
         return new Jackson2JsonMessageConverter();
     }
 

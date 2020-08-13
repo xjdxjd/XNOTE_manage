@@ -6,13 +6,21 @@ package com.xnote.manage.common.constant;
  */
 public enum CommonConstant {
 
-    /** 操作状态--失败 */
+    /**
+     * 标识：操作状态--失败
+     * 标识：初始值
+     */
     STATUS_ZERO(0),
 
     /**
      * 标识：状态--正常
-     * */
+     */
     STATUS_NORMAL(0),
+
+    /**
+     * 标识：状态--异常
+     */
+    STATUS_UNNORMAL(1),
 
     /** 状态--冻结 */
     STATUS_FROZEN(1),
@@ -81,7 +89,17 @@ public enum CommonConstant {
     /** 日志分类--服务调用日志 */
     LOGTYPE_SL("serverLogs"),
 
-    ;
+    /**
+     * 上传成功
+     */
+    UPLOAD_SUCCESS_MSG("上传成功"),
+
+    /**
+     * 上传失败
+     */
+    UPLOAD_FAILURE_MSG("上传失败"),
+
+    sss(-1);
 
     private Integer intValue;
     private String stringValue;

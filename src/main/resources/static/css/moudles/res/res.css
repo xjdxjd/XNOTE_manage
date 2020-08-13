@@ -1,0 +1,35 @@
+.layui-table-cell
+{
+    height: auto;
+}
+
+.layui-table-cell img
+{
+    width: 36px;
+    height: 36px;
+}
+
+.layui-input-block img
+{
+    width: 36px;
+    height: 36px;
+    margin-left: 30px;
+}
+
+#resIconCard .layui-card
+{
+    height: 292px;
+}
+
+.quondam-drag {
+    width: 306px;
+    height: 118px;
+    padding: 2px 2px;
+    line-height: 110px;
+}
+.quondamIcon {
+    max-width: 308px;
+    max-height: 106px;
+    min-width: 64px;
+    min-height: 64px;
+}

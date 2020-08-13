@@ -30,6 +30,14 @@ public class DateUtils {
     };
 
     /**
+     * 获取指定时间的时间戳
+     */
+    public static Long getTimestamp(Date date)
+    {
+        return date.getTime();
+    };
+
+    /**
      * 格式化时间
      */
     public static String format(Date date)

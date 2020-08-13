@@ -115,6 +115,10 @@ spring:
 xnote:
   licence: # 许可配置
     path: /lic/licence.lic
+  # 资源图标路径
+  resIconPath: E:/_WORKSPACE/IDEA/XNOTE/resources/icon/
+  # 资源储存路径
+  resStorePath: E:/_WORKSPACE/IDEA/XNOTE/resources/utils/
 
 ---
 #############################################[ 测试环境 ]#############################################
@@ -204,6 +208,10 @@ spring:
 xnote:
   licence: # 许可配置
     path: /lic/licence.lic
+  # 资源图标路径
+  resIconPath: E:/_WORKSPACE/IDEA/XNOTE/resources/icon/
+  # 资源储存路径
+  resStorePath: E:/_WORKSPACE/IDEA/XNOTE/resources/utils/
 
 ---
 #############################################[ 生产环境 ]#############################################
@@ -291,6 +299,8 @@ spring:
 # 项目配置
 xnote:
   licence: # 许可配置
-    path: /lic/licence.lic 
-                
-    
+    path: /lic/licence.lic
+  # 资源图标路径
+  resIconPath: E:/_WORKSPACE/IDEA/XNOTE/resources/icon/
+  # 资源储存路径
+  resStorePath: E:/_WORKSPACE/IDEA/XNOTE/resources/utils/

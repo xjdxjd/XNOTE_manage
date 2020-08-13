@@ -2,6 +2,7 @@ package com.xnote.manage.core.config;
 
 import com.xnote.manage.core.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,10 +13,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @methodName: XnoteWebMVCConfig
  */
 @Configuration
-public class XnoteWebMVCConfig implements WebMvcConfigurer {
+public class XnoteWebMVCConfig implements WebMvcConfigurer
+{
+    @Value("${xnote.resIconPath}")
+    private String RESOURCE_ICON_PATH;
+
+    @Value("${xnote.resStorePath}")
+    private String RESOURCE_STORE_PATH;
 
     @Autowired
     private LoginInterceptor loginInterceptor;
+
 
 /*
    @Override
@@ -34,12 +42,14 @@ public class XnoteWebMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/verifyCode")
                 .excludePathPatterns("/login/**")
+                .excludePathPatterns("/resDownIcon/**")
+                .excludePathPatterns("/resDownStore/**")
                 .excludePathPatterns("/druid/**")
                 .excludePathPatterns("/swagger-resources/**")
                 .excludePathPatterns("/swagger-ui.html")
                 .excludePathPatterns("/error/**");
-
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
@@ -48,5 +58,11 @@ public class XnoteWebMVCConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+        registry.addResourceHandler("/resDownIcon/**")
+                .addResourceLocations("file:"+ RESOURCE_ICON_PATH);
+
+        registry.addResourceHandler("/resDownStore/**")
+                .addResourceLocations("file:"+ RESOURCE_STORE_PATH);
     }
 }

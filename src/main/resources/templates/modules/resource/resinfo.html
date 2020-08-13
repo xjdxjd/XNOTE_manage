@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>资源管理</title>
+    <!--csrf token-->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="../static/css/main/layui.css" th:href="@{/webjars/layui/2.5.5/css/layui.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/main/xadmin.css}">
+    <link rel="stylesheet" href="../static/css/main/xadmin.css" th:href="@{/static/css/moudles/res/res.css}">
+    <script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+</head>
+<body>
+    <div id="resEditCard" class="layui-container">
+        <div class="layui-col-sm12">
+            <div class="layui-card" style="margin-top: 20px;">
+                <div class="layui-card-body">
+                    <form class="layui-form layui-form-pane" lay-filter="resInfoForm">
+                        <input id="resId" type="hidden" name="resId" th:value="${res.resId}">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">资源名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="resTitle" th:value="${res.resTitle}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">资源描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="resDesc" th:text="${res.resDesc}" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">资源icon</label>
+                            <div class="layui-input-block">
+                                <img th:src="@{/resDownIcon/}+${res.resIcon}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">真实路径</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="downNub" th:value="${res.resUrl}" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">下载量</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="downNub" th:value="${res.downNub}" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">上传时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="uploadTime" th:value="${res.uploadTime}" class="layui-input" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<script src="./lib/layui/layui.js" type="text/javascript" th:src="@{/webjars/layui/2.5.5/layui.js}"></script>
+<script type="text/javascript" src="../static/js/main/xadmin.js" th:src="@{/static/js/main/xadmin.js}"></script>
+<script type="text/javascript" src="/" th:src="@{/static/js/modules/resource/res.js}"></script>
+<script>
+    var PATH = '[[@{/}]]';
+    layui.use(['upload','form'],function(){
+        var upload = layui.upload,
+            form = layui.form;
+
+    });
+</script>
+</html>

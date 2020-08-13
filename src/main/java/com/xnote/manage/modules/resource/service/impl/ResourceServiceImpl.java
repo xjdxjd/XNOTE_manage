@@ -1,5 +1,6 @@
 package com.xnote.manage.modules.resource.service.impl;
 
+import com.xnote.manage.common.constant.CommonConstant;
 import com.xnote.manage.modules.resource.bean.XResource;
 import com.xnote.manage.modules.resource.mapper.XResourceMapper;
 import com.xnote.manage.modules.resource.service.ResourceService;
@@ -31,7 +32,7 @@ public class ResourceServiceImpl implements ResourceService
         }
 
         List<XResource> resList = xResourceMapper.getResources((pageCode - 1) * pageSize, pageSize);
-        return null;
+        return resList;
     }
 
     @Override
@@ -48,5 +49,34 @@ public class ResourceServiceImpl implements ResourceService
             return null;
         }
         return res;
+    }
+
+    @Override
+    public Integer addResource(XResource xres)
+    {
+
+        if(ObjectUtils.isEmpty(xres) || StringUtils.isEmpty(xres.getResId()))
+        {
+            return CommonConstant.STATUS_ZERO.getInt();
+        }
+        Integer row = xResourceMapper.addResource(xres);
+        return row;
+    }
+
+    @Override
+    public Integer updateResource(XResource res)
+    {
+        if(ObjectUtils.isEmpty(res))
+        {
+            return CommonConstant.STATUS_ZERO.getInt();
+        }
+
+        if(StringUtils.isEmpty(res.getResId()))
+        {
+            return CommonConstant.STATUS_ZERO.getInt();
+        }
+
+        Integer row = xResourceMapper.updateResource(res);
+        return row;
     }
 }

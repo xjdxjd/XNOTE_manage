@@ -1,6 +1,7 @@
 package com.xnote.manage.admin;
 
 import com.xnote.manage.common.util.DateUtils;
+import com.xnote.manage.common.util.UUIDUtils;
 import com.xnote.manage.modules.admin.bean.Admin;
 import com.xnote.manage.modules.admin.service.AdminService;
 import com.xnote.manage.modules.function.bean.AdminFunction;
@@ -128,5 +129,29 @@ public class adminTest {
         for (Admin s: search) {
             System.out.println(s.getAdminName());
         }
+    }
+
+    @Test
+    public void tessts()
+    {
+        String dd = "s.ss.ss.png";
+        int i = dd.lastIndexOf(".");
+        String substring = dd.substring(dd.lastIndexOf("."));
+        System.out.println(dd);
+        System.out.println(substring);
+
+        System.out.println(UUIDUtils.getUUID_two());
+    }
+
+    @Test
+    public void jisuan()
+    {
+        int sss = 0;
+        for(int i=1; i<=365; i++)
+        {
+            sss = sss + i; System.out.println(i  + " == " + sss);
+        }
+
+        System.out.println(sss/12);
     }
 }
