@@ -23,9 +23,9 @@ public class LoadController {
 
     private String vCode;
     // 登录页面路径
-    private static final String LOGIN_PATH = "/modules/login/";
+    private static final String LOGIN_PATH = "modules/login/";
     // 欢迎页
-    private static final String WELCOME_PATH = "/common/";
+    private static final String WELCOME_PATH = "common/";
 
     /**
      * @DESC:   登录页
