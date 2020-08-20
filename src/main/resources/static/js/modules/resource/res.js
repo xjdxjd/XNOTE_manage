@@ -23,11 +23,11 @@ layui.use(['form','table'], function(){
            {field: 'resIcon', title: '资源图标', width:100, align: 'center', templet: function (d) {
                    return '<div><img src="../resDownIcon/'+d.resIcon+'"></div>'
                }},
-           {field: 'resDesc', title: '资源描述', width:400, align: 'left'},
-           {field: 'resUrl', title: '资源真实路径', width:390, align: 'left'},
+           {field: 'resDesc', title: '资源描述', width:592, align: 'left'},
+           {field: 'resUrl', title: '资源真实路径', width:400, align: 'left'},
            {field: 'downNub', title: '下载量', width:90, align: 'center'},
            {field: 'uploadTime', title: '上传时间', width:190, align: 'center'},
-           {field: 'operation', title: '操作', width: 150, align: 'center', toolbar: '#oper-bar'}
+           {field: 'operation', title: '操作', width: 160, align: 'center', toolbar: '#oper-bar'}
        ]],
        parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
            return {
